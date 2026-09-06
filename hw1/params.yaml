@@ -7,7 +7,7 @@ model:
 
 generate:
   max_new_tokens: 200
-  temperature: 0.7          # TODO: задание требует воспроизводимости
+  temperature: 0.0
   seed: 42
   enable_thinking: false    # Qwen3 без этого отвечает <think>-блоком
 

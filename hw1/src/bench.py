@@ -20,7 +20,7 @@ from src.model import generate, load_model
 def peak_rss_mb() -> float:
     """Пиковая резидентная память процесса.
 
-    ru_maxrss на macOS в байтах, на Linux в килобайтах.
+    ru_maxrss на macOS в мегабайтах, на Linux в килобайтах.
     """
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     return peak / (1024 ** 2) if sys.platform == "darwin" else peak / 1024
@@ -30,18 +30,23 @@ def main() -> None:
     params = load_params()
     prompt = params["bench"]["prompt"]
 
-    # TODO: разделить замеры. Сейчас в одном таймере и загрузка, и генерация.
+    # LOADING STAGE
     t0 = time.perf_counter()
     tokenizer, model = load_model(params)
 
-    # TODO: добавить прогрев перед измерением.
+    load_time = time.perf_counter() - t0
+
+    # WARM UP STAGE
+    for _ in range(params["bench"]["warmup_runs"]):
+        _, n_tokens = generate(tokenizer, model, params, prompt)
+
+    # MEASURE STAGE
     speeds = []
     for _ in range(params["bench"]["measure_runs"]):
+        t = time.perf_counter()
         _, n_tokens = generate(tokenizer, model, params, prompt)
-        elapsed = time.perf_counter() - t0
+        elapsed = time.perf_counter() - t
         speeds.append(n_tokens / elapsed)
-
-    load_time = 0.0
 
     # Медиана устойчивее среднего к одиночному выбросу.
     report = {
