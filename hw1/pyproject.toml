@@ -2,13 +2,13 @@
 name = "mlops-hw1"
 version = "0.1.0"
 description = "MLOPS-26, домашняя работа 1: окружение и бенчмарк"
-requires-python = ">=3.12"
+requires-python = "==3.12.14"
 dependencies = [
-    "torch",
-    "transformers",
-    "accelerate",
-    "numpy",
-    "pyyaml",
+    "torch==2.14.0",
+    "transformers==5.16.1",
+    "accelerate==1.14.0",
+    "numpy==2.5.3",
+    "pyyaml==6.0.3",
 ]
 
 [tool.uv.workspace]
