@@ -10,7 +10,7 @@ def main() -> None:
     set_seed(params["generate"]["seed"])
 
     tokenizer, model = load_model(params)
-    print(f"Модель: Qwen/Qwen3-0.6B")
+    print(f"Модель: {params["model"]["name"]}")
     text, n_tokens = generate(tokenizer, model, params, params["bench"]["prompt"])
 
     print(text)

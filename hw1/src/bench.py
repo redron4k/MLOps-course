@@ -50,7 +50,7 @@ def main() -> None:
 
     # Медиана устойчивее среднего к одиночному выбросу.
     report = {
-        "model": "Qwen/Qwen3-0.6B",
+        "model": params["model"]["name"],
         "device": str(model.device),
         "dtype": params["model"]["dtype"],
         "load_time_sec": round(load_time, 2),
