@@ -1,0 +1,17 @@
+[project]
+name = "mlops-hw1"
+version = "0.1.0"
+description = "MLOPS-26, домашняя работа 1: окружение и бенчмарк"
+requires-python = ">=3.12"
+dependencies = [
+    "torch",
+    "transformers",
+    "accelerate",
+    "numpy",
+    "pyyaml",
+]
+
+[tool.uv.workspace]
+members = [
+    "mlops-course",
+]

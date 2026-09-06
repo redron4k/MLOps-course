@@ -1,0 +1,17 @@
+# Единственное место, где живёт имя модели.
+# Менять модель под своё железо нужно ЗДЕСЬ, а не в коде.
+model:
+  name: "Qwen/Qwen3-0.6B"
+  dtype: "bfloat16"
+  device: "auto"            # auto | cpu | cuda | mps
+
+generate:
+  max_new_tokens: 200
+  temperature: 0.7          # TODO: задание требует воспроизводимости
+  seed: 42
+  enable_thinking: false    # Qwen3 без этого отвечает <think>-блоком
+
+bench:
+  warmup_runs: 1            # прогрев не засчитывается в замер
+  measure_runs: 3
+  prompt: "Объясни, что такое MLOps, в трёх предложениях."
