@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 from src.config import load_params
-from src.model import generate, load_model
+from src.model import generate, load_model, set_seed
 
 
 def peak_rss_mb() -> float:
@@ -29,6 +29,7 @@ def peak_rss_mb() -> float:
 def main() -> None:
     params = load_params()
     prompt = params["bench"]["prompt"]
+    set_seed(params["generate"]["seed"])
 
     # LOADING STAGE
     t0 = time.perf_counter()

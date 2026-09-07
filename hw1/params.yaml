@@ -1,9 +1,9 @@
 # Единственное место, где живёт имя модели.
 # Менять модель под своё железо нужно ЗДЕСЬ, а не в коде.
 model:
-  name: "Qwen/Qwen3-0.6B"
+  name: "Qwen/Qwen3-1.7B"
   dtype: "bfloat16"
-  device: "auto"            # auto | cpu | cuda | mps
+  device: "mps"            # auto | cpu | cuda | mps
 
 generate:
   max_new_tokens: 200
