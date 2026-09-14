@@ -1,0 +1,42 @@
+# Единственное место, где живёт конфигурация. В src/ констант нет.
+model:
+  name: "Qwen/Qwen3-1.7B"
+  dtype: "bfloat16"
+  device: "auto"            # auto | cpu | cuda | mps
+
+generate:
+  seed: 42
+  enable_thinking: false    # Qwen3 без этого отвечает <think>-блоком
+
+hooks:
+  prompt: "Объясни, что такое MLOps, в трёх предложениях."
+  plot: "docs/activations.png"
+
+memory:
+  # Один шаг forward+backward+optimizer на короткой последовательности.
+  # 128 токенов тоже влезают, но разрыв между LoRA и инференсом там ~150 МБ
+  # и тонет в шуме аллокатора; на 256 разница видна невооружённым глазом.
+  seq_len: 256
+  batch_size: 1
+  lr: 1.0e-5
+  # Сколько раз повторить каждый режим (каждый прогон — отдельный процесс).
+  # Берётся худший пик, число прогонов уходит в «Условия замера» отчёта:
+  # цифра, снятая один раз, и медиана пяти — разные утверждения.
+  repeats: 1
+
+lora:
+  alpha_ratio: 2            # lora_alpha = alpha_ratio * r
+  dropout: 0.0
+  # Первый конфиг используется ещё и в замере памяти.
+  configs:
+    - name: "r=8, q_proj+v_proj"
+      r: 8
+      target_modules: ["q_proj", "v_proj"]
+    - name: "r=16, все линейные"
+      r: 16
+      target_modules: ["q_proj", "k_proj", "v_proj", "o_proj",
+                       "gate_proj", "up_proj", "down_proj"]
+
+report:
+  json: "docs/report.json"
+  markdown: "docs/anatomy.md"
