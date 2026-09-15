@@ -108,9 +108,9 @@ GQA: 16 голов запроса на 8 KV-головы — KV-cache вдвое
 
 | Режим | Пик, МБ | Пик RSS, МБ | × к инференсу | Секунд | loss |
 |---|--:|--:|--:|--:|--:|
-| инференс | 4382 | 4076 | 1.00 | 3.3 | — |
-| full fine-tune | 16748 | 4472 | 3.82 | 6.6 | 13.6807 |
-| LoRA (r=8, q/v) | 5684 | 4472 | 1.30 | 3.7 | 13.6807 |
+| инференс | 4382 | 2852 | 1.00 | 3.7 | — |
+| full fine-tune | 16748 | 4487 | 3.82 | 8.4 | 13.6807 |
+| LoRA (r=8, q/v) | 5684 | 4471 | 1.30 | 3.6 | 13.6807 |
 
 Прикидка из лекции: веса bf16 — 3282 МБ. Full fine-tune добавляет
 градиенты (+3282 МБ) и два состояния AdamW (+6563 МБ),
@@ -120,7 +120,7 @@ LoRA обучает 1 605 632 параметров вместо 1 720 57
 веса заморожены. Остаётся расход на активации — поэтому LoRA всё же дороже
 инференса, хоть и втрое дешевле полного дообучения.
 
-Колонка «Пик RSS» между режимами почти не меняется: разброс 396 МБ на все три — и это при том, что full fine-tune обязан добавить к весам ещё 9845 МБ.
+Колонка «Пик RSS» между режимами почти не меняется: разброс 1634 МБ на все три — и это при том, что full fine-tune обязан добавить к весам ещё 9845 МБ.
 Объясните этот разброс: что именно меряет `ru_maxrss` на устройстве `mps` и где на самом деле лежат тензоры.
 
 
@@ -189,13 +189,13 @@ def device_allocated_bytes(device: torch.device) -> int:
 Вместе с предыдущим дефектов влиял на результаты замеров памяти. Заключался в некорректной методике замера, а именно снятии значения загрузки в конце процесса, а не как пикового за весь процесс. Для получения корректных значений необходимо отредактировать класс `PeakMemory`
 
 ```py
-        if self.device.type == "cuda":
-            torch.cuda.synchronize(self.device)
-            self.used = int(torch.cuda.max_memory_allocated(self.device))
-        elif self.device.type == "mps":
-            torch.mps.synchronize()
-            self.used = max(self.used, device_allocated_bytes(self.device))
-            self._stop.set()
-            if self._sampler is not None:
-                self._sampler.join()
+if self.device.type == "cuda":
+    torch.cuda.synchronize(self.device)
+    self.used = int(torch.cuda.max_memory_allocated(self.device))
+elif self.device.type == "mps":
+    torch.mps.synchronize()
+    self.used = max(self.used, device_allocated_bytes(self.device))
+    self._stop.set()
+    if self._sampler is not None:
+        self._sampler.join()
 ```

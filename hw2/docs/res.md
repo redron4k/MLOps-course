@@ -61,13 +61,13 @@ def device_allocated_bytes(device: torch.device) -> int:
 Вместе с предыдущим дефектов влиял на результаты замеров памяти. Заключался в некорректной методике замера, а именно снятии значения загрузки в конце процесса, а не как пикового за весь процесс. Для получения корректных значений необходимо отредактировать класс `PeakMemory`
 
 ```py
-        if self.device.type == "cuda":
-            torch.cuda.synchronize(self.device)
-            self.used = int(torch.cuda.max_memory_allocated(self.device))
-        elif self.device.type == "mps":
-            torch.mps.synchronize()
-            self.used = max(self.used, device_allocated_bytes(self.device))
-            self._stop.set()
-            if self._sampler is not None:
-                self._sampler.join()
+if self.device.type == "cuda":
+    torch.cuda.synchronize(self.device)
+    self.used = int(torch.cuda.max_memory_allocated(self.device))
+elif self.device.type == "mps":
+    torch.mps.synchronize()
+    self.used = max(self.used, device_allocated_bytes(self.device))
+    self._stop.set()
+    if self._sampler is not None:
+        self._sampler.join()
 ```
