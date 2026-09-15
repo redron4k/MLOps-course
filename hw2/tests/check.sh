@@ -213,3 +213,13 @@ else
   printf '\033[31mПровалено проверок: %s\033[0m\n\n' "$fails"
   exit 1
 fi
+
+echo
+echo "### Добавление собственных результатов в anatomy.md"
+if [ -f "docs/res.md" ] && [ -f "docs/anatomy.md" ]; then
+  printf '\n\n---\n\n' >> docs/anatomy.md
+  cat docs/res.md >> docs/anatomy.md
+  ok "содержимое docs/res.md добавлено в конец docs/anatomy.md"
+else
+  fail "не найден docs/res.md или docs/anatomy.md"
+fi
