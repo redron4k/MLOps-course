@@ -1,0 +1,15 @@
+[project]
+name = "mlops-hw3"
+version = "0.1.0"
+description = "MLOPS-26, домашняя работа 3: датасет, DVC, валидация, честный сплит"
+requires-python = ">=3.12"
+# Нижние границы, а не «любая версия»: pydantic v1 и v2 несовместимы по API,
+# а dvc до 3.x иначе называет команды. Без границ ДЗ ломается у соседа.
+dependencies = [
+    "dvc>=3.55",
+    "pyarrow>=17.0",
+    "pandas>=2.2",
+    "pydantic>=2.9",
+    "datasketch>=1.6",
+    "pyyaml>=6.0",
+]

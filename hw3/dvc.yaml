@@ -1,0 +1,76 @@
+# Пайплайн ДЗ 3: collect → clean → diversity → split.
+#
+# Два правила, из-за нарушения которых пайплайн «не пересчитывается»:
+#   deps — всё, от чего зависит результат: входные данные И код стадии;
+#   params — секции params.yaml, при изменении которых стадия обязана
+#            переисполниться (пути к источникам живут там, а не в deps).
+# Пути в outs дублируют paths.* из params.yaml: dvc.yaml не умеет читать
+# params, поэтому согласованность проверяется в tests/check.sh.
+
+stages:
+  collect:
+    cmd: python -m src.collect
+    deps:
+      # TODO: добавить сюда путь к СВОЕМУ источнику данных.
+      # Без этого dvc не заметит, что источник изменился, и не пересчитает стадию.
+      - src/collect.py
+      - src/config.py
+    outs:
+      - data/raw.jsonl
+
+  clean:
+    cmd: python -m src.clean
+    deps:
+      - src/clean.py
+      - src/dedup.py
+      - src/pii.py
+      - src/schema.py
+      - src/textnorm.py
+      - src/config.py
+    params:
+      - clean
+      - paths.clean
+    outs:
+      - data/clean.jsonl
+    metrics:
+      - metrics/clean.json:
+          cache: false
+
+  diversity:
+    cmd: python -m src.diversity
+    deps:
+      - data/clean.jsonl
+      - src/diversity.py
+      - src/stats.py
+      - src/schema.py
+      - src/textnorm.py
+      - src/config.py
+    params:
+      - diversity
+      - split.group_key
+      - paths.clean
+    metrics:
+      - metrics/diversity.json:
+          cache: false
+
+  split:
+    cmd: python -m src.split
+    deps:
+      - data/clean.jsonl
+      - src/split.py
+      - src/contamination.py
+      - src/dedup.py
+      - src/schema.py
+      - src/textnorm.py
+      - src/config.py
+    params:
+      - split
+      - contamination
+      - paths.train
+      - paths.val
+      - paths.test
+    outs:
+      - data/train.jsonl
+    metrics:
+      - metrics/split.json:
+          cache: false
