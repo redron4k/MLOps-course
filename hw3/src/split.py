@@ -6,24 +6,31 @@ import time
 from pathlib import Path
 
 from src.config import load_params
-from src.contamination import report
+from src.contamination import is_clean, report
 from src.schema import Example, dump, iter_examples
 from src.textnorm import normalize_group
 
 
-def row_split(count: int, ratios: dict[str, float], seed: int) -> list[str]:
-    """Раздать строкам метки сплита в заданных долях."""
-    order = list(range(count))
-    random.Random(seed).shuffle(order)
-    labels = [""] * count
-    start = 0
-    names = list(ratios)
-    for i, name in enumerate(names):
-        stop = count if i == len(names) - 1 else start + round(count * ratios[name])
-        for pos in order[start:stop]:
-            labels[pos] = name
-        start = stop
-    return labels
+def group_split(groups: dict[str, list[Example]], ratios: dict[str, float], seed: int) -> dict[str, list[Example]]:
+    """Разделить целые группы, приблизив размеры к заданным долям.
+
+    Строковый сплит смешивает вопросы одной подсистемы между train и test. Здесь
+    группа назначается единственному бакету; большой группе нельзя «долить»
+    остаток в другой сплит, поэтому точные 80/10/10 не гарантируются.
+    """
+    total = sum(len(rows) for rows in groups.values())
+    targets = {name: total * ratio for name, ratio in ratios.items()}
+    buckets: dict[str, list[Example]] = {name: [] for name in ratios}
+    keys = list(groups)
+    random.Random(seed).shuffle(keys)
+    keys.sort(key=lambda key: len(groups[key]), reverse=True)
+    for key in keys:
+        name = max(
+            ratios,
+            key=lambda candidate: (targets[candidate] - len(buckets[candidate]), -len(buckets[candidate])),
+        )
+        buckets[name].extend(groups[key])
+    return buckets
 
 
 def main() -> None:
@@ -36,15 +43,12 @@ def main() -> None:
     if cfg["group_key"] != "topic":
         raise SystemExit(f"неизвестный split.group_key: {cfg['group_key']!r}")
 
-    sizes: dict[str, int] = {}
+    grouped: dict[str, list[Example]] = {}
     for ex in examples:
         key = normalize_group(ex.topic)
-        sizes[key] = sizes.get(key, 0) + 1
+        grouped.setdefault(key, []).append(ex)
 
-    labels = row_split(len(examples), cfg["ratios"], cfg["seed"])
-    buckets: dict[str, list[Example]] = {name: [] for name in cfg["ratios"]}
-    for label, ex in zip(labels, examples):
-        buckets[label].append(ex)
+    buckets = group_split(grouped, cfg["ratios"], cfg["seed"])
 
     for name, rows in buckets.items():
         out = Path(paths[name])
@@ -66,7 +70,7 @@ def main() -> None:
         "version": params["collect"]["version"],
         "seed": cfg["seed"],
         "group_key": cfg["group_key"],
-        "groups_total": len(sizes),
+        "groups_total": len(grouped),
         "sizes": {name: len(rows) for name, rows in buckets.items()},
         "groups": {
             name: len({normalize_group(ex.topic) for ex in rows}) for name, rows in buckets.items()
@@ -81,10 +85,17 @@ def main() -> None:
     mpath.parent.mkdir(parents=True, exist_ok=True)
     mpath.write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+    if not is_clean(rep):
+        raise SystemExit(
+            "split: обнаружена контаминация train/test: "
+            f"id={rep['id_overlap']}, text={rep['text_overlap']}, "
+            f"groups={rep['group_overlap']}, near-dup={rep['near_dup_pairs']}"
+        )
+
     print(
         "split: "
         + ", ".join(f"{name} {len(rows)}" for name, rows in buckets.items())
-        + f" (групп {len(sizes)}, {metrics['seconds']} с)"
+        + f" (групп {len(grouped)}, {metrics['seconds']} с)"
     )
 
 

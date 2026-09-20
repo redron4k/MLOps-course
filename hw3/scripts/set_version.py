@@ -21,7 +21,7 @@ def main() -> int:
     version = sys.argv[1]
     text = PARAMS.read_text(encoding="utf-8")
     if f"\n    {version}:\n" not in text:
-        print(f"в collect.sources нет версии {version!r}", file=sys.stderr)
+        print(f"в collect.versions нет версии {version!r}", file=sys.stderr)
         return 1
     new, count = LINE.subn(rf'\g<1>"{version}"\g<2>', text, count=1)
     if count != 1:

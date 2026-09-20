@@ -126,9 +126,12 @@ def main() -> None:
     mpath.write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     if failed:
-        # TODO: гейт или отчёт? Стадия, которая сообщает о проблеме и продолжает,
-        # не мешает вырожденному набору доехать до обучения.
-        print("diversity: предупреждение — " + "; ".join(failed))
+        # Сначала печатаем нарушения отдельными строками: CI и студент должны
+        # видеть причину без чтения traceback, а не только ненулевой exit code.
+        print("diversity: гейт закрыт")
+        for violation in failed:
+            print(f"  - {violation}")
+        raise SystemExit(1)
 
     print(
         f"diversity: {stats['examples']} строк, {stats['system_prompts']} системных промптов, "

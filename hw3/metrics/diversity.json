@@ -1,0 +1,31 @@
+{
+  "version": "v1",
+  "examples": 1547,
+  "system_prompts": 3,
+  "groups": 1045,
+  "largest_group": "android-room",
+  "largest_group_share": 0.0595,
+  "answer_len": {
+    "p10": 157,
+    "p50": 494,
+    "p90": 1459,
+    "ratio_p90_p10": 9.29,
+    "cv": 1.244,
+    "min": 32,
+    "max": 16943
+  },
+  "same_length_share": 0.0052,
+  "duplicate_answer_share": 0.0,
+  "thresholds": {
+    "min_examples": 1000,
+    "min_system_prompts": 3,
+    "min_groups": 50,
+    "max_group_share": 0.1,
+    "min_answer_len_ratio": 1.6,
+    "max_same_length_share": 0.25,
+    "max_duplicate_answer_share": 0.3
+  },
+  "violations": [],
+  "passed": true,
+  "seconds": 0.05
+}
