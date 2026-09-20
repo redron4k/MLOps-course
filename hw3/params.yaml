@@ -2,7 +2,7 @@
 
 collect:
   # v1 — исходный период, v2 — тот же домен с расширенным периодом.
-  version: "v1"
+  version: "v2"
   site: "stackoverflow"
   n_rows: 1800
   per_tag_rows: 400

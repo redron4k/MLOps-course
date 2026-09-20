@@ -1,20 +1,20 @@
 {
-  "version": "v1",
-  "examples": 1547,
+  "version": "v2",
+  "examples": 2099,
   "system_prompts": 3,
-  "groups": 1045,
-  "largest_group": "android-room",
-  "largest_group_share": 0.0595,
+  "groups": 1322,
+  "largest_group": "kotlin-coroutines",
+  "largest_group_share": 0.0591,
   "answer_len": {
-    "p10": 157,
-    "p50": 494,
-    "p90": 1459,
-    "ratio_p90_p10": 9.29,
-    "cv": 1.244,
+    "p10": 154,
+    "p50": 505,
+    "p90": 1507,
+    "ratio_p90_p10": 9.79,
+    "cv": 1.194,
     "min": 32,
     "max": 16943
   },
-  "same_length_share": 0.0052,
+  "same_length_share": 0.0043,
   "duplicate_answer_share": 0.0,
   "thresholds": {
     "min_examples": 1000,
@@ -27,5 +27,5 @@
   },
   "violations": [],
   "passed": true,
-  "seconds": 0.05
+  "seconds": 0.07
 }
