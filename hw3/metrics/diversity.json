@@ -1,25 +1,31 @@
 {
   "version": "v2",
-  "examples": 2099,
+  "examples": 1546,
   "system_prompts": 3,
-  "groups": 1322,
-  "largest_group": "kotlin-coroutines",
-  "largest_group_share": 0.0591,
+  "groups": 50,
+  "group_size_min": 25,
+  "group_size_p50": 30,
+  "singleton_groups": 0,
+  "singleton_group_share": 0.0,
+  "largest_group": "coroutines",
+  "largest_group_share": 0.0265,
   "answer_len": {
-    "p10": 154,
-    "p50": 505,
-    "p90": 1507,
-    "ratio_p90_p10": 9.79,
-    "cv": 1.194,
+    "p10": 164,
+    "p50": 553,
+    "p90": 1599,
+    "ratio_p90_p10": 9.75,
+    "cv": 1.231,
     "min": 32,
     "max": 16943
   },
-  "same_length_share": 0.0043,
+  "same_length_share": 0.0052,
   "duplicate_answer_share": 0.0,
   "thresholds": {
     "min_examples": 1000,
     "min_system_prompts": 3,
     "min_groups": 50,
+    "min_group_size": 5,
+    "max_singleton_group_share": 0.1,
     "max_group_share": 0.1,
     "min_answer_len_ratio": 1.6,
     "max_same_length_share": 0.25,
@@ -27,5 +33,5 @@
   },
   "violations": [],
   "passed": true,
-  "seconds": 0.07
+  "seconds": 0.05
 }

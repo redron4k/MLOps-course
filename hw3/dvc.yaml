@@ -15,8 +15,13 @@ stages:
       - src/config.py
     params:
       - collect
+      - paths.raw
+      - paths.metrics_collect
     outs:
       - data/raw.jsonl
+    metrics:
+      - metrics/collect.json:
+          cache: false
 
   clean:
     cmd: python -m src.clean

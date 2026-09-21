@@ -44,6 +44,8 @@ def measure(path: str, group_key: str) -> dict:
     answer_counts = Counter(normalize_text(a) for a in answers)
 
     top_group, top_group_n = groups.most_common(1)[0]
+    group_sizes = sorted(groups.values())
+    singleton_groups = sum(size == 1 for size in group_sizes)
     _, top_length_n = length_counts.most_common(1)[0]
     duplicate_answers = sum(n - 1 for n in answer_counts.values() if n > 1)
 
@@ -51,6 +53,10 @@ def measure(path: str, group_key: str) -> dict:
         "examples": len(examples),
         "system_prompts": len(systems),
         "groups": len(groups),
+        "group_size_min": group_sizes[0],
+        "group_size_p50": group_sizes[len(group_sizes) // 2],
+        "singleton_groups": singleton_groups,
+        "singleton_group_share": round(singleton_groups / len(groups), 4),
         "largest_group": top_group,
         "largest_group_share": round(top_group_n / len(examples), 4),
         "answer_len": spread(lengths),
@@ -79,6 +85,16 @@ def violations(stats: dict, cfg: dict) -> list[str]:
     if stats["groups"] < cfg["min_groups"]:
         found.append(
             f"групп {stats['groups']}, нужно ≥ {cfg['min_groups']}"
+        )
+    if stats["group_size_min"] < cfg["min_group_size"]:
+        found.append(
+            f"минимальный размер группы {stats['group_size_min']}, "
+            f"нужно ≥ {cfg['min_group_size']}"
+        )
+    if stats["singleton_group_share"] > cfg["max_singleton_group_share"]:
+        found.append(
+            f"одиночных групп {stats['singleton_group_share']:.1%}, "
+            f"порог {cfg['max_singleton_group_share']:.0%}"
         )
     if stats["largest_group_share"] > cfg["max_group_share"]:
         found.append(
@@ -136,6 +152,7 @@ def main() -> None:
     print(
         f"diversity: {stats['examples']} строк, {stats['system_prompts']} системных промптов, "
         f"{stats['groups']} групп (крупнейшая {stats['largest_group_share']:.1%}), "
+        f"медиана размера группы {stats['group_size_p50']}, "
         f"разброс длин p90/p10 = {stats['answer_len']['ratio_p90_p10']}, "
         f"{metrics['seconds']} с"
     )

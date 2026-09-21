@@ -1,23 +1,83 @@
 # Единственная точка конфигурации ДЗ 3.
 
 collect:
-  # v1 — исходный период, v2 — тот же домен с расширенным периодом.
+  # v1 — первые 30 примеров на тему за 2020–2023 годы.
+  # v2 включает v1 и добавляет до 12 следующих примеров из того же среза.
   version: "v2"
   site: "stackoverflow"
-  n_rows: 1800
-  per_tag_rows: 400
   timeout_seconds: 30
+  candidates_per_page: 100
+  max_pages_per_topic: 2
   versions:
     v1:
-      n_rows: 1800
-      from_date: "2020-01-01"
-      to_date: "2023-12-31"
-      tags: ["android", "kotlin", "jetpack-compose", "android-studio", "android-room", "androidx"]
+      windows:
+        - from_date: "2020-01-01"
+          to_date: "2023-12-31"
+          rows_per_topic: 30
+          min_rows_per_topic: 20
     v2:
-      n_rows: 2400
-      from_date: "2020-01-01"
-      to_date: "2025-12-31"
-      tags: ["android", "kotlin", "jetpack-compose", "android-studio", "android-room", "androidx", "kotlin-coroutines", "android-gradle-plugin"]
+      windows:
+        - from_date: "2020-01-01"
+          to_date: "2023-12-31"
+          rows_per_topic: 30
+          min_rows_per_topic: 20
+        - from_date: "2020-01-01"
+          to_date: "2023-12-31"
+          rows_per_topic: 12
+
+  # Каноническая группа задаётся запросом, а не уникальной комбинацией тегов
+  # конкретного вопроса. Общие теги используются только вместе с android.
+  topics:
+    ui-compose: {tags: [android-jetpack-compose]}
+    ui-layout: {tags: [android-layout]}
+    ui-constraintlayout: {tags: [android-constraintlayout]}
+    ui-recyclerview: {tags: [android-recyclerview]}
+    ui-fragments: {tags: [android-fragments]}
+    ui-activity: {tags: [android-activity]}
+    ui-dialog: {tags: [android-alertdialog]}
+    ui-edittext: {tags: [android-edittext]}
+    ui-textview: {tags: [android, textview]}
+    ui-imageview: {tags: [android, imageview]}
+    ui-toolbar: {tags: [android-toolbar]}
+    ui-spinner: {tags: [android-spinner]}
+    ui-viewpager: {tags: [android-viewpager2]}
+    ui-databinding: {tags: [android-databinding]}
+    ui-appcompat: {tags: [android-appcompat]}
+    navigation: {tags: [android-navigation]}
+    architecture-components: {tags: [android-architecture-components]}
+    lifecycle: {tags: [android-lifecycle]}
+    viewmodel: {tags: [android-viewmodel]}
+    livedata: {tags: [android-livedata]}
+    room: {tags: [android-room]}
+    sqlite: {tags: [android-sqlite]}
+    shared-preferences: {tags: [android, sharedpreferences]}
+    workmanager: {tags: [android-workmanager]}
+    services: {tags: [android-service]}
+    broadcast-receiver: {tags: [android, broadcastreceiver]}
+    intents: {tags: [android-intent]}
+    notifications: {tags: [android-notifications]}
+    permissions: {tags: [android-permissions]}
+    manifest: {tags: [android-manifest]}
+    gradle-plugin: {tags: [android-gradle-plugin]}
+    gradle-build: {tags: [android, build.gradle]}
+    android-studio: {tags: [android-studio]}
+    r8: {tags: [android-r8]}
+    testing: {tags: [android-testing]}
+    emulator: {tags: [android-emulator]}
+    app-bundle: {tags: [android-app-bundle]}
+    apk-packaging: {tags: [android, apk]}
+    coroutines: {tags: [android, kotlin-coroutines]}
+    flow: {tags: [android, kotlin-flow]}
+    retrofit: {tags: [android, retrofit]}
+    okhttp: {tags: [android, okhttp]}
+    volley: {tags: [android-volley]}
+    firebase-auth: {tags: [android, firebase-authentication]}
+    firebase-database: {tags: [android, firebase-realtime-database]}
+    firestore: {tags: [android, google-cloud-firestore]}
+    firebase-messaging: {tags: [android, firebase-cloud-messaging]}
+    camerax: {tags: [android-camerax]}
+    camera2: {tags: [android-camera2]}
+    maps: {tags: [android, google-maps]}
   system_prompts:
     - "Ты Android-инженер поддержки. Объясни причину проблемы и предложи минимальное исправление."
     - "Ты проводишь code review Android-приложения. Дай технически точное решение и укажи, почему оно работает."
@@ -39,6 +99,8 @@ diversity:
   min_examples: 1000
   min_system_prompts: 3
   min_groups: 50
+  min_group_size: 5
+  max_singleton_group_share: 0.10
   max_group_share: 0.10
   min_answer_len_ratio: 1.6
   max_same_length_share: 0.25
