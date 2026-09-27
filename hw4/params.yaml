@@ -22,7 +22,7 @@ sample:
   seed: 42
 
 tokenize:
-  max_seq_len: 232
+  max_seq_len: 2048
   truncated_warn_ratio: 0.05
   padding_side: "left"
 
