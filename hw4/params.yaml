@@ -1,0 +1,38 @@
+# Единственное место, где живёт конфигурация препроцессинга.
+# Правится ЗДЕСЬ, а не в коде: в src/ не должно быть ни имени модели,
+# ни длин, ни порогов.
+model:
+  name: "Qwen/Qwen3-0.6B"
+  # Qwen3 без этого флага ждёт от модели <think>-блок, и тогда шаблон
+  # инференса перестаёт быть префиксом шаблона обучения. См. docs/tokenize_report.md.
+  enable_thinking: false
+
+data:
+  # Датасет курса (CC-BY-4.0), лежит вне проекта — под DVC, не в git.
+  source_train: "../../datasets/nmo/sft_single/train/0000.parquet"
+  source_val: "../../datasets/nmo/sft_single/validation/0000.parquet"
+  train_jsonl: "data/train.jsonl"
+  val_jsonl: "data/val.jsonl"
+  out_dir: "data/tokenized"
+
+sample:
+  train_size: 500
+  val_size: 100
+  scan_rows: 20000          # сколько строк parquet просматриваем перед выборкой
+  seed: 42
+
+tokenize:
+  max_seq_len: 232
+  truncated_warn_ratio: 0.05
+  padding_side: "left"
+
+packing:
+  enabled: true
+  batch_size: 8             # для пересчёта выигрыша в шагах оптимизатора
+
+train_estimate:
+  epochs: 3
+  # 52 ток/с — замер ДЗ 1 на этой машине (Apple Silicon, Qwen3-0.6B, ГЕНЕРАЦИЯ).
+  # Обучение медленнее: forward + backward + optimizer. Реальное число
+  # подставляется сюда после первого прогона ДЗ 5.
+  tokens_per_sec: 52

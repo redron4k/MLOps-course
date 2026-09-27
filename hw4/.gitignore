@@ -1,0 +1,9 @@
+__pycache__/
+.venv/
+# Данные и токенизированный датасет — артефакты стадии, не исходники
+data/
+# Отчёт и метрики генерируются `make tokenize`
+metrics/tokenize.json
+docs/tokenize_report.md
+# Логи самопроверки
+.check_*.log

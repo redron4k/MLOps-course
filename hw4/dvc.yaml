@@ -1,0 +1,31 @@
+# Стадия tokenize для DVC-пайплайна. Продолжение dvc.yaml из ДЗ 3:
+# вход — выход стадии split (train.jsonl / val.jsonl), выход — тензоры на диске.
+#
+# deps перечисляют И данные, И код: забыть src/ — и правка маски не пересчитает
+# датасет, dvc скажет «всё свежо». params — секции params.yaml, от которых
+# зависит результат. Пути в outs дублируют data.* из params.yaml; их согласованность
+# проверяет tests/check.sh.
+stages:
+  tokenize:
+    cmd: python -m src.tokenize_data
+    deps:
+      - data/train.jsonl
+      - data/val.jsonl
+      - src/tokenize_data.py
+      - src/prompt.py
+      - src/collate.py
+      - src/pack.py
+      - src/config.py
+    params:
+      - model
+      - tokenize
+      - packing
+      - train_estimate
+      - data.train_jsonl
+      - data.val_jsonl
+      - data.out_dir
+    outs:
+      - data/tokenized
+    metrics:
+      - metrics/tokenize.json:
+          cache: false
