@@ -12,7 +12,7 @@ LABEL_PAD_ID = -100
 class DynamicPaddingCollator:
     """Собирает список примеров в батч тензоров."""
 
-    def __init__(self, pad_token_id: int, padding_side: str = "right") -> None:
+    def __init__(self, pad_token_id: int, padding_side: str = "left") -> None:
         if padding_side not in ("left", "right"):
             raise ValueError(f"padding_side должен быть left или right, получено {padding_side!r}")
         self.pad_token_id = pad_token_id

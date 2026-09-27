@@ -21,7 +21,7 @@ from transformers import AutoTokenizer
 from src.collate import LABEL_PAD_ID
 from src.config import load_params
 from src.pack import pack_examples, packing_report
-from src.prompt import build_chat_text
+from src.prompt import build_chat_text, prompt_token_len
 
 METRICS_PATH = Path("metrics/tokenize.json")
 REPORT_PATH = Path("docs/tokenize_report.md")
@@ -41,8 +41,7 @@ def read_jsonl(path: Path) -> list[dict]:
 
 def mask_prompt(input_ids: list[int], n_prompt: int) -> list[int]:
     """labels для лосса."""
-    # TODO: промпт должен быть замаскирован.
-    return list(input_ids)
+    return [LABEL_PAD_ID] * n_prompt + input_ids[n_prompt:]
 
 
 def encode_example(tokenizer, record: dict, params: dict, max_seq_len: int) -> dict:
@@ -50,10 +49,14 @@ def encode_example(tokenizer, record: dict, params: dict, max_seq_len: int) -> d
     messages = record["messages"]
     full_text = build_chat_text(tokenizer, messages, params, add_generation_prompt=False)
 
-    encoded = tokenizer(full_text, add_special_tokens=False)
+    prompt_text = build_chat_text(tokenizer, messages, params, add_generation_prompt=True)
+    if not full_text.startswith(prompt_text):
+        raise ValueError(f"{record.get('id')}: шаблон инференса не является префиксом обучения")
+    encoded = tokenizer(full_text, add_special_tokens=False, return_offsets_mapping=True)
     input_ids = encoded["input_ids"]
-    # TODO: найти границу промпта и ответа
-    n_prompt, used_fallback = 0, False
+    n_prompt, used_fallback = prompt_token_len(
+        tokenizer, prompt_text, input_ids, encoded["offset_mapping"]
+    )
 
     full_len = len(input_ids)
     truncated = full_len > max_seq_len
@@ -93,9 +96,12 @@ def describe(values: list[int]) -> dict:
 
 def truncation_stats(metas: list[dict], name: str, params: dict) -> dict:
     """Статистика обрезки по max_seq_len."""
-    # TODO: посчитать долю обрезанных и предупредить, если она выше
-    # tokenize.truncated_warn_ratio.
-    return {}
+    count = sum(m["truncated"] for m in metas)
+    ratio = count / len(metas) if metas else 0.0
+    limit = params["tokenize"]["truncated_warn_ratio"]
+    if ratio > limit:
+        print(f"  ВНИМАНИЕ: {name}: обрезано {ratio:.1%} при пороге {limit:.1%}")
+    return {"truncated": count, "truncated_ratio": ratio}
 
 
 def process_split(
@@ -292,7 +298,7 @@ def render_report(metrics: dict) -> str:
 def main() -> None:
     params = load_params()
     tokenizer = AutoTokenizer.from_pretrained(params["model"]["name"])
-    # TODO: tokenize.padding_side из params.yaml сюда так и не доехал
+    tokenizer.padding_side = params["tokenize"]["padding_side"]
 
     out_dir = Path(params["data"]["out_dir"])
     out_dir.mkdir(parents=True, exist_ok=True)
