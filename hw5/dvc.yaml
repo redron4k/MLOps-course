@@ -1,0 +1,58 @@
+# Стадии ДЗ 5 — продолжение пайплайна из ДЗ 3 и ДЗ 4:
+#   split (ДЗ 3) -> tokenize (ДЗ 4) -> train -> compare
+# deps — данные И код: забыть src/train.py — и правка цикла обучения
+# не пересчитает адаптер, dvc скажет «всё свежо».
+stages:
+  train_all:
+    cmd: python -m src.train --variant all_layers
+    deps:
+      - data/tokenized/train.pt
+      - data/tokenized/val.pt
+      - src/train.py
+      - src/data.py
+      - src/runtime.py
+      - src/config.py
+    params:
+      - model
+      - lora
+      - train
+      - variants
+    outs:
+      - models/adapter_all_layers
+    metrics:
+      - metrics/train_all_layers.json:
+          cache: false
+
+  train_freeze:
+    cmd: python -m src.train --variant freeze14
+    deps:
+      - data/tokenized/train.pt
+      - data/tokenized/val.pt
+      - src/train.py
+      - src/data.py
+      - src/runtime.py
+      - src/config.py
+    params:
+      - model
+      - lora
+      - train
+      - variants
+    outs:
+      - models/adapter_freeze14
+    metrics:
+      - metrics/train_freeze14.json:
+          cache: false
+
+  compare:
+    cmd: python -m src.compare --variant all_layers
+    deps:
+      - models/adapter_all_layers
+      - src/compare.py
+    params:
+      - compare
+    outs:
+      - docs/compare.md:
+          cache: false
+    metrics:
+      - metrics/compare_all_layers.json:
+          cache: false

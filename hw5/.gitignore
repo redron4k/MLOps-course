@@ -1,0 +1,9 @@
+__pycache__/
+.venv/
+# Адаптеры и токенизированные данные — артефакты стадий, под DVC, не в git
+data/
+models/
+# Генерируются make train / make compare. docs/curves.png и docs/compare.md —
+# результат работы, их коммитят; метрики пересоздаются и в git не нужны.
+metrics/*.json
+.check_*.log
