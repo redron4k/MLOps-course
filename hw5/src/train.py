@@ -21,8 +21,9 @@ import time
 from pathlib import Path
 
 # Потолок памяти Metal — до импорта torch. Без него mps занимает сколько дадут,
-# и на ноутбуке с 16–32 ГБ система уходит в своп вместо внятной ошибки.
-os.environ.setdefault("PYTORCH_MPS_HIGH_WATERMARK_RATIO", "0.5")
+# и на ноутбуке система уходит в своп вместо внятной ошибки.
+# 0.8 оставляет запас системе и вмещает длинные примеры ДЗ 4 (до 2048).
+os.environ.setdefault("PYTORCH_MPS_HIGH_WATERMARK_RATIO", "0.8")
 os.environ.setdefault("PYTORCH_MPS_LOW_WATERMARK_RATIO", "0.4")   # нижний порог не выше верхнего
 
 import torch  # noqa: E402
@@ -31,7 +32,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedul
 
 from src.config import load_params
 from src.data import LABEL_PAD_ID, batches, load_split
-from src.runtime import allocated_bytes, memory_metric, resolve_device, resolve_dtype
+from src.runtime import allocated_bytes, memory_metric, resolve_device, resolve_dtype, set_seed
 
 
 TRAIN_CODE = ("src/train.py", "src/data.py", "src/runtime.py", "src/config.py")
@@ -54,12 +55,15 @@ def inputs_fingerprint(params: dict) -> str:
 
 def lora_config(params: dict, n_layers: int, freeze_first: int) -> LoraConfig:
     cfg = params["lora"]
+    if not 0 <= freeze_first < n_layers:
+        raise ValueError("freeze_first должен оставлять хотя бы один обучаемый слой")
     return LoraConfig(
         r=cfg["r"],
         lora_alpha=cfg["alpha"],
         lora_dropout=cfg["dropout"],
         target_modules=cfg["target_modules"],
         modules_to_save=cfg.get("modules_to_save"),
+        layers_to_transform=list(range(freeze_first, n_layers)),
         task_type="CAUSAL_LM",
     )
 
@@ -105,6 +109,7 @@ def main() -> None:
         raise SystemExit(f"нет варианта {args.variant!r}, есть: {sorted(variants)}")
     variant = variants[args.variant]
     tcfg = params["train"]
+    set_seed(tcfg["seed"])
     max_steps = args.max_steps if args.max_steps is not None else tcfg.get("max_steps")
 
     device = resolve_device(params["model"]["device"])
@@ -146,25 +151,32 @@ def main() -> None:
     )
 
     eval_bs = tcfg.get("eval_batch_size", tcfg["batch_size"])
-    base_val = None   # TODO: с чем сравнивать дообученную модель?
+    base_val = evaluate(model, val_blob["examples"], pad_id, device, eval_bs)
     curve_train: list[list[float]] = []
-    curve_val: list[list[float]] = []
+    curve_val: list[list[float]] = [[0, round(base_val, 6)]]
     print(f"[{args.variant}] устройство {device}, обучаемых {trainable:,} из {total:,} "
           f"({trainable / total:.3%}); шагов {total_steps}")
 
     peak = allocated_bytes(device)
     started = time.perf_counter()
-    step, micro, accum_loss, diverged = 0, 0, 0.0, False
+    step, accum_loss, diverged = 0, 0.0, False
     eval_seconds = 0.0
     for epoch in range(tcfg["epochs"]):
-        for batch in batches(examples, tcfg["batch_size"], pad_id, shuffle=True, seed=tcfg["seed"] + epoch):
+        for micro, batch in enumerate(batches(
+            examples, tcfg["batch_size"], pad_id, shuffle=True, seed=tcfg["seed"] + epoch
+        ), 1):
             batch = {k: v.to(device) for k, v in batch.items()}
-            loss = model(**batch).loss / tcfg["grad_accum"]
+            group_start = ((micro - 1) // tcfg["grad_accum"]) * tcfg["grad_accum"]
+            group_size = min(tcfg["grad_accum"], micro_per_epoch - group_start)
+            loss = model(**batch).loss / group_size
+            if device.type == "mps":
+                # Длинные примеры требуют больших временных буферов backward.
+                # Освобождаем кеш прошлых операций, сохраняя живые тензоры.
+                torch.mps.empty_cache()
             loss.backward()
             accum_loss += loss.item()
-            micro += 1
             peak = max(peak, allocated_bytes(device))
-            if micro % tcfg["grad_accum"]:
+            if micro % tcfg["grad_accum"] and micro != micro_per_epoch:
                 continue
             torch.nn.utils.clip_grad_norm_(model.parameters(), tcfg["max_grad_norm"])
             optimizer.step()
@@ -178,7 +190,11 @@ def main() -> None:
                 break
             accum_loss = 0.0
             if step % tcfg["eval_every"] == 0 or step == total_steps:
-                print(f"  шаг {step}/{total_steps}: train {curve_train[-1][1]:.4f}")
+                eval_started = time.perf_counter()
+                val_loss = evaluate(model, val_blob["examples"], pad_id, device, eval_bs)
+                eval_seconds += time.perf_counter() - eval_started
+                curve_val.append([step, round(val_loss, 6)])
+                print(f"  шаг {step}/{total_steps}: train {curve_train[-1][1]:.4f}, val {val_loss:.6f}", flush=True)
             if step >= total_steps:
                 break
         if diverged or step >= total_steps:
@@ -188,6 +204,7 @@ def main() -> None:
     out_root = Path(args.out) if args.out else Path(params["paths"]["models"])
     adapter_dir = out_root / f"adapter_{args.variant}"
     model.save_pretrained(adapter_dir)
+    tokenizer.save_pretrained(adapter_dir)
 
     tokens = sum(len(e["input_ids"]) for e in examples) * tcfg["epochs"]
     metrics = {

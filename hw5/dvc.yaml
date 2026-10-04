@@ -13,6 +13,7 @@ stages:
       - src/runtime.py
       - src/config.py
     params:
+      - data
       - model
       - lora
       - train
@@ -33,6 +34,7 @@ stages:
       - src/runtime.py
       - src/config.py
     params:
+      - data
       - model
       - lora
       - train
@@ -48,8 +50,11 @@ stages:
     deps:
       - models/adapter_all_layers
       - src/compare.py
+      - src/config.py
+      - src/runtime.py
     params:
       - compare
+      - model
     outs:
       - docs/compare.md:
           cache: false

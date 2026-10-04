@@ -25,16 +25,16 @@ lora:
 train:
   seed: 42
   epochs: 1
-  batch_size: 2
-  grad_accum: 4             # эффективный батч = 8: память как у батча 2, шаг как у батча 8
-  lr: 1.0e-2
+  batch_size: 1
+  grad_accum: 8             # эффективный батч = 8 при микробатче 1
+  lr: 2.0e-4
   warmup_ratio: 0.03
   weight_decay: 0.0
   max_grad_norm: 1.0
   eval_every: 10            # шагов оптимизатора между замерами val loss
-  # Логиты на весь словарь: 2 примера x 512 токенов x 151 936 x 4 байта = 0,6 ГБ.
-  # Батч 8 на оценке — уже 2,5 ГБ одних логитов, и ноутбук уходит в своп.
-  eval_batch_size: 2
+  # В ДЗ 4 окно 2048 токенов: оцениваем по одному примеру, чтобы логиты
+  # на словарь 151 936 токенов помещались в память.
+  eval_batch_size: 1
   gradient_checkpointing: true   # без него на ноутбуке с 16–32 ГБ не влезает
   max_steps: null           # null — по эпохам; число — обрезать (smoke-тесты)
 
@@ -46,15 +46,15 @@ variants:
     freeze_first: 14
 
 compare:
-  max_new_tokens: 40
+  max_new_tokens: 160
   # Пять фиксированных промптов: одни и те же для базовой модели и адаптера.
   prompts:
-    - "Тема:\nАртериальная гипертензия у взрослых\n\nВопрос:\nЦелевой уровень систолического АД у большинства пациентов моложе 65 лет составляет\n\nВарианты ответа:\n0. 150–159 мм рт. ст.\n1. 120–130 мм рт. ст.\n2. 140–149 мм рт. ст.\n3. менее 110 мм рт. ст."
-    - "Тема:\nСахарный диабет 2 типа у взрослых\n\nВопрос:\nПрепаратом первой линии при отсутствии противопоказаний является\n\nВарианты ответа:\n0. инсулин гларгин\n1. метформин\n2. глибенкламид\n3. акарбоза"
-    - "Тема:\nВнебольничная пневмония у взрослых\n\nВопрос:\nОсновным методом подтверждения диагноза пневмонии является\n\nВарианты ответа:\n0. общий анализ крови\n1. рентгенография органов грудной клетки\n2. бактериоскопия мокроты\n3. спирометрия"
-    - "Тема:\nЖелезодефицитная анемия\n\nВопрос:\nНаиболее информативный показатель запасов железа в организме\n\nВарианты ответа:\n0. сывороточное железо\n1. цветовой показатель\n2. ферритин сыворотки\n3. количество ретикулоцитов"
-    - "Тема:\nОстрый аппендицит у взрослых\n\nВопрос:\nСимптом Щёткина–Блюмберга указывает на\n\nВарианты ответа:\n0. раздражение брюшины\n1. кишечную непроходимость\n2. почечную колику\n3. холецистит"
-  system: "Ты отвечаешь на русскоязычные тестовые вопросы НМО. Дан вопрос и варианты ответа с нумерацией с 0. Выбери один правильный вариант. Ответь только номером варианта и текстом ответа, без объяснений."
+    - "Проблема Android-разработки: Android Emulator not showing keys on keyboard\n\nAndroid Studio Emulator is showing black spots instead of keys on keyboard.\nAnyone knows whats the reason behind this?"
+    - "Проблема Android-разработки: How to delete text msg at inbox in android studio from a special number?\n\nI have searched a lot but every method did not work\nwhat should I do?\ncan anyone here guide me?"
+    - "Проблема Android-разработки: How to run unit tests for Generate Signed Bundle / APK action\n\nHow to automatically run unit tests before signing a bundle using \"Build -> Generate Signed Bundle\" action in Android Studio?"
+    - "Проблема Android-разработки: Does android app bundle and proguard rules do the same optimization?\n\nIs there any difference between proguard rules optimization and app bundle optimization or is it same thing? Can any one explain how they are different?"
+    - "Проблема Android-разработки: how to only display First 3 items in a spinner and other items by scrolling?\n\nSo i have a spinner as you can see in the image\nSo what i want to do is that i only want to display the first 3 items and rest items should be scroll-able. Any Ideas?"
+  system: "Ты проводишь code review Android-приложения. Дай технически точное решение и укажи, почему оно работает."
 
 paths:
   models: "models"

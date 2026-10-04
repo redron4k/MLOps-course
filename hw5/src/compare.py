@@ -18,7 +18,7 @@ from src.runtime import resolve_device, resolve_dtype
 
 
 def load_adapter_tokenizer(adapter_dir: Path):
-    return AutoTokenizer.from_pretrained(load_params()["model"]["name"])
+    return AutoTokenizer.from_pretrained(adapter_dir, local_files_only=True)
 
 
 @torch.no_grad()
@@ -71,9 +71,10 @@ def main() -> None:
     lines = ["# Базовая модель против адаптера", "",
              f"Адаптер: `{adapter_dir}`. Генерация жадная, до {params['compare']['max_new_tokens']} токенов.", ""]
     for i, (p, b, a) in enumerate(zip(prompts, before, after), 1):
-        q = p.split("Вопрос:\n")[-1].split("\n\nВарианты")[0]
-        lines += [f"## {i}. {q}", "", "**База:**", "", f"> {b.replace(chr(10), ' / ')}", "",
-                  "**Адаптер:**", "", f"> {a.replace(chr(10), ' / ')}", ""]
+        title = p.splitlines()[0].removeprefix("Проблема Android-разработки: ")
+        lines += [f"## {i}. {title}", "", "**Промпт:**", "", p, "",
+                  "**База:**", "", "````text", b, "````", "",
+                  "**Адаптер:**", "", "````text", a, "````", ""]
     Path(params["paths"]["compare"]).write_text("\n".join(lines), encoding="utf-8")
     print(f"-> {out}, {params['paths']['compare']}")
     for b, a in zip(before, after):
