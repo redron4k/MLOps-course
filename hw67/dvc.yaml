@@ -6,7 +6,12 @@ stages:
       - evaluation/contract.py
       - ../hw3/src/textnorm.py
       - ../hw4/data/train.jsonl
-      - ../hw4/src
+      - ../hw4/src/__init__.py
+      - ../hw4/src/collate.py
+      - ../hw4/src/config.py
+      - ../hw4/src/pack.py
+      - ../hw4/src/prompt.py
+      - ../hw4/src/tokenize_data.py
       - ../hw4/params.yaml
       - data/tokenized/train.pt
       - params.yaml

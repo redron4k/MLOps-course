@@ -15,11 +15,30 @@ stages:
       hash: md5
       md5: 51711a0daea50593b23aaed5c30fb4bd
       size: 1660
-    - path: ../hw4/src
+    - path: ../hw4/src/__init__.py
       hash: md5
-      md5: f8af6f1ec0c676c8e5b933db6d4d568a.dir
-      size: 89311
-      nfiles: 18
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+    - path: ../hw4/src/collate.py
+      hash: md5
+      md5: 3f589814c25be76d30b8e9ef565ef5a7
+      size: 1517
+    - path: ../hw4/src/config.py
+      hash: md5
+      md5: d1af94455f9641952ff6c34f46ac6060
+      size: 336
+    - path: ../hw4/src/pack.py
+      hash: md5
+      md5: fe44de18d190fd5fb4b2a84a1fc3628f
+      size: 2862
+    - path: ../hw4/src/prompt.py
+      hash: md5
+      md5: d90ba0ec9147c5e8da198f744437cb38
+      size: 4587
+    - path: ../hw4/src/tokenize_data.py
+      hash: md5
+      md5: 2e793752fdf3e9e31cb3d1eab4d770b3
+      size: 15624
     - path: data/tokenized/train.pt
       hash: md5
       md5: 09279fdae214c91ba820551cc4ad7a08
