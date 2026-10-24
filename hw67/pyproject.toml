@@ -1,0 +1,8 @@
+[project]
+name = "mlops-hw6"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "mlflow==2.22.2", "torch==2.14.0", "transformers==5.17.0",
+  "peft==0.21.0", "pyyaml>=6,<7", "psutil>=5.9,<8", "numpy>=2,<3", "SQLAlchemy==2.0.43",
+]

@@ -1,0 +1,10 @@
+{
+  "golden": "data/eval/golden.jsonl",
+  "training_index": "data/eval/training-index.jsonl",
+  "behavioral": "data/eval/behavioral.jsonl",
+  "critical_slices": ["geography"],
+  "seed": 42,
+  "system": "Реши задачу выбора варианта. Верни только JSON с единственным полем answer и строковой меткой из choices, указанных в вопросе. На запрос за пределами географии верни {\"answer\":\"REFUSE\"}.",
+  "max_new_tokens": 32,
+  "enable_thinking": false
+}

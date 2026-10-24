@@ -1,0 +1,2 @@
+{"id":"capital-001","group_id":"france-capital","input":"Выберите столицу Франции: A - Рим, B - Париж. choices: A, B, REFUSE.","expected":"B","choices":["A","B","REFUSE"],"slices":["geography","short","two_options"],"source":"Учебный пример; замените своим вопросом и проверьте ответ"}
+{"id":"capital-002","group_id":"italy-capital","input":"Выберите столицу Италии: A - Рим, B - Мадрид. choices: A, B, REFUSE.","expected":"A","choices":["A","B","REFUSE"],"slices":["geography","short","two_options"],"source":"Учебный пример; это не готовый набор из 50 вопросов"}
