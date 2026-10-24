@@ -1,0 +1,14 @@
+stages:
+  prepare-eval:
+    cmd: uv run python scripts/prepare_eval.py
+    deps:
+      - scripts/prepare_eval.py
+      - evaluation/contract.py
+      - ../hw3/src/textnorm.py
+      - ../hw4/data/train.jsonl
+      - ../hw4/src
+      - ../hw4/params.yaml
+      - data/tokenized/train.pt
+      - params.yaml
+    outs:
+      - data/eval

@@ -43,7 +43,7 @@ def select(client, params, summary):
 
 
 def promote(client, run, name, alias, threshold):
-    ratio = run.data.metrics["final_val_loss"] / run.data.metrics["base_val_loss"]  # TODO: достаточно ли этого?
+    ratio = gate(run, threshold)
     version = mlflow.register_model(f"runs:/{run.info.run_id}/model", name)
     client.set_model_version_tag(name, version.version, "val_ratio", str(ratio))
     client.set_model_version_tag(name, version.version, "gate.max_val_ratio", str(threshold))

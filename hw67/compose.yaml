@@ -28,7 +28,8 @@ services:
       - --backend-store-uri=postgresql://mlflow:classroom-local@db:5432/mlflow
       - --serve-artifacts
       - --artifacts-destination=/mlartifacts
-    # TODO: где хранятся файлы после замены контейнера?
+    volumes:
+      - artifacts:/mlartifacts
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
       interval: 5s

@@ -1,0 +1,44 @@
+schema: '2.0'
+stages:
+  prepare-eval:
+    cmd: uv run python scripts/prepare_eval.py
+    deps:
+    - path: ../hw3/src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+    - path: ../hw4/data/train.jsonl
+      hash: md5
+      md5: 6c84e755b85dde350ba5189e2b3ec71a
+      size: 3225504
+    - path: ../hw4/params.yaml
+      hash: md5
+      md5: 51711a0daea50593b23aaed5c30fb4bd
+      size: 1660
+    - path: ../hw4/src
+      hash: md5
+      md5: f8af6f1ec0c676c8e5b933db6d4d568a.dir
+      size: 89311
+      nfiles: 18
+    - path: data/tokenized/train.pt
+      hash: md5
+      md5: 09279fdae214c91ba820551cc4ad7a08
+      size: 6276257
+    - path: evaluation/contract.py
+      hash: md5
+      md5: 6d83ad5e8bb53684534075d606f8e519
+      size: 3357
+    - path: params.yaml
+      hash: md5
+      md5: 814be8508b52afa2c6f59f126090a082
+      size: 1659
+    - path: scripts/prepare_eval.py
+      hash: md5
+      md5: 1372f94411dbc6e6193b8231b130ee26
+      size: 13417
+    outs:
+    - path: data/eval
+      hash: md5
+      md5: 74b209d1217206707268568e4e46bd23.dir
+      size: 1864323
+      nfiles: 3

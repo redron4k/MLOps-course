@@ -2,9 +2,12 @@
   "golden": "data/eval/golden.jsonl",
   "training_index": "data/eval/training-index.jsonl",
   "behavioral": "data/eval/behavioral.jsonl",
-  "critical_slices": ["geography"],
+  "critical_slices": [
+    "services",
+    "firebase-auth"
+  ],
   "seed": 42,
-  "system": "Реши задачу выбора варианта. Верни только JSON с единственным полем answer и строковой меткой из choices, указанных в вопросе. На запрос за пределами географии верни {\"answer\":\"REFUSE\"}.",
+  "system": "Ты отвечаешь только на вопросы разработки Android, Kotlin и Firebase для Android. Выбери одну метку из вариантов в вопросе. Верни только JSON с единственным строковым полем answer, например {\"answer\":\"A\"}. Без markdown и объяснений. На вопрос вне этой темы всегда верни {\"answer\":\"REFUSE\"}.",
   "max_new_tokens": 32,
   "enable_thinking": false
 }

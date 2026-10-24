@@ -1,7 +1,7 @@
 # Один бюджет и один val для всех шести кандидатов. Это короткий учебный поиск.
 model:
   name: Qwen/Qwen3-0.6B
-  revision: main   # run сохраняет разрешённый commit HF, а не только main
+  revision: c1899de289a04d12100db370d81485cdf75e47ca
   device: auto
   dtype: bfloat16
   enable_thinking: false
@@ -32,12 +32,12 @@ tracking:
   experiment: hw6-lora
 registry:
   name: my-qwen-adapter
-  alias: champion
+  alias: candidate
   # Порог относительный к базе на ТОМ ЖЕ val; меньше loss — лучше.
   max_val_ratio: 1.0
 generation:
   max_new_tokens: 16
-  system: "Выбери один правильный вариант. Ответь номером и текстом ответа."
+  system: "Ты помогаешь с Android и Kotlin. Ответь кратко и технически точно."
   prompts:
-    - "Метод подтверждения пневмонии: 0. общий анализ крови; 1. рентгенография грудной клетки; 2. спирометрия."
-    - "Показатель запасов железа: 0. сывороточное железо; 1. ферритин; 2. гемоглобин."
+    - "Для чего в Kotlin используется suspend-функция?"
+    - "В каком потоке Android следует изменять View?"
