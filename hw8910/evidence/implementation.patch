@@ -1,0 +1,2785 @@
+diff --git a/hw8910/.gitignore b/hw8910/.gitignore
+index c863cae..ecf1a6c 100644
+--- a/hw8910/.gitignore
++++ b/hw8910/.gitignore
+@@ -8,3 +8,7 @@ models/
+ *.bin
+ *.pt
+ .lab*/
++.real*/
++.prefect/
++*.egg-info/
++artifacts/
+diff --git a/hw8910/Makefile b/hw8910/Makefile
+index 9fdb531..0e6e33c 100644
+--- a/hw8910/Makefile
++++ b/hw8910/Makefile
+@@ -1,5 +1,9 @@
+ PYTHON ?= python3
+-.PHONY: check
++.PHONY: check check-fastapi check-prefect
+ check:
+-	$(PYTHON) -m compileall -q release.py tests
+-	$(PYTHON) -m unittest discover -s tests -v
++	$(PYTHON) -m compileall -q release.py lab.py service.py api.py pipeline.py backend.py gate.py real_release.py benchmark.py scripts integration_tests tests
++	$(PYTHON) scripts/check.py
++check-fastapi:
++	HTTP_ENGINE=fastapi $(PYTHON) scripts/check.py
++check-prefect:
++	HTTP_ENGINE=fastapi FLOW_ENGINE=prefect $(PYTHON) scripts/check.py
+diff --git a/hw8910/README.txt b/hw8910/README.txt
+index f813694..5f6d6f1 100644
+--- a/hw8910/README.txt
++++ b/hw8910/README.txt
+@@ -1,38 +1,104 @@
+-ДЗ 8+9+10: расследование и исправление процесса выпуска
+-
+-Полное задание — homework8-9-10.html в корне архива.
+-Начните с INCIDENTS.txt. В исполняемом прототипе семь независимых дефектов.
+-Это заготовка для расследования, а не готовое решение и не три функции TODO.
+-
+-Без весов, без пакетов (Python 3.12):
+-  python3 lab.py init
+-  python3 lab.py run --fail-after-prepare
+-  python3 lab.py run
+-  python3 service.py --port 8091 --warmup-seconds 10
+-Сервис привязан к localhost. Прототип HTTP написан на стандартной библиотеке,
+-чтобы начать опыты без установки окружения. В итоговом проекте требуются Prefect
+-и FastAPI с внедряемым backend. Условия запуска и HTTP-контракты для тестов
+-сохраните совместимыми или предоставьте единый адаптер запуска для двух версий.
+-
+-  python3 -m unittest discover -s tests -v
+-Часть открытых тестов падает из-за заложенных дефектов. Исправление только
+-release.py и зелёные 13 тестов — максимум 2/10. Требуются не менее 6 собственных
+-интеграционных тестов и логи обнаружения дефекта до/после исправления.
+-Не переписывайте общие tests/ вашего ДЗ 6+7: добавьте новый каталог отдельно.
+-
+-Сохраните исходную версию отдельным коммитом. В defects.csv внесите семь причин,
+-связанные исправления и имена тестов. Публичные тесты не покрывают весь проект.
+-Критерии и интерфейсы ядра — CONTRACTS.txt; план отчёта — REPORT.txt.
+-Для каждого независимого опыта используйте новый --workspace; init не перезаписывает
+-существующие каталоги. .lab содержит только маленькие учебные фикстуры.
+-
+-Затем подключите существующие веса, MLflow-runs и полный gate из ДЗ 6+7.
+-Новый sweep не нужен. STUB ONLY не является настоящим ответом модели или eval.
+-Если кандидат отклонён, демонстрируйте настоящий API принятого baseline.
+-Веса, окружения, кэши и секреты в Git/сдачу не включать. Версии зависимостей закрепить.
+-Готовые фикстуры не превращать в passed=true для реального выпуска.
+-
+-ci.example.yml предполагает release.py и tests/ в корне проекта. Включите туда
+-также свой сервис, flow и новые тесты, а зависимости для быстрого прогона отделите
+-от весов и тяжёлого генератора. Локальный эквивалент CI полностью засчитывается.
+-Actions — необязательно; без удалённого run не заявляйте защиту merge.
++ДЗ 8+9+10 — проверяемый выпуск и обслуживание модели
++
++Python 3.12. Исходник сохранён коммитом 1837801. tests/test_release.py не менялся.
++Полное описание решения и измерений: REPORT.md; семь причин: defects.csv.
++
++БЫСТРАЯ ПРОВЕРКА (без torch, весов, MLflow)
++  uv venv --python 3.12 .venv
++  uv pip sync --python .venv/bin/python requirements-fast.lock.txt
++  make check PYTHON=.venv/bin/python
++  make check-fastapi PYTHON=.venv/bin/python
++  make check-prefect PYTHON=.venv/bin/python
++
++13 исходных тестов + собственные интеграционные/регрессионные тесты.
++HTTP настоящий, выпуск выполняется отдельными subprocess; модель — StubBackend.
++Prefect поднимает локальный временный сервер. PREFECT_HOME=.prefect; аналитика
++отключена. Для localhost исключён системный прокси. Внешние сервисы не нужны.
++
++КРАСНОЕ ДОКАЗАТЕЛЬСТВО
++  .venv/bin/python scripts/reproduce_before.py
++Возвращает 1: семь одинаковых сценариев падают по причинам инцидентов на исходном
++коммите во временном каталоге. Код рабочего проекта не меняет. Лог: evidence/before.log.
++Зелёные логи: evidence/after-stdlib.log, after-fastapi.log, after-prefect.log.
++
++СИНТЕТИЧЕСКИЙ ОПЫТ
++  .venv/bin/python lab.py --workspace .lab-demo init
++  .venv/bin/python lab.py --workspace .lab-demo run --engine prefect --fail-after-prepare
++  .venv/bin/python lab.py --workspace .lab-demo run --engine prefect
++  .venv/bin/python lab.py --workspace .lab-demo run --engine prefect --fail-after-pointer
++  .venv/bin/python lab.py --workspace .lab-demo run --engine prefect
++  .venv/bin/python service.py --workspace .lab-demo --engine fastapi --port 8091 --warmup-seconds 10
++Отказы: run --report report-incomplete.json / report-reject.json / report-A.json.
++Откат: run --manifest manifest-A.json --report report-A.json, затем перезапуск API.
++Старый HTTP-процесс продолжает отвечать загруженной версией до перезапуска.
++Для нового независимого опыта нужен новый workspace: init каталог не затирает.
++
++Стандартные CLI-адаптеры lab.py и service.py по умолчанию обходятся стандартной
++библиотекой и сохраняют исходные условия запуска. Итоговая архитектура выбирается
++--engine prefect и --engine fastapi. У обоих адаптеров единые release/ServiceState,
++проверки запросов, backend и HTTP-контракты. create_app принимает backend_factory.
++GET /debug доступен в FastAPI только для stub. Реальный backend по умолчанию не
++выбирается автоматически, чтобы быстрые тесты никогда не загружали веса.
++
++НАСТОЯЩАЯ МОДЕЛЬ, БЕЗ ПОВТОРНОГО SWEEP
++  uv pip sync --python .venv/bin/python requirements.lock.txt
++  cd ../hw67
++  docker compose -p mlops-hw6 up -d --wait
++  cd ../hw8910
++  .venv/bin/python real_release.py --workspace .real
++  .venv/bin/python lab.py --workspace .real run --engine prefect --manifest manifest-candidate.json --report report-candidate.json
++  .venv/bin/python scripts/check_gate.py --workspace .real
++  .venv/bin/python service.py --workspace .real --engine fastapi --backend transformers --warmup-seconds 0
++  .venv/bin/python scripts/smoke.py --workspace .real
++
++Для отклонённого кандидата run/check_gate возвращают ненулевой код — это ожидаемый
++отказ, а не ошибка реализации. real_release сохраняет полную оценку и решение,
++даже если кандидат отклонён. Он не меняет MLflow aliases и не запускает обучение.
++Новый eval нужен потому, что старые отчёты HW67 не фиксировали весь runtime.
++Нельзя вписать новые хеши в старый eval. Новый eval использует ровно тот backend,
++который обслуживает API; raw, полные отчёты и компактный release-report сохраняются.
++Качество проверяет существующий evaluation.solution.quality_gate из HW67: общие
++accuracy/format rate, критические срезы, behavioral-кейсы. Пороги не ослаблены.
++
++При первом запуске явно сохраняется исходная baseline как текущая точка отсчёта.
++Её report-baseline.json НЕ объявляется PASS: это удержание существующей базы,
++а не новая публикация по candidate gate. Если кандидат отклонён, API загружает
++эту базу. Ограничения исходной базы и behavioral тоже видны в полных отчётах.
++Повторная оценка не заменяет уже существующий accepted.json отказом кандидата.
++
++ЗАПРОСЫ (после /ready=200)
++  curl --noproxy '*' http://127.0.0.1:8091/health
++  curl --noproxy '*' http://127.0.0.1:8091/ready
++  curl --noproxy '*' -H 'Content-Type: application/json' -d '{"prompt":"Какой компонент Android отображает интерфейс? A: Activity. B: Service.","max_new_tokens":32}' http://127.0.0.1:8091/generate
++Реальному API разрешён только оценённый лимит 32; stub допускает целые 1..32.
++Вход: непустая строка до 4096 символов, у настоящей модели до 512 токенов вместе
++с system/template. Backend последовательный, параллельные запросы ждут lock.
++JSON содержит answer, model_id, runtime_sha256, request_id, output_tokens,
++generation_seconds, queue_seconds, total_seconds. 503 до загрузки и прогрева.
++
++ЗАМЕР
++  .venv/bin/python benchmark.py --url http://127.0.0.1:8091 --output evidence/real-api/benchmark
++8 одинаковых по составу запросов при concurrency=1 и ещё 8 при concurrency=2.
++Сохраняются все строки, ошибки, таймауты и сводная таблица. Полный JSON-ответ:
++измеряется полная задержка; TTFT/ITL/p95 не объявляются.
++
++ТРИ ТРИГГЕРА
++Код: make check-prefect PYTHON=.venv/bin/python. Изменён backend/runtime — real_release заново.
++Данные: scripts/prepare_data.py --workspace .real; ключ кеша меняется по содержимому/config.
++Новый адаптер: real_release.py (полная оценка), затем lab.py run --engine prefect с candidate manifest/report.
++Обучение нужно только при изменении train-данных/цели эксперимента; смена golden
++сама по себе требует переоценки, а не обучения. Документация не требует обучения.
++Локальный CI засчитывается; ci.example.yml — шаблон, удалённый Actions не заявлен.
++
++АРТЕФАКТЫ И ДОСТУП
++Веса скачиваются из исходного MLflow training run в .real/model, база — из локального
++HF cache по точной revision. При переносе машины сначала восстановить исходные
++тома mlops-hw6_postgres/mlops-hw6_artifacts и HF snapshot либо получить доступ к их
++копиям; это внешние артефакты, не часть Git. real_release пересоздаёт локальные URI.
++В Git только код, маленькие исходные отчёты/raw, хеши и проверяемые журналы.
++.venv, .prefect, .lab*, .real*, веса и кеши исключены. Секретов в настройках нет.
++
++Технические основания:
++https://docs.prefect.io/v3/concepts/caching
++https://reference.prefect.io/prefect/tasks/
++https://fastapi.tiangolo.com/advanced/events/
+diff --git a/hw8910/REPORT.md b/hw8910/REPORT.md
+new file mode 100644
+index 0000000..56551aa
+--- /dev/null
++++ b/hw8910/REPORT.md
+@@ -0,0 +1,253 @@
++# ДЗ 8+9+10: расследование, выпуск и обслуживание модели
++
++Реализованы Prefect-flow, FastAPI с внедряемым backend, полный допуск из ДЗ 6+7,
++восстановление кеша и публикации, реальный API и небольшой замер. Кандидат честно
++отклонён; обслуживается исходная baseline. Работа выполнена 1 ноября 2026 года.
++
++## 1. Репозиторий, окружение и семь дефектов
++
++Репозиторий — родительский `practice`; работа изолирована в `hw8910`.
++Исходный коммит: `1837801c43b9e15a7bc83d9de660b6e71aad5b10`.
++Исправленный коммит имеет subject `HW8910: implement verified release pipeline and serving`;
++найти SHA: `git log -1 --format=%H --grep='HW8910: implement verified'`.
++Самоссылка `HEAD` в defects.csv относится к этому исправленному коммиту.
++Изменений исходных `hw67/tests` и `hw8910/tests/test_release.py` нет.
++
++MacBook Pro, Apple M4 Pro, 24 GB unified memory; фактическая ОС в этом прогоне —
++macOS 27.0.1 arm64. Python 3.12.14, MPS, bfloat16. Версии: Prefect 3.9.0,
++FastAPI 0.142.2, uvicorn 0.54.0, torch 2.14.0, transformers 5.17.0, peft 0.21.0,
++MLflow 2.22.2. Полные зависимости и их хеши закреплены в
++`requirements-fast.lock.txt`, `requirements.lock.txt`, `evidence/environment.json`.
++Быстрый набор устанавливается отдельно от генератора и весов.
++
++Семь причин, воспроизведение, исправление и тесты: [defects.csv](defects.csv).
++Одни и те же семь сценариев выполняются против исходника, исправленного stdlib
++адаптера и FastAPI/Prefect. В них три настоящих HTTP-сценария и несколько запусков
++выпуска через subprocess, с новым workspace на каждый независимый опыт.
++
++| Доказательство | Команда | Exit | Журнал |
++|---|---|---:|---|
++| Исходные дефекты | `.venv/bin/python scripts/reproduce_before.py` | 1 | `evidence/before.log` |
++| 33 быстрых теста, stdlib | `make check PYTHON=.venv/bin/python` | 0 | `evidence/after-stdlib.log` |
++| Те же тесты, FastAPI | `make check-fastapi PYTHON=.venv/bin/python` | 0 | `evidence/after-fastapi.log` |
++| Те же тесты, Prefect + FastAPI | `make check-prefect PYTHON=.venv/bin/python` | 0 | `evidence/after-prefect.log` |
++| Намеренная поломка truthiness в временной копии | `.venv/bin/python scripts/check_negative.py` | 1 | `evidence/intentional-negative.log` |
++
++В последнем случае один исходный тест ловит строковый PASS. Рабочий код вообще
++не модифицируется. Красные логи содержат нарушения проверяемых свойств, а не
++ошибки импорта/сокетов. В итоговом наборе 13 исходных + 20 собственных тестов.
++
++## 2. Переиспользование ДЗ 6+7
++
++Обучение не повторялось. Training run: `a2932512ec3d43c3b4f04162fce101cc`,
++адаптер `models:/my-qwen-adapter/1` (`all-r8-high`, четыре шага).
++Предыдущая evaluation: `0811780f995143588720eb2b49f48b7c`.
++Baseline: `Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca`.
++Переиспользованы golden 50, behavioral 3, полный training-index, прежние критические
++срезы services/firebase-auth и `evaluation.solution.quality_gate`.
++
++Старый eval не связывал весь runtime с API. Поэтому сделан новый полный eval
++**сохранённых** весов через `TransformersBackend`, который использует API:
++[evaluation run a58cc4e32edb44c98fbc0233779fa934](http://127.0.0.1:5006/#/experiments/3/runs/a58cc4e32edb44c98fbc0233779fa934).
++Общие accuracy и format rate воспроизведены: 0.76/0.84 у базы и 0.74/0.82 у
++кандидата. Behavioral: база 1/3, кандидат 3/3. Решение: FAIL,
++`Регрессия общей accuracy`. Критические services: 0.80 → 0.70,
++firebase-auth: 0.90 → 0.80. Пороги не менялись; val_loss не подменяет gate.
++
++`evidence/real-release/evaluation/` содержит весь новый протокол, полные оценки и
++сырые ответы. URI и SHA-256 каждого источника записаны в report-candidate.json.
++Отклонённый отчёт также сохранён. Отдельные методы не превращают фикстуры в
++положительную оценку: синтетический report запрещён для manifest kind=base/adapter.
++
++Исходные Docker-тома принадлежат проекту **mlops-hw6**, а не hw67. После запуска
++Docker этот проект восстановлен с прежними томами; обучение и старые aliases не
++изменялись. Команда: `docker compose -p mlops-hw6 up -d --wait` из hw67.
++
++## 3. Граф, результаты и кеш
++
++```text
++prepare_task → artifact_task → gate_task ── FAIL → отказ, прежний accepted
++                                  └─ PASS → publication_task → accepted + journal
++```
++
++Подготовка проверяет вход (для .real — JSONL-схему и уникальные id), считает хеш,
++число строк и сохраняет маленький результат. На входе файл и config; на выходе
++описание с SHA-256 и параметрами. Получение артефакта читает уже обученную модель и
++проверяет её файлы. Gate читает связанный полный отчёт. Публикация не кешируется.
++Ни веса, ни тензоры не пересылаются результатами задач.
++
++`cache_key` = SHA-256 канонического JSON `{data_sha256, config}`. Одинаковые
++байты в разных путях дают одинаковый ключ. Учитывается весь config, в частности
++revision токенизатора, template_sha256, max_length, code_revision. У Prefect к
++ключу добавлен хеш namespace рабочего каталога, чтобы не вернуть описание из
++другого независимого стенда. Результаты Prefect persist_result=True сохраняются
++в `.prefect/storage`; stdlib-совместимый кеш — в `<workspace>/cache`.
++
++Попытка получает отдельный UUID в attempts.jsonl. Её id не входит в ключ результата.
++Изменение только пути не означает изменение данных; новый attempt не требует
++новой подготовки. Изменение содержимого или параметров подготовки требует.
++
++## 4. Выполнение, сбой и восстановление
++
++Команды из интеграционных логов: `lab.py --workspace <new> run --engine prefect`,
++с теми же аргументами и `--fail-after-prepare`; затем повтор в новом процессе.
++
++| Опыт | Exit | Prefect flow-run ID | Подготовка |
++|---|---:|---|---|
++| Сбой после подготовки | 1 | `b60edfd6-6a73-4818-bdf6-3e1140006974` | Completed, затем flow Failed |
++| Повтор | 0 | `4939c709-a2c1-4d8e-932e-1f8efb34ec12` | Cached(type=COMPLETED) |
++| Новые байты по прежнему пути | 0 | `32436dd1-bf8f-4790-a208-f51dfc86447f` | PREPARED, Completed |
++| Сбой после pointer до journal | 1 | `03a6e44b-ceca-4fff-b414-948c4aa9505f` | Выпуск требует восстановления |
++| Новый процесс восстанавливает журнал | 0 | `9bd0e958-0f5f-4d43-8cb2-2dc231f11576` | RECOVERED_PUBLICATION |
++| Полный повтор | 0 | `c664aa54-ef94-4d11-81e0-2756367dc76a` | Одно событие выпуска |
++
++Параметры и состояния runs выгружены из Prefect SQLite в
++`evidence/prefect-runs.json`; stdout/stderr каждого subprocess — в after-prefect.log.
++Отдельные изменения template/max_length/tokenizer/code_revision тоже вызывают
++PREPARED. Реальный кандидат проходит этот же flow и останавливается на gate:
++`evidence/real-flow-rejection.log`, exit 1.
++
++## 5. Проверка допуска и публикация
++
++`validate_release` проверяет schema_version именно int 1, непустые идентификаторы,
++четыре lowercase SHA-256, канонический runtime, статус complete, passed именно True,
++конечные числовые accuracy/format_rate в [0,1] без bool/строк и полное совпадение
++идентичности manifest/report. До публикации и загрузки хешируются реальные файлы.
++Модельный хеш — хеш закреплённого словаря относительный путь → хеш байтов файла;
++у адаптера включены adapter_config и веса, у базы закреплена commit revision.
++
++Полная обвязка дополнительно проверяет исходные файлы по SHA-256, пересчитывает
++score из raw, behavioral и полный quality_gate ДЗ 6+7. Runtime закрепляет system,
++do_sample, seed, max_new_tokens=32, enable_thinking=False, dtype, device, точные
++пакеты, tokenizer/template и код backend. Изменение кода генерации требует нового
++eval. Смена только обслуживания маршрутов не меняет саму генерацию.
++
++Проверены неполный/чужой отчёт, отказ, NaN/Inf, неверные типы, устаревший runtime,
++подмена raw и метрик, ошибка fsync и replace. Старый accepted при отказах сохранён.
++SHA-256 реального указателя **до и после** отказа:
++
++`8a83707b9c09dcdeaf9427df57ee084676a73c275aaca0399474a5dc56ecdaed`
++
++Подтверждение: `evidence/real-release/release-decision.json` и verify-delivery.log.
++Фикстуры examples/.lab имеют STUB ONLY и synthetic=True, не являются eval модели.
++
++Публикация одного писателя: durable intent → временный файл рядом с target →
++flush/fsync → os.replace → атомарно перезаписанный журнал с дедупликацией.
++При падении после pointer намерение остаётся; повтор завершает журнал. При падении
++после журнала повтор также не добавляет событие. Идентификатор выпуска хеширует
++весь manifest и связанный report, учитывая runtime и evaluation_run_id. Это не
++только model_id. Попытки допускаются многократно, события одного release — один раз.
++Гарантия — для сбоев процесса; конкуренция писателей и внезапное отключение питания
++с fsync каталогов в этот учебный контракт не входят. Принятый JSON не MLflow alias.
++
++## 6. Автоматизация и три триггера
++
++| Изменение | Конкретная команда | Следующее действие |
++|---|---|---|
++| Новый код | `make check-prefect PYTHON=.venv/bin/python` | Для backend/runtime — новый real_release.py; документация не требует обучения |
++| Новые данные | `.venv/bin/python scripts/prepare_data.py --workspace .real` | Схема и новый ключ; golden требует переоценки, train может потребовать обучения |
++| Новый адаптер | `.venv/bin/python real_release.py --workspace .real` | Полный eval, затем lab.py run --engine prefect с candidate manifest/report; только PASS меняет pointer |
++
++Это **локальный CI**. ci.example.yml учитывает вложенный hw8910 и включает flow,
++сервис и все новые тесты. Удалённый run и защита merge не заявляются.
++
++## 7. FastAPI и настоящий ответ
++
++`create_app` принимает backend_factory. Shared ServiceState используется обоими
++адаптерами; модель загружается один раз, manifest фиксируется при запуске.
++В lifespan начинается загрузка, проверяются файлы, выполняется прогрев; ready=True
++устанавливается только после успеха. До этого health=200, ready/generate=503.
++Ошибка загрузки оставляет ready=False. Для real manifest случайный StubBackend
++запрещён. `/debug` у FastAPI включён только для синтетического стенда.
++
++Валидация JSON/prompt/лимита выполняется до backend. Тело до 64 KiB, prompt до
++4096 символов; реальный backend проверяет до 512 входных токенов вместе с шаблоном
++и system. Stub поддерживает 1..32, настоящий API — только оценённый лимит 32.
++Нецелые, bool, строковые/нулевые/чрезмерные лимиты отклоняются 4xx. Вычисление
++сериализовано lock. Отдельного ограничения длины очереди нет.
++
++Реальный smoke: вопрос «Кто связывает данные с ViewHolder? A: Service; B: Dialog;
++C: Adapter». Получен `{"answer":"C"}` (правильная метка C),
++6 выходных токенов.
++request_id: `c39f0a5d-1d67-42d6-b7c7-e7b87a01d02a`.
++model_id: `Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca`.
++runtime_sha256: `a6120cd0e7027050258a3a617ba726fbd11f5b8fc370e81c383cade7a2aed702`.
++
++Длительности и второй ответ после перезапуска: `evidence/real-api/smoke.json`.
++Неправильный лимит получил 422. Сырые логи серверов сохранены. Общие HTTP-тесты
++сверяют число вызовов до/после каждого из четырёх неверных запросов.
++
++Кандидат отклонён, поэтому удерживается исходная baseline. Её собственный
++report-baseline.json НЕ помечен PASS: baseline тоже ошибается (включая 1/3
++behavioral), это прежняя точка отсчёта, а не новый кандидат, прошедший допуск.
++Bootstrap существующей базы отделён от publish_release. Пороги ради API не менялись.
++
++## 8. Нагрузка и объяснение
++
++После реального прогрева: первые 8 golden-вопросов, один и тот же порядок/состав
++для concurrency=1 и 2, MPS, лимит 32, одинаковый runtime. Восемь запросов в каждом
++режиме, не 8 суммарно. Все 16 строк, включая фактические output_tokens, model_id,
++request_id, статусы и длительности: `evidence/real-api/benchmark/requests.jsonl`.
++Инструмент сохраняет ошибки и таймауты, они не исчезают из n.
++
++| concurrency | n | успех / ошибка | пакет, с | success req/s | mean latency, с | max latency, с | mean compute, с | mean queue, с |
++|---:|---:|---:|---:|---:|---:|---:|---:|---:|
++| 1 | 8 | 8 / 0 | 1.0512 | 7.610 | 0.1310 | 0.1472 | 0.1264 | 0.0000 |
++| 2 | 8 | 8 / 0 | 1.0116 | 7.908 | 0.2375 | 0.2634 | 0.1257 | 0.1069 |
++
++Ошибок в этом прогоне нет; их mean/max в summary.json — null, а не 0.
++Рост задержки при двух клиентах объясняется очередью: compute почти неизменно,
++второй запрос ждёт lock. Это последовательный Transformers backend без batching.
++Разница throughput на столь маленьком n не доказывает ускорения.
++
++Prefill обрабатывает входные токены и строит KV-cache; decode последовательно
++вычисляет выходные токены, переиспользуя кеш ключей/значений attention. Его память
++растёт с длиной последовательности, числом слоёв, размерностью и типом данных.
++Длины входов/выходов влияют на длительность. Единственный JSON даёт только полную
++задержку: TTFT, ITL и устойчивый p95 не измерены. Скорость SGLang/vLLM, их управление
++KV-cache и планирование batch этим сервисом не измеряются.
++
++## 9. Версия, перезапуск и откат
++
++`test_http_loaded_version_and_rollback`: старт на A → публикация B отдельным
++процессом → ответ и metadata всё ещё A → перезапуск → B → восстановление ранее
++принятого A + перезапуск → ответ и metadata A. Две STUB-версии — инженерный опыт,
++не новая оценка качества. Собственный тест сбоя между pointer и journal запускает
++три настоящих процесса: failed, complete, complete; journal содержит одно событие,
++attempt_id три разных. Журналы сохраняют все шаги.
++
++Отдельный real smoke дважды загрузил один принятый baseline manifest и подтвердил
++модель и runtime ответом. Второй реально допущенной версии нет. План реального
++отката: взять архивированный ранее принятый manifest с прежним полным допуском,
++повторно проверить его файлы/отчёты, опубликовать и управляемо перезапустить API.
++Само изменение accepted.json не означает перезагрузку памяти.
++
++## 10. Доступ, ограничения и проверяемость
++
++[README.txt](README.txt) содержит полные команды. Веса и окружения исключены из Git.
++MLflow артефакт доступен через исходный run; точный base snapshot должен быть в HF
++cache (или заранее восстановлен из копии). Для другой машины нужны исходные Docker
++тома mlops-hw6 и snapshot. real_release восстанавливает URI под текущую машину.
++Маленькие полные отчёты, raw и протокол включены в evidence; проверить без весов
++и MLflow: `.venv/bin/python scripts/verify_delivery.py` (exit 0).
++Проверка честного отказа: `scripts/check_gate.py --workspace .real` (exit 1).
++
++Ограничения: учебная выборка 50+3, один runtime и одно устройство, единичный замер
++8+8, без устойчивого p95, без streaming/TTFT/ITL, без сравнения движков и замера
++долгой нагрузки. Отдельно не измерялись загрузка/пиковая память сервиса; в benchmark
++загрузка и warmup исключены. Очередь без явного bound. Исходная база даёт ошибочные
++in-domain отказы; один успешный smoke не устраняет эти известные ошибки. Разметка
++golden унаследована из HW67 с пометкой об обязательном человеческом просмотре;
++человеческая проверка не имитируется. В некоторых логах завершения torch есть
++resource_tracker warning о semaphore; HTTP-запросы и управляемые рестарты успешны,
++длительное исследование этого предупреждения не проводилось.
++
++## 11. Видео
++
++[Единое видео, 7 минут 13 секунд](artifacts/demo.mp4), русская синтетическая озвучка.
++Это обзор **сохранённых фактических журналов**, не выдаваемый за живую запись экрана.
++Показывает семь причин, красный/зелёный прогон, Prefect, отказ, реальный ответ,
++перезапуск и таблицу нагрузки. Текст: `evidence/video-script.txt`; воспроизводимая
++сборка: `scripts/make_video.py` (macOS say/Milena + ffmpeg + Pillow).
++MP4 находится локально и исключён из Git как отдельный артефакт сдачи; при отправке
++репозитория приложить этот файл отдельно или загрузить и вставить ссылку.
+diff --git a/hw8910/REPORT.txt b/hw8910/REPORT.txt
+index 60aa468..d8af1c5 100644
+--- a/hw8910/REPORT.txt
++++ b/hw8910/REPORT.txt
+@@ -1,23 +1,3 @@
+-Отчёт ДЗ 8+9+10 (заполнить своими измерениями)
+-1. Репозиторий, исходный/исправленный commits, устройство, зависимости, команды.
+-   defects.csv: семь независимых причин, воспроизведение, исправление, имя теста.
+-   Минимум шесть новых интеграционных тестов: логи до/после, три HTTP и два subprocess.
+-2. Что переиспользовано из 6+7: training run, evaluation run, baseline, candidate.
+-3. Граф задач. Входы/выходы. Состав ключа кеша. Где возможен повтор, где запрещён.
+-4. Успешный проход; сбой после подготовки; восстановление; изменение входа.
+-   Для каждого: команда, exit code, run ID/журнал, что исполнено/взято из кеша.
+-5. Gate: полный отчёт, связи версий и хешей, решение. Отрицательные проверки:
+-   неполный отчёт; несовпадающая версия; отказ; NaN; ошибка записи.
+-   accepted.json до/после (SHA-256). Отдельно: почему PASS из фикстуры не оценка модели.
+-6. Быстрые тесты: успешный лог и намеренное падение с ненулевым exit code.
+-   CI локальный или GitHub? Таблица «новый код / данные / адаптер → какие действия».
+-7. API: health/ready, прогрев, успешный реальный ответ, model_id, runtime_sha256,
+-   request_id, выходные токены, длительности; неправильный запрос до генерации.
+-8. Нагрузка: одинаковые запросы, лимиты и прогрев; 8 запросов при concurrency=1
+-   и ещё 8 при concurrency=2. Сырые строки, ошибки, время пакета, req/s,
+-   средняя и максимальная задержка, объяснение очереди. На медленном CPU — 4+4.
+-9. STUB-опыт A → B → A с загрузкой/перезапуском. Фактический model_id.
+-   Повтор выпуска после сбоя между указателем и журналом: нет двойной публикации.
+-   Реальный smoke своей модели выполняется отдельно от STUB-опытов.
+-10. Ограничения: маленькая выборка, последовательный backend, что не измерялось.
+-11. Ссылка на одно видео 5–8 минут.
++Заполненный отчёт: REPORT.md. Команды: README.txt.
++Дефекты: defects.csv. Проверяемые журналы и отчёты: evidence/.
++Видео: artifacts/demo.mp4 (локальный артефакт, 7:13; приложить отдельно к Git).
+diff --git a/hw8910/api.py b/hw8910/api.py
+new file mode 100644
+index 0000000..bcf4672
+--- /dev/null
++++ b/hw8910/api.py
+@@ -0,0 +1,49 @@
++"""FastAPI lifecycle owns a single backend; imports never load model weights."""
++from contextlib import asynccontextmanager
++from fastapi import FastAPI, HTTPException, Request
++from fastapi.responses import JSONResponse
++from service import NotReady, ServiceState, StubBackend
++
++
++def create_app(root, warmup_seconds=0, backend_factory=StubBackend, debug=False):
++    @asynccontextmanager
++    async def lifespan(app):
++        app.state.serving = ServiceState(root, warmup_seconds, backend_factory)
++        yield
++        app.state.serving.loader.join(timeout=1)
++
++    app = FastAPI(lifespan=lifespan)
++
++    @app.get('/health')
++    def health():
++        return {'alive': True}
++
++    @app.get('/ready')
++    def ready():
++        state = app.state.serving
++        return JSONResponse(status_code=200 if state.ready else 503, content={'ready': state.ready})
++
++    @app.post('/generate')
++    async def generate(request: Request):
++        # Reject oversized bodies while reading rather than buffering unbounded input.
++        chunks, size = [], 0
++        async for chunk in request.stream():
++            size += len(chunk)
++            if size > 65536:
++                raise HTTPException(413, 'body too large')
++            chunks.append(chunk)
++        import json
++        from starlette.concurrency import run_in_threadpool
++        try:
++            payload = json.loads(b''.join(chunks))
++            return await run_in_threadpool(app.state.serving.generate, payload)
++        except NotReady as exc:
++            raise HTTPException(503, str(exc)) from exc
++        except (ValueError, TypeError) as exc:
++            raise HTTPException(422, str(exc)) from exc
++
++    if debug:
++        @app.get('/debug')
++        def inspect():
++            return app.state.serving.debug()
++    return app
+diff --git a/hw8910/backend.py b/hw8910/backend.py
+new file mode 100644
+index 0000000..54ca51d
+--- /dev/null
++++ b/hw8910/backend.py
+@@ -0,0 +1,88 @@
++"""One Transformers implementation shared by full evaluation and real serving."""
++from pathlib import Path
++from release import canonical, digest, verify_artifact
++
++TOKENIZER_FILES = ('tokenizer.json', 'tokenizer_config.json', 'special_tokens_map.json',
++                   'vocab.json', 'merges.txt', 'added_tokens.json')
++
++
++def hashes(root, names):
++    return {name: digest((Path(root)/name).read_bytes()) for name in names if (Path(root)/name).is_file()}
++
++
++def tokenizer_fingerprint(root):
++    return digest(canonical(hashes(root, TOKENIZER_FILES)))
++
++
++def template_fingerprint(root):
++    root = Path(root)
++    if (root/'chat_template.jinja').is_file():
++        return digest((root/'chat_template.jinja').read_bytes())
++    import json
++    return digest(canonical(json.loads((root/'tokenizer_config.json').read_text())['chat_template']))
++
++
++class TransformersBackend:
++    def __init__(self, manifest, root):
++        import importlib.metadata
++        import torch
++        from transformers import AutoModelForCausalLM, AutoTokenizer
++        self.manifest = manifest
++        self.runtime = manifest['runtime']
++        runtime = self.runtime
++        if digest(Path(__file__).read_bytes()) != runtime['backend_sha256']:
++            raise ValueError('Backend code changed; new evaluation required')
++        for package, version in runtime['packages'].items():
++            if importlib.metadata.version(package) != version:
++                raise ValueError('Runtime package changed: ' + package)
++        artifact = verify_artifact(manifest, root)
++        base = Path(manifest['base_artifact_uri'])
++        # Base weights are pinned independently even for LoRA releases.
++        actual = hashes(base, manifest['base_file_hashes'])
++        if actual != manifest['base_file_hashes']:
++            raise ValueError('Base artifact changed')
++        tokenizer_root = artifact if manifest['kind'] == 'adapter' else base
++        if tokenizer_fingerprint(tokenizer_root) != runtime['tokenizer_sha256']:
++            raise ValueError('Tokenizer changed')
++        if template_fingerprint(tokenizer_root) != runtime['template_sha256']:
++            raise ValueError('Chat template changed')
++        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_root, local_files_only=True)
++        self.model = AutoModelForCausalLM.from_pretrained(base, local_files_only=True,
++                                                        dtype=getattr(torch, runtime['dtype']))
++        if manifest['kind'] == 'adapter':
++            from peft import PeftModel
++            self.model = PeftModel.from_pretrained(self.model, artifact, local_files_only=True)
++        self.device = runtime['device']
++        self.model = self.model.to(self.device).eval()
++        self.loaded_id = manifest['model_id']
++        self.runtime_sha256 = manifest['runtime_sha256']
++        self.calls = 0
++
++    def warmup(self):
++        # Real compute finishes before readiness. Keep measured request count separate.
++        self.generate('Что такое Android? A: ОС. B: браузер. Варианты: A, B.',
++                      self.runtime['generation']['max_new_tokens'])
++        self.calls = 0
++
++    def generate(self, prompt, limit):
++        import torch
++        g = self.runtime['generation']
++        if limit != g['max_new_tokens']:
++            raise ValueError('Generation differs from evaluation')
++        text = self.tokenizer.apply_chat_template(
++            [{'role': 'system', 'content': g['system']}, {'role': 'user', 'content': prompt}],
++            tokenize=False, add_generation_prompt=True, enable_thinking=g['enable_thinking'])
++        batch = self.tokenizer(text, return_tensors='pt').to(self.device)
++        length = batch['input_ids'].shape[1]
++        if length > self.runtime['max_input_tokens']:
++            raise ValueError('Input exceeds evaluated input token limit')
++        self.calls += 1
++        if g['do_sample']:
++            torch.manual_seed(g['seed'])
++        with torch.inference_mode():
++            out = self.model.generate(**batch, max_new_tokens=limit, do_sample=g['do_sample'],
++                pad_token_id=self.tokenizer.pad_token_id or self.tokenizer.eos_token_id)
++        tokens = out[0, length:]
++        return {'answer': self.tokenizer.decode(tokens, skip_special_tokens=True),
++                'output_tokens': int(tokens.numel())}
++
+diff --git a/hw8910/benchmark.py b/hw8910/benchmark.py
+new file mode 100644
+index 0000000..809d3dc
+--- /dev/null
++++ b/hw8910/benchmark.py
+@@ -0,0 +1,78 @@
++"""Complete-response latency benchmark; retain every failure and timeout."""
++import argparse
++from concurrent.futures import ThreadPoolExecutor
++import json
++from pathlib import Path
++import statistics
++import time
++import urllib.error
++import urllib.request
++import uuid
++
++
++def request(url, path, payload=None, timeout=120):
++    data = None if payload is None else json.dumps(payload).encode()
++    req = urllib.request.Request(url+path, data=data, headers={'Content-Type':'application/json'})
++    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
++    try:
++        with opener.open(req, timeout=timeout) as response:
++            return response.status, json.load(response)
++    except urllib.error.HTTPError as exc:
++        return exc.code, json.load(exc)
++
++
++def measure(url, prompts, output, synthetic=False):
++    output = Path(output)
++    output.mkdir(parents=True,exist_ok=True)
++    summaries = []
++    with (output/'requests.jsonl').open('w') as stream:
++        for concurrency in (1,2):
++            def one(item):
++                index,prompt = item
++                started = time.perf_counter()
++                record = dict(client_request_id=str(uuid.uuid4()), concurrency=concurrency,
++                              index=index, prompt=prompt, max_new_tokens=32, synthetic=synthetic)
++                try:
++                    status,body = request(url,'/generate',dict(prompt=prompt,max_new_tokens=32))
++                    record.update(status=status, response=body, error=None if status==200 else str(body))
++                except Exception as exc:
++                    record.update(status=None,error=f'{type(exc).__name__}: {exc}')
++                record['client_seconds'] = time.perf_counter()-started
++                return record
++            started = time.perf_counter()
++            with ThreadPoolExecutor(max_workers=concurrency) as pool:
++                records=list(pool.map(one,enumerate(prompts)))
++            elapsed = time.perf_counter()-started
++            for record in records:
++                stream.write(json.dumps(record,ensure_ascii=False,allow_nan=False)+'\n')
++                stream.flush()
++            successes=[r for r in records if r['status']==200]
++            failures=[r for r in records if r['status']!=200]
++            def mean(rows):
++                return statistics.mean(r['client_seconds'] for r in rows) if rows else None
++            def maximum(rows):
++                return max(r['client_seconds'] for r in rows) if rows else None
++            summaries.append(dict(concurrency=concurrency,n=len(records),successes=len(successes),
++                errors=len(failures),batch_seconds=elapsed,successful_requests_per_second=len(successes)/elapsed,
++                success_mean_seconds=mean(successes),success_max_seconds=maximum(successes),
++                error_mean_seconds=mean(failures),error_max_seconds=maximum(failures),
++                generation_mean_seconds=statistics.mean(r['response']['generation_seconds'] for r in successes) if successes else None,
++                queue_mean_seconds=statistics.mean(r['response']['queue_seconds'] for r in successes) if successes else None))
++    (output/'summary.json').write_text(json.dumps(summaries,ensure_ascii=False,indent=2)+'\n')
++    print(json.dumps(summaries,ensure_ascii=False,indent=2))
++    return summaries
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser()
++    parser.add_argument('--url',default='http://127.0.0.1:8091')
++    parser.add_argument('--prompts',type=Path,default=Path('../hw67/data/eval/golden.jsonl'))
++    parser.add_argument('--output',type=Path,default=Path('evidence/benchmark'))
++    parser.add_argument('--n',type=int,default=8)
++    parser.add_argument('--synthetic',action='store_true')
++    args=parser.parse_args()
++    prompts=[json.loads(line)['input'] for line in args.prompts.read_text().splitlines()][:args.n]
++    if request(args.url,'/ready')[0]!=200:
++        raise SystemExit('Service is not ready')
++    summaries=measure(args.url,prompts,args.output,args.synthetic)
++    raise SystemExit(any(s['errors'] for s in summaries))
+diff --git a/hw8910/ci.example.yml b/hw8910/ci.example.yml
+index 5b0c857..0d9ea97 100644
+--- a/hw8910/ci.example.yml
++++ b/hw8910/ci.example.yml
+@@ -5,12 +5,17 @@ permissions:
+ jobs:
+   contracts:
+     runs-on: ubuntu-latest
++    defaults:
++      run:
++        working-directory: hw8910
++    env:
++      PREFECT_SERVER_ANALYTICS_ENABLED: 'false'
++      NO_PROXY: localhost,127.0.0.1
+     steps:
+       - uses: actions/checkout@v6
+       - uses: actions/setup-python@v5
+         with:
+           python-version: '3.12'
+-      # Шаблон предполагает release.py и tests/ в корне репозитория.
+-      # При вложенном проекте задайте working-directory для run.
+-      - run: python -m compileall -q release.py tests
+-      - run: python -m unittest discover -s tests -v
++      - run: python -m pip install -r requirements-fast.lock.txt
++      - run: make check PYTHON=python
++      - run: make check-prefect PYTHON=python
+diff --git a/hw8910/defects.csv b/hw8910/defects.csv
+index 674857c..a7742ec 100644
+--- a/hw8910/defects.csv
++++ b/hw8910/defects.csv
+@@ -1,8 +1,8 @@
+ id,symptom,reproduce,expected,observed,root_cause,fix_commit,regression_test,before_log,after_log
+-1,,,,,,,,,
+-2,,,,,,,,,
+-3,,,,,,,,,
+-4,,,,,,,,,
+-5,,,,,,,,,
+-6,,,,,,,,,
+-7,,,,,,,,,
++1,Stale preparation cache,.venv/bin/python scripts/reproduce_before.py (test_subprocess_recovery_and_content_cache),Content or preparation config change must execute PREPARED,CACHE_HIT after data/config change,Cache key hashes path instead of bytes and all config; SHA256 canonical data_sha256 + config; atomic disk cache; Prefect persisted results,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_subprocess_recovery_and_content_cache,evidence/before.log,evidence/after-prefect.log
++2,Incomplete or foreign report accepted,.venv/bin/python scripts/reproduce_before.py (test_subprocess_incomplete_foreign_reject_preserve_pointer),Nonzero exit; pointer SHA256 unchanged,String false/running or report A publishes B,Truthiness check replaces full metadata and quality validation; Strict schema/types/hashes/finite metrics plus verified raw sources and HW67 quality_gate,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer,evidence/before.log,evidence/after-prefect.log
++3,Publication destroys old bytes on write failure,.venv/bin/python scripts/reproduce_before.py (test_atomic_disk_failure),Exception; old pointer byte-identical; temp removed,Direct write bypasses atomic replace,Direct target.write_text truncates target; no flush/fsync/replace; Same-directory temporary; flush/fsync; os.replace; finally cleanup,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_atomic_disk_failure,evidence/before.log,evidence/after-prefect.log
++4,Duplicate release journal entries,.venv/bin/python scripts/reproduce_before.py (test_subprocess_repeat_publication),One event across complete process retries,Two identical B events,Unconditional append; no release identity or recovery protocol; Manifest+runtime+report identity; durable intent; atomic deduplicated journal; crash recovery test,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_subprocess_repeat_publication,evidence/before.log,evidence/after-prefect.log
++5,Ready before warmup,.venv/bin/python scripts/reproduce_before.py (test_http_readiness_blocks_backend_until_warmup),Health 200; ready/generate 503; calls unchanged until warmup,ready 200 immediately,Ready flag set before loading/warmup finishes; Background load verifies files; real warmup then ready event; failures stay unready,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_http_readiness_blocks_backend_until_warmup,evidence/before.log,evidence/after-prefect.log
++6,Metadata advertises model not loaded,.venv/bin/python scripts/reproduce_before.py (test_http_loaded_version_and_rollback),A before restart; B after; A after rollback/restart,Answer A advertised B after publishing B,Per-request accepted.json reread instead of backend identity; Snapshot manifest; return loaded backend model_id/runtime_sha256; managed restart,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_http_loaded_version_and_rollback,evidence/before.log,evidence/after-prefect.log
++7,Bad request triggers compute,.venv/bin/python scripts/reproduce_before.py (test_http_invalid_requests_never_call_backend),4xx and unchanged calls for each bad payload,200 and backend calls increment,Unvalidated prompt and token cap passed to backend; Shared strict precompute validation; bounded body/input/tokens; fixed real eval cap32,HEAD (HW8910: implement verified release pipeline and serving),test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend,evidence/before.log,evidence/after-prefect.log
+diff --git a/hw8910/gate.py b/hw8910/gate.py
+new file mode 100644
+index 0000000..d508e40
+--- /dev/null
++++ b/hw8910/gate.py
+@@ -0,0 +1,66 @@
++"""Recompute HW67's full decision from hash-bound reports and raw responses."""
++import json
++from pathlib import Path
++import sys
++from release import canonical, digest
++
++HW67 = Path(__file__).resolve().parents[1]/'hw67'
++sys.path.insert(0, str(HW67))
++from evaluation.solution import quality_gate, score
++
++
++def verify_evaluation(manifest, report):
++    if manifest.get('kind') not in ('base', 'adapter'):
++        if report.get('synthetic') is not True or not manifest['model_id'].startswith('fixture-'):
++            raise ValueError('Unrecognized synthetic fixture')
++        return
++    if report.get('synthetic') is not False:
++        raise ValueError('Synthetic evaluation cannot authorize real weights')
++    sources = report.get('sources', {})
++    required = {'protocol.json', 'baseline-eval.json', 'candidate-eval.json',
++                'baseline-outputs.json', 'candidate-outputs.json'}
++    if not required <= sources.keys():
++        raise ValueError('Missing complete source evidence')
++    documents = {}
++    for name in required:
++        source = sources[name]
++        payload = Path(source['uri']).read_bytes()
++        if digest(payload) != source['sha256']:
++            raise ValueError('Evaluation source changed: ' + name)
++        documents[name] = json.loads(payload)
++    protocol = documents['protocol.json']
++    if digest(canonical(protocol)) != manifest['protocol_sha256']:
++        raise ValueError('Evaluation protocol mismatch')
++    if digest(canonical(protocol['golden'])) != manifest['golden_sha256']:
++        raise ValueError('Golden set mismatch')
++    if digest((HW67/'evaluation/solution.py').read_bytes()) != protocol['scoring_sha256']:
++        raise ValueError('Scoring implementation changed; reevaluate')
++    if digest((Path(__file__).parent/'backend.py').read_bytes()) != protocol['backend_sha256']:
++        raise ValueError('Serving implementation changed; reevaluate')
++    for role in ('baseline', 'candidate'):
++        full = documents[f'{role}-eval.json']
++        outputs = documents[f'{role}-outputs.json']
++        if full['outputs_sha256'] != digest(canonical(outputs)):
++            raise ValueError('Raw outputs fingerprint mismatch')
++        by_id = {o['id']:o for o in outputs}
++        rows, behaviors = protocol['golden'], protocol['behavioral']
++        if len(by_id) != len(outputs) or set(by_id) != {r['id'] for r in rows+behaviors}:
++            raise ValueError('Raw output IDs mismatch')
++        metrics = score(rows,[by_id[r['id']] for r in rows])
++        if any(metrics[k] != full[k] for k in ('overall','slices','per_item')):
++            raise ValueError('Metrics differ from raw outputs')
++        if score(behaviors,[by_id[r['id']] for r in behaviors]) != full['behavioral']:
++            raise ValueError('Behavioral report differs from raw outputs')
++    baseline, candidate = documents['baseline-eval.json'], documents['candidate-eval.json']
++    decision = quality_gate(baseline,candidate,protocol['config']['critical_slices'])
++    if report['passed'] is not True or decision['passed'] is not True:
++        raise ValueError('Full quality gate did not pass')
++    for key in ('model_sha256','runtime_sha256','protocol_sha256','golden_sha256'):
++        if candidate[key] != manifest[key]:
++            raise ValueError('Candidate binding mismatch: ' + key)
++    if (candidate['model'] != manifest['model_spec'] or report['metrics'] != candidate['overall']
++            or candidate['model'].get('kind') != manifest['kind']):
++        raise ValueError('Candidate identity or metrics mismatch')
++    if report['evaluation_run_id'] != candidate['evaluation_run_id']:
++        raise ValueError('Evaluation run mismatch')
++
+diff --git a/hw8910/integration_tests/test_gate_sources.py b/hw8910/integration_tests/test_gate_sources.py
+new file mode 100644
+index 0000000..fd43ba8
+--- /dev/null
++++ b/hw8910/integration_tests/test_gate_sources.py
+@@ -0,0 +1,78 @@
++"""Contract fixtures prove the wrapper actually recomputes scores and the HW67 gate."""
++import copy
++import json
++from pathlib import Path
++import tempfile
++import unittest
++
++from gate import HW67, verify_evaluation
++from evaluation.solution import score
++from release import canonical,digest
++
++
++class SourceGateTests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root=Path(self.temp.name)
++        self.rows=[dict(id=f'q{i}',input='Question',choices=['A','B'],expected='A',
++                        slices=['critical','second','third']) for i in range(50)]
++        self.behaviors=[{**row,'id':f'b{i}'} for i,row in enumerate(self.rows[:3])]
++        self.outputs=[dict(id=r['id'],raw='{"answer":"A"}',error=None) for r in self.rows+self.behaviors]
++        self.protocol=dict(config={'critical_slices':['critical']},golden=self.rows,
++            behavioral=self.behaviors,scoring_sha256=digest((HW67/'evaluation/solution.py').read_bytes()),
++            backend_sha256=digest((Path(__file__).resolve().parents[1]/'backend.py').read_bytes()))
++        self.spec=dict(kind='adapter',name='test',version='1',run_id='training-fixture',uri='fixture://adapter')
++        self.manifest=dict(kind='adapter',model_spec=self.spec,model_sha256='a'*64,
++            runtime_sha256='b'*64,protocol_sha256=digest(canonical(self.protocol)),
++            golden_sha256=digest(canonical(self.rows)))
++        full=score(self.rows,self.outputs[:50])
++        full.update(status='complete',model=self.spec,behavioral=score(self.behaviors,self.outputs[50:]),
++            protocol_sha256=self.manifest['protocol_sha256'],golden_sha256=self.manifest['golden_sha256'],
++            baseline_spec_sha256='c'*64,model_sha256='a'*64,runtime_sha256='b'*64,
++            evaluation_run_id='evaluation-fixture',outputs_sha256=digest(canonical(self.outputs)))
++        baseline=copy.deepcopy(full)
++        baseline['model']=dict(kind='base',name='base-fixture',revision='f'*40)
++        self.documents={'protocol.json':self.protocol,'baseline-eval.json':baseline,'candidate-eval.json':full,
++                        'baseline-outputs.json':self.outputs,'candidate-outputs.json':copy.deepcopy(self.outputs)}
++        self.report=dict(synthetic=False,passed=True,metrics=full['overall'],evaluation_run_id='evaluation-fixture')
++        self.save()
++
++    def save(self):
++        self.report['sources']={}
++        for name,document in self.documents.items():
++            path=self.root/name
++            path.write_bytes(canonical(document))
++            self.report['sources'][name]=dict(uri=str(path),sha256=digest(path.read_bytes()))
++
++    def test_complete_raw_evidence_passes(self):
++        verify_evaluation(self.manifest,self.report)
++
++    def test_changed_source_rejected(self):
++        (self.root/'candidate-outputs.json').write_text('[]')
++        with self.assertRaisesRegex(ValueError,'source changed'):
++            verify_evaluation(self.manifest,self.report)
++
++    def test_rehashed_raw_cannot_hide_stale_scores(self):
++        self.documents['candidate-outputs.json'][0]['raw']='{"answer":"B"}'
++        full=self.documents['candidate-eval.json']
++        full['outputs_sha256']=digest(canonical(self.documents['candidate-outputs.json']))
++        self.save()
++        with self.assertRaisesRegex(ValueError,'Metrics differ'):
++            verify_evaluation(self.manifest,self.report)
++
++    def test_fabricated_pass_cannot_override_full_quality_gate(self):
++        outputs=self.documents['candidate-outputs.json']
++        outputs[0]['raw']='{"answer":"B"}'
++        full=self.documents['candidate-eval.json']
++        full.update(score(self.rows,outputs[:50]))
++        full['outputs_sha256']=digest(canonical(outputs))
++        self.report['metrics']=full['overall']
++        self.save()
++        with self.assertRaisesRegex(ValueError,'Регрессия общей accuracy'):
++            verify_evaluation(self.manifest,self.report)
++
++    def test_runtime_binding_cannot_be_relabelled(self):
++        self.manifest['runtime_sha256']='d'*64
++        with self.assertRaisesRegex(ValueError,'binding mismatch'):
++            verify_evaluation(self.manifest,self.report)
+diff --git a/hw8910/integration_tests/test_incidents.py b/hw8910/integration_tests/test_incidents.py
+new file mode 100644
+index 0000000..f6f06e1
+--- /dev/null
++++ b/hw8910/integration_tests/test_incidents.py
+@@ -0,0 +1,174 @@
++"""The same real process/HTTP scenarios run against the original and both adapters."""
++import contextlib
++import hashlib
++import json
++import os
++from pathlib import Path
++import socket
++import subprocess
++import sys
++import tempfile
++import time
++import unittest
++import urllib.error
++import urllib.request
++from unittest.mock import patch
++
++import lab
++import release
++
++PROJECT = Path(__file__).resolve().parents[1]
++
++
++class IncidentTests(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name) / 'workspace'
++        lab.initialize(self.root)
++
++    def command(self, *args):
++        extra = ['--engine', 'prefect'] if os.getenv('FLOW_ENGINE') == 'prefect' else []
++        result = subprocess.run([sys.executable, str(PROJECT / 'lab.py'), '--workspace',
++                                 str(self.root), 'run', *args, *extra],
++                                capture_output=True, text=True, timeout=120)
++        print(json.dumps(dict(command=list(args), exit_code=result.returncode,
++                              stdout=result.stdout, stderr=result.stderr), ensure_ascii=False))
++        return result
++
++    def pointer_hash(self):
++        return hashlib.sha256((self.root / 'accepted.json').read_bytes()).hexdigest()
++
++    @contextlib.contextmanager
++    def server(self, warmup=0):
++        with socket.socket() as sock:
++            sock.bind(('127.0.0.1', 0))
++            port = sock.getsockname()[1]
++        extra = ['--engine', 'fastapi'] if os.getenv('HTTP_ENGINE') == 'fastapi' else []
++        with tempfile.TemporaryFile(mode='w+') as log:
++            process = subprocess.Popen([sys.executable, str(PROJECT / 'service.py'),
++                '--workspace', str(self.root), '--port', str(port),
++                '--warmup-seconds', str(warmup), *extra], stdout=log, stderr=log)
++            try:
++                def request(path, body=None):
++                    data = None if body is None else json.dumps(body).encode()
++                    req = urllib.request.Request(f'http://127.0.0.1:{port}{path}', data=data,
++                                                 headers={'Content-Type': 'application/json'})
++                    try:
++                        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
++                        with opener.open(req, timeout=10) as response:
++                            return response.status, json.load(response)
++                    except urllib.error.HTTPError as exc:
++                        return exc.code, json.load(exc)
++                deadline = time.monotonic() + 30
++                while True:
++                    try:
++                        request('/health')
++                        break
++                    except OSError:
++                        if time.monotonic() > deadline or process.poll() is not None:
++                            log.seek(0)
++                            self.fail('Server failed: ' + log.read())
++                        time.sleep(.025)
++                yield request
++            finally:
++                process.terminate()
++                try:
++                    process.wait(timeout=10)
++                except subprocess.TimeoutExpired:
++                    process.kill()
++                    process.wait()
++
++    def test_subprocess_recovery_and_content_cache(self):
++        self.assertNotEqual(self.command('--fail-after-prepare').returncode, 0)
++        result = self.command()
++        self.assertEqual(result.returncode, 0)
++        self.assertTrue('CACHE_HIT' in result.stdout+result.stderr or 'Cached' in result.stdout+result.stderr)
++        (self.root / 'input.txt').write_text('Changed bytes at the same path\n')
++        result = self.command()
++        self.assertEqual(result.returncode, 0)
++        self.assertIn('PREPARED', result.stdout+result.stderr)
++        for key, value in [('template_sha256', 'f'*64), ('max_length', 64),
++                           ('tokenizer_revision', 'r2'), ('code_revision', 'prepare-v2')]:
++            config = lab.read(self.root / 'config.json')
++            config[key] = value
++            lab.write(self.root / 'config.json', config)
++            result = self.command()
++            self.assertIn('PREPARED', result.stdout+result.stderr)
++
++    def test_subprocess_incomplete_foreign_reject_preserve_pointer(self):
++        before = self.pointer_hash()
++        for name in ['report-reject.json', 'report-incomplete.json', 'report-A.json']:
++            with self.subTest(report=name):
++                self.assertNotEqual(self.command('--report', name).returncode, 0)
++                after = self.pointer_hash()
++                print('POINTER', name, before, after)
++                self.assertEqual(before, after)
++
++    def test_atomic_disk_failure(self):
++        before = self.pointer_hash()
++        with patch('os.replace', side_effect=OSError('injected disk failure')):
++            with self.assertRaises(OSError):
++                release.publish(lab.read(self.root/'manifest-B.json'),
++                                lab.read(self.root/'report-B.json'), self.root/'accepted.json')
++        self.assertEqual(before, self.pointer_hash())
++        self.assertFalse(list(self.root.glob('*.tmp')))
++
++    def test_subprocess_repeat_publication(self):
++        self.assertEqual(self.command().returncode, 0)
++        self.assertEqual(self.command().returncode, 0)
++        events = [json.loads(line) for line in (self.root/'publications.jsonl').read_text().splitlines()]
++        self.assertEqual(len(events), 1)
++        self.assertEqual(events[0]['model_id'], 'fixture-B')
++
++    def test_http_readiness_blocks_backend_until_warmup(self):
++        with self.server(warmup=2) as request:
++            self.assertEqual(request('/health')[0], 200)
++            self.assertEqual(request('/ready')[0], 503)
++            calls = request('/debug')[1]['calls']
++            self.assertEqual(request('/generate', {'prompt': 'hello'})[0], 503)
++            self.assertEqual(request('/debug')[1]['calls'], calls)
++            deadline = time.monotonic()+10
++            while request('/ready')[0] != 200 and time.monotonic() < deadline:
++                time.sleep(.05)
++            self.assertEqual(request('/ready')[0], 200)
++            self.assertTrue(request('/debug')[1]['warmup_finished'])
++            self.assertEqual(request('/generate', {'prompt': 'hello'})[0], 200)
++
++    def test_http_loaded_version_and_rollback(self):
++        payload = {'prompt': 'hello', 'max_new_tokens': 32}
++        with self.server() as request:
++            self.assertEqual(request('/generate', payload)[1]['model_id'], 'fixture-A')
++            self.assertEqual(self.command().returncode, 0)
++            answer = request('/generate', payload)[1]
++            self.assertIn('fixture-A', answer['answer'])
++            self.assertEqual(answer['model_id'], 'fixture-A')
++        with self.server() as request:
++            answer = request('/generate', payload)[1]
++            self.assertEqual(answer['model_id'], 'fixture-B')
++            self.assertIn('fixture-B', answer['answer'])
++        release.publish(lab.read(self.root/'manifest-A.json'), lab.read(self.root/'report-A.json'),
++                        self.root/'accepted.json')
++        with self.server() as request:
++            answer = request('/generate', payload)[1]
++            self.assertEqual(answer['model_id'], 'fixture-A')
++            self.assertIn('fixture-A', answer['answer'])
++
++    def test_http_invalid_requests_never_call_backend(self):
++        with self.server() as request:
++            calls = request('/debug')[1]['calls']
++            for payload in [{'prompt': ''}, {'prompt': 'x', 'max_new_tokens': 0},
++                            {'prompt': 'x', 'max_new_tokens': 100000},
++                            {'prompt': 'x', 'max_new_tokens': '32'}]:
++                with self.subTest(payload=payload):
++                    status, _ = request('/generate', payload)
++                    self.assertTrue(400 <= status < 500, status)
++                    self.assertEqual(request('/debug')[1]['calls'], calls)
++            status, answer = request('/generate', {'prompt': 'valid', 'max_new_tokens': 32})
++            self.assertEqual(status, 200)
++            self.assertTrue(answer['request_id'])
++            self.assertEqual(request('/debug')[1]['calls'], calls+1)
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)
+diff --git a/hw8910/integration_tests/test_recovery.py b/hw8910/integration_tests/test_recovery.py
+new file mode 100644
+index 0000000..365b790
+--- /dev/null
++++ b/hw8910/integration_tests/test_recovery.py
+@@ -0,0 +1,108 @@
++"""Additional failure windows beyond the seven original incident regressions."""
++import copy
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import lab
++import release
++from service import ServiceState, StubBackend
++
++
++class RecoveryTests(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name)/'workspace'
++        lab.initialize(self.root)
++        self.manifest = lab.read(self.root/'manifest-B.json')
++        self.report = lab.read(self.root/'report-B.json')
++
++    def test_pointer_journal_crash_recovers_once(self):
++        with self.assertRaisesRegex(RuntimeError, 'after pointer'):
++            release.publish_release(self.manifest,self.report,self.root,fail_after_pointer=True)
++        self.assertTrue((self.root/'publication-pending.json').exists())
++        self.assertEqual(lab.read(self.root/'accepted.json')['model_id'],'fixture-B')
++        release.publish_release(self.manifest,self.report,self.root)
++        release.publish_release(self.manifest,self.report,self.root)
++        events = (self.root/'publications.jsonl').read_text().splitlines()
++        self.assertEqual(len(events),1)
++        self.assertFalse((self.root/'publication-pending.json').exists())
++
++    def test_pointer_journal_recovery_in_new_process(self):
++        project=Path(__file__).resolve().parents[1]
++        command=[sys.executable,str(project/'lab.py'),'--workspace',str(self.root),
++                 'run','--engine',os.getenv('FLOW_ENGINE','stdlib')]
++        failed=subprocess.run([*command,'--fail-after-pointer'],capture_output=True,text=True,timeout=120)
++        print('AFTER_POINTER_FAILURE',failed.returncode,failed.stdout,failed.stderr)
++        self.assertNotEqual(failed.returncode,0)
++        for _ in range(2):
++            result=subprocess.run(command,capture_output=True,text=True,timeout=120)
++            print('RECOVERY_ATTEMPT',result.returncode,result.stdout,result.stderr)
++            self.assertEqual(result.returncode,0)
++        self.assertEqual(len((self.root/'publications.jsonl').read_text().splitlines()),1)
++        attempts=[json.loads(line) for line in (self.root/'attempts.jsonl').read_text().splitlines()]
++        self.assertEqual(len({a['attempt_id'] for a in attempts}),3)
++        self.assertEqual([a['status'] for a in attempts],['failed','complete','complete'])
++
++    def test_new_evaluation_or_runtime_is_a_distinct_release(self):
++        release.publish_release(self.manifest,self.report,self.root)
++        report = {**self.report,'evaluation_run_id':'second-evaluation'}
++        release.publish_release(self.manifest,report,self.root)
++        manifest = copy.deepcopy(self.manifest)
++        manifest['runtime']['dtype']='float16'
++        manifest['runtime_sha256']=release.digest(release.canonical(manifest['runtime']))
++        report = {**report,'runtime_sha256':manifest['runtime_sha256']}
++        release.publish_release(manifest,report,self.root)
++        events = [json.loads(line) for line in (self.root/'publications.jsonl').read_text().splitlines()]
++        self.assertEqual(len({event['release_id'] for event in events}),3)
++
++    def test_real_file_tampering_blocks_publish_and_load(self):
++        before = (self.root/'accepted.json').read_bytes()
++        (self.root/'model-B.txt').write_text('tampered')
++        with self.assertRaisesRegex(ValueError,'Artifact changed'):
++            release.publish_release(self.manifest,self.report,self.root)
++        self.assertEqual((self.root/'accepted.json').read_bytes(),before)
++        release.atomic_bytes(self.root/'accepted.json',release.canonical(self.manifest))
++        state = ServiceState(self.root,0,StubBackend)
++        state.loader.join(5)
++        self.assertFalse(state.ready)
++        self.assertIsNone(state.backend)
++        self.assertIn('Artifact changed',state.error)
++
++    def test_fsync_failure_preserves_pointer_and_cleans_temp(self):
++        before = (self.root/'accepted.json').read_bytes()
++        with patch('os.fsync',side_effect=OSError('injected write error')):
++            with self.assertRaises(OSError):
++                release.publish(self.manifest,self.report,self.root/'accepted.json')
++        self.assertEqual((self.root/'accepted.json').read_bytes(),before)
++        self.assertFalse(list(self.root.glob('*.tmp')))
++
++    def test_backend_load_failure_never_sets_ready(self):
++        def broken(manifest,root):
++            raise ValueError('injected load failure')
++        state = ServiceState(self.root,0,broken)
++        state.loader.join(5)
++        self.assertFalse(state.ready)
++        self.assertFalse(state.warmup_finished.is_set())
++        self.assertIn('injected load failure',state.error)
++
++    def test_synthetic_report_cannot_authorize_real_weights(self):
++        manifest={**self.manifest,'kind':'adapter'}
++        with self.assertRaisesRegex(ValueError,'Synthetic evaluation'):
++            release.publish_release(manifest,self.report,self.root)
++
++    def test_real_manifest_cannot_accidentally_use_stub(self):
++        manifest={**self.manifest,'kind':'base'}
++        release.atomic_bytes(self.root/'accepted.json',release.canonical(manifest))
++        with self.assertRaisesRegex(ValueError,'explicit real backend'):
++            ServiceState(self.root,0,StubBackend)
++
++
++if __name__=='__main__':
++    unittest.main(verbosity=2)
+diff --git a/hw8910/lab.py b/hw8910/lab.py
+index 135024c..0415e55 100644
+--- a/hw8910/lab.py
++++ b/hw8910/lab.py
+@@ -6,6 +6,8 @@
+ import argparse
+ import hashlib
+ import json
++import uuid
++import time
+ from pathlib import Path
+ import release
+ 
+@@ -58,27 +60,48 @@ def prepare(root):
+     if entry.exists():
+         result=read(entry);print('CACHE_HIT',result['input_sha256']);return result
+     payload=(root/'input.txt').read_bytes()
++    if config.get('format')=='jsonl':
++        rows=[json.loads(line) for line in payload.decode().splitlines() if line.strip()]
++        if not rows or any(not isinstance(row.get('input'),str) or not row['input'].strip()
++                           or not isinstance(row.get('id'),str) for row in rows):
++            raise ValueError('Invalid evaluation input schema')
++        if len({row['id'] for row in rows})!=len(rows):
++            raise ValueError('Duplicate input IDs')
+     result={'input_sha256':digest(payload),'rows':len(payload.splitlines()),'config':config}
+-    write(entry,result);print('PREPARED',result['input_sha256']);return result
++    release.atomic_bytes(entry, canonical(result));print('PREPARED',result['input_sha256']);return result
+ 
+ 
+-def run(root,report_name,fail_after_prepare=False):
++def run(root,report_name,fail_after_prepare=False,manifest_name='manifest-B.json',fail_after_pointer=False):
+     prepared=prepare(root)
+     if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
+-    manifest=read(root/'manifest-B.json');report=read(root/report_name)
+-    release.publish(manifest,report,root/'accepted.json')
+-    with (root/'publications.jsonl').open('a') as f:
+-        f.write(json.dumps({'model_id':manifest['model_id'],'prepared':prepared['input_sha256']})+'\n')
+-    print('PUBLISHED',manifest['model_id'])
++    manifest=read(root/manifest_name);report=read(root/report_name)
++    identity=release.publish_release(manifest,report,root,fail_after_pointer)
++    print('PUBLISHED',manifest['model_id'],identity)
+ 
+ 
+ def main():
+     parser=argparse.ArgumentParser();parser.add_argument('--workspace',type=Path,default=Path('.lab'))
+     sub=parser.add_subparsers(dest='command',required=True);sub.add_parser('init')
+     run_parser=sub.add_parser('run');run_parser.add_argument('--report',default='report-B.json');run_parser.add_argument('--fail-after-prepare',action='store_true')
++    run_parser.add_argument('--manifest',default='manifest-B.json')
++    run_parser.add_argument('--fail-after-pointer',action='store_true')
++    run_parser.add_argument('--engine',choices=['stdlib','prefect'],default='stdlib')
+     args=parser.parse_args()
+     if args.command=='init':initialize(args.workspace)
+-    else:run(args.workspace,args.report,args.fail_after_prepare)
++    else:
++        attempt={'attempt_id':str(uuid.uuid4()),'started_at':time.time(),'engine':args.engine}
++        try:
++            if args.engine=='prefect':
++                from pipeline import release_flow
++                release_flow(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
++            else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
++            attempt['status']='complete'
++        except Exception as exc:
++            attempt.update(status='failed',error=f'{type(exc).__name__}: {exc}')
++            raise
++        finally:
++            with (args.workspace/'attempts.jsonl').open('a') as stream:
++                stream.write(json.dumps(attempt,ensure_ascii=False)+'\n')
+ 
+ 
+ if __name__=='__main__':main()
+diff --git a/hw8910/pipeline.py b/hw8910/pipeline.py
+new file mode 100644
+index 0000000..5ca8b4a
+--- /dev/null
++++ b/hw8910/pipeline.py
+@@ -0,0 +1,59 @@
++"""Prefect graph; only small descriptors cross task boundaries, never tensors."""
++import os
++from pathlib import Path
++os.environ.setdefault('PREFECT_SERVER_ANALYTICS_ENABLED', 'false')
++os.environ.setdefault('PREFECT_HOME', str(Path(__file__).parent/'.prefect'))
++os.environ['NO_PROXY'] = ','.join(filter(None, [os.environ.get('NO_PROXY',''), '127.0.0.1', 'localhost']))
++
++from prefect import flow, task
++from prefect.cache_policies import NO_CACHE
++from lab import prepare, read
++from release import cache_key, canonical, digest, publish_release, validate_release, verify_artifact
++
++
++def preparation_key(context, parameters):
++    root = Path(parameters['root'])
++    # Namespace by workspace so descriptors never refer to another experiment.
++    return digest(canonical({'workspace': str(root.resolve()),
++                             'input': cache_key(root/'input.txt', read(root/'config.json'))}))
++
++
++@task(persist_result=True, cache_key_fn=preparation_key, result_serializer='json', log_prints=True)
++def prepare_task(root):
++    return prepare(Path(root))
++
++
++@task(cache_policy=NO_CACHE)
++def artifact_task(root, manifest_name, prepared):
++    manifest = read(Path(root)/manifest_name)
++    verify_artifact(manifest, root)
++    return {'manifest': manifest, 'prepared_sha256': prepared['input_sha256']}
++
++
++@task(cache_policy=NO_CACHE)
++def gate_task(root, report_name, artifact):
++    report = read(Path(root)/report_name)
++    validate_release(artifact['manifest'], report)
++    return report
++
++
++@task(cache_policy=NO_CACHE, log_prints=True)
++def publication_task(root, artifact, report, fail_after_pointer):
++    identity = publish_release(artifact['manifest'], report, Path(root), fail_after_pointer)
++    print('PUBLISHED', artifact['manifest']['model_id'], identity)
++    return identity
++
++
++@flow(name='verified-model-release', log_prints=True)
++def release_flow(root, report_name='report-B.json', fail_after_prepare=False,
++                 manifest_name='manifest-B.json', fail_after_pointer=False):
++    root = Path(root).resolve()
++    prepared = prepare_task(root)
++    # The durable disk cache also gives a framework-independent CACHE_HIT audit line.
++    # Prefect logs distinguish task Cached from task Completed.
++    print('PREPARATION_RESULT', prepared['input_sha256'])
++    if fail_after_prepare:
++        raise RuntimeError('Injected failure after preparation')
++    artifact = artifact_task(root, manifest_name, prepared)
++    report = gate_task(root, report_name, artifact)
++    return publication_task(root, artifact, report, fail_after_pointer)
+diff --git a/hw8910/pyproject.toml b/hw8910/pyproject.toml
+new file mode 100644
+index 0000000..5e608c2
+--- /dev/null
++++ b/hw8910/pyproject.toml
+@@ -0,0 +1,8 @@
++[project]
++name = "mlops-hw8910"
++version = "1.0.0"
++requires-python = ">=3.12,<3.13"
++dependencies = ["prefect==3.9.0", "fastapi==0.142.2", "uvicorn==0.54.0", "httpx==0.28.1"]
++
++[project.optional-dependencies]
++model = ["torch==2.14.0", "transformers==5.17.0", "peft==0.21.0", "mlflow==2.22.2", "SQLAlchemy==2.0.43", "psutil==7.2.2"]
+diff --git a/hw8910/real_release.py b/hw8910/real_release.py
+new file mode 100644
+index 0000000..90c71d3
+--- /dev/null
++++ b/hw8910/real_release.py
+@@ -0,0 +1,178 @@
++"""Reuse HW67 training; evaluate with the exact backend/runtime served by the API.
++
++No sweep, no val-loss shortcut, no change to HW67 files or registry aliases.
++"""
++import argparse
++import gc
++import importlib.metadata
++import json
++import os
++from pathlib import Path
++import sys
++import time
++os.environ['NO_PROXY'] = ','.join(filter(None, [os.environ.get('NO_PROXY',''), '127.0.0.1', 'localhost']))
++
++from backend import TransformersBackend, hashes, tokenizer_fingerprint, template_fingerprint
++from release import atomic_bytes, canonical, digest, publish_release
++
++HW67 = Path(__file__).resolve().parents[1]/'hw67'
++sys.path.insert(0, str(HW67))
++from evaluation.solution import quality_gate, score
++from evaluation.contract import read_rows, validate_golden
++
++
++def read(path):
++    return json.loads(Path(path).read_text())
++
++
++def save(path, value):
++    atomic_bytes(path, canonical(value)+b'\n')
++
++
++def manifest_for(spec, artifact, base, config, protocol, golden, device):
++    names = sorted(str(p.relative_to(artifact)) for p in artifact.rglob('*')
++                   if p.is_file() and p.suffix in ('.json', '.safetensors', '.jinja', '.txt'))
++    file_hashes = hashes(artifact, names)
++    base_files = hashes(base, sorted(p.name for p in base.iterdir()
++                                   if p.is_file() and p.suffix in ('.json', '.safetensors', '.jinja')))
++    runtime = dict(base_revision=read(HW67/'evaluation/baseline.json')['revision'],
++        tokenizer_sha256=tokenizer_fingerprint(artifact), template_sha256=template_fingerprint(artifact),
++        generation=dict(system=config['system'], do_sample=False, seed=config['seed'],
++                        max_new_tokens=config['max_new_tokens'], enable_thinking=config['enable_thinking']),
++        dtype='bfloat16', device=device, max_input_tokens=512,
++        backend_sha256=digest((Path(__file__).parent/'backend.py').read_bytes()),
++        packages={p: importlib.metadata.version(p) for p in ('torch', 'transformers', 'peft')})
++    model_id = spec.get('run_id', spec['name']+'@'+spec.get('revision', ''))
++    return dict(schema_version=1, kind=spec['kind'], model_id=model_id,
++                artifact_uri=str(artifact), file_hashes=file_hashes,
++                model_sha256=digest(canonical(file_hashes)), runtime=runtime,
++                runtime_sha256=digest(canonical(runtime)), protocol_sha256=protocol,
++                golden_sha256=golden, base_artifact_uri=str(base), base_file_hashes=base_files,
++                model_spec=spec)
++
++
++def release_report(manifest, baseline, candidate, critical, sources, role):
++    selected = candidate if role=='candidate' else baseline
++    try:
++        decision = quality_gate(baseline, candidate, critical)
++        reason = None
++    except ValueError as exc:
++        decision, reason = {'passed': False}, str(exc)
++    result = {k: manifest[k] for k in ('model_id', 'model_sha256', 'protocol_sha256',
++                                     'golden_sha256', 'runtime_sha256')}
++    result.update(status=selected['status'], passed=decision['passed'] if role=='candidate' else False,
++                  evaluation_run_id=selected['evaluation_run_id'], metrics=selected['overall'],
++                  reason=reason if role=='candidate' else 'Retained pre-existing baseline; not a candidate promotion',
++                  gate=decision, sources=sources, synthetic=False)
++    return result
++
++
++def run(root, tracking_uri, device):
++    import mlflow
++    from huggingface_hub import snapshot_download
++    import yaml
++    import torch
++    root.mkdir(parents=True, exist_ok=True)
++    evidence = root/'evaluation'
++    evidence.mkdir(exist_ok=True)
++    mlflow.set_tracking_uri(tracking_uri)
++    client = mlflow.MlflowClient()
++    candidate = read(HW67/'metrics/candidate-model.json')
++    baseline = read(HW67/'evaluation/baseline.json')
++    training = client.get_run(candidate['run_id'])
++    if training.info.status != 'FINISHED':
++        raise ValueError('Training run incomplete')
++    package = Path(client.download_artifacts(candidate['run_id'], 'model', str(root))).resolve()
++    info = yaml.safe_load((package/'MLmodel').read_text())
++    adapter = (package/info['flavors']['python_function']['artifacts']['adapter']['path']).resolve()
++    if not adapter.is_relative_to(package):
++        raise ValueError('Unsafe MLflow adapter path')
++    training_manifest = read(adapter/'manifest.json')
++    if training_manifest['model']['revision'] != baseline['revision']:
++        raise ValueError('Training and baseline revisions differ')
++    base = Path(snapshot_download(baseline['name'], revision=baseline['revision'], local_files_only=True))
++    config = read(HW67/'evaluation/params.json')
++    rows, behaviors, training_rows = [read_rows(HW67/config[k]) for k in ('golden','behavioral','training_index')]
++    leakage = validate_golden(rows, training_rows, behaviors)
++    # New runtime metadata requires new evaluation, not relabeling old reports.
++    protocol_document = dict(config=config, golden=rows, behavioral=behaviors,
++        training_index=training_rows, backend_sha256=digest(Path('backend.py').read_bytes()),
++        scoring_sha256=digest((HW67/'evaluation/solution.py').read_bytes()))
++    protocol = digest(canonical(protocol_document))
++    save(evidence/'protocol.json', protocol_document)
++    manifests = {role: manifest_for(spec, artifact, base, config, protocol,
++                                   digest(canonical(rows)), device)
++                 for role,spec,artifact in [('baseline',baseline,base),('candidate',candidate,adapter)]}
++    mlflow.set_experiment('hw8910-release-evaluation')
++    reports = {}
++    with mlflow.start_run(run_name='existing-training-exact-serving-runtime') as evaluation:
++        for role in ('baseline','candidate'):
++            manifest = manifests[role]
++            save(root/f'manifest-{role}.json', manifest)
++            backend = TransformersBackend(manifest, root)
++            outputs = []
++            for row in rows+behaviors:
++                started = time.perf_counter()
++                raw, error = '', None
++                try:
++                    raw = backend.generate(row['input'], config['max_new_tokens'])['answer']
++                except Exception as exc:
++                    error = f'{type(exc).__name__}: {exc}'
++                outputs.append(dict(id=row['id'],raw=raw,error=error,
++                                    latency_seconds=time.perf_counter()-started))
++                print(role, row['id'], raw, error, flush=True)
++            save(evidence/f'{role}-outputs.json', outputs)
++            by_id = {out['id']:out for out in outputs}
++            report = score(rows,[by_id[row['id']] for row in rows])
++            report.update(status='complete', model=manifest['model_spec'], protocol_sha256=protocol,
++                golden_sha256=manifest['golden_sha256'], baseline_spec_sha256=digest(canonical(baseline)),
++                behavioral=score(behaviors,[by_id[row['id']] for row in behaviors]), leakage=leakage,
++                evaluation_run_id=evaluation.info.run_id, runtime_sha256=manifest['runtime_sha256'],
++                model_sha256=manifest['model_sha256'], outputs_sha256=digest(canonical(outputs)))
++            save(evidence/f'{role}-eval.json',report)
++            reports[role] = report
++            mlflow.log_metrics({f'{role}.{key}':report['overall'][key] for key in ('accuracy','format_rate')})
++            del backend
++            gc.collect()
++            if device=='mps': torch.mps.empty_cache()
++        sources = {path.name: dict(uri=str(path.resolve()),sha256=digest(path.read_bytes()))
++                   for path in sorted(evidence.glob('*.json'))}
++        for role in ('baseline','candidate'):
++            report = release_report(manifests[role], reports['baseline'], reports['candidate'],
++                                    config['critical_slices'],sources,role)
++            save(root/f'report-{role}.json',report)
++        mlflow.set_tags(dict(training_run_id=candidate['run_id'], prior_evaluation_run_id=
++            read(HW67/'metrics/candidate-eval.json')['evaluation_run_id'], protocol_sha256=protocol))
++        mlflow.log_artifacts(str(evidence),'evaluation')
++        mlflow.log_artifact(str(root/'report-candidate.json'))
++    # Bootstrap retention of original base is explicit; it is never represented as PASS.
++    target = root/'accepted.json'
++    if not target.exists():
++        save(target,manifests['baseline'])
++    before = digest(target.read_bytes())
++    candidate_report = read(root/'report-candidate.json')
++    rejected = False
++    try:
++        publish_release(manifests['candidate'],candidate_report,root)
++    except ValueError as exc:
++        rejected = True
++        print('CANDIDATE_REJECTED',str(exc),flush=True)
++    save(root/'release-decision.json',dict(candidate_passed=candidate_report['passed'],
++        rejected=rejected,accepted_before_sha256=before,accepted_after_sha256=digest(target.read_bytes()),
++        served_model_id=read(target)['model_id'],training_run_id=candidate['run_id'],
++        prior_evaluation_run_id=read(HW67/'metrics/candidate-eval.json')['evaluation_run_id'],
++        evaluation_run_id=reports['candidate']['evaluation_run_id']))
++    # Input-validation preparation is a real, content-addressed stage (not training).
++    atomic_bytes(root/'input.txt',(HW67/config['golden']).read_bytes())
++    save(root/'config.json',dict(tokenizer_revision=baseline['revision'],
++        template_sha256=manifests['candidate']['runtime']['template_sha256'],max_length=512,
++        code_revision=digest(Path('lab.py').read_bytes()),format='jsonl'))
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser()
++    parser.add_argument('--workspace',type=Path,default=Path('.real'))
++    parser.add_argument('--tracking-uri',default='http://127.0.0.1:5006')
++    parser.add_argument('--device',default='mps',choices=['cpu','mps','cuda'])
++    args=parser.parse_args()
++    run(args.workspace.resolve(),args.tracking_uri,args.device)
+diff --git a/hw8910/release.py b/hw8910/release.py
+index 45e8fee..5ca1f05 100644
+--- a/hw8910/release.py
++++ b/hw8910/release.py
+@@ -1,19 +1,140 @@
+-"""Учебный прототип выпуска. Реализация содержит дефекты; см. CONTRACTS.txt."""
++"""Strict release contracts and recoverable, single-writer publication."""
+ import hashlib
+ import json
++import math
++import os
+ from pathlib import Path
++import re
++import tempfile
++
++
++def canonical(value):
++    return json.dumps(value, sort_keys=True, separators=(',', ':'),
++                      ensure_ascii=False, allow_nan=False).encode('utf-8')
++
++
++def digest(data):
++    return hashlib.sha256(data).hexdigest()
+ 
+ 
+ def cache_key(data_path: Path, config: dict) -> str:
+-    return hashlib.sha256(str(data_path).encode()).hexdigest()
++    return digest(canonical({'data_sha256': digest(Path(data_path).read_bytes()), 'config': config}))
+ 
+ 
+ def validate_release(manifest: dict, report: dict) -> None:
+-    if not report.get('passed'):
+-        raise ValueError('Кандидат отклонён')
++    try:
++        if type(manifest['schema_version']) is not int or manifest['schema_version'] != 1:
++            raise ValueError('Unsupported schema_version')
++        for key in ('model_id', 'artifact_uri'):
++            if not isinstance(manifest[key], str) or not manifest[key].strip():
++                raise ValueError('Missing ' + key)
++        for key in ('model_sha256', 'protocol_sha256', 'golden_sha256', 'runtime_sha256'):
++            if not isinstance(manifest[key], str) or not re.fullmatch('[0-9a-f]{64}', manifest[key]):
++                raise ValueError('Invalid ' + key)
++            if report[key] != manifest[key]:
++                raise ValueError('Report mismatch: ' + key)
++        if not isinstance(manifest['runtime'], dict) or not manifest['runtime']:
++            raise ValueError('Missing runtime')
++        if digest(canonical(manifest['runtime'])) != manifest['runtime_sha256']:
++            raise ValueError('Runtime fingerprint mismatch')
++        if report['model_id'] != manifest['model_id']:
++            raise ValueError('Report model mismatch')
++        if report['status'] != 'complete' or report['passed'] is not True:
++            raise ValueError('Incomplete or rejected evaluation')
++        if not isinstance(report['evaluation_run_id'], str) or not report['evaluation_run_id'].strip():
++            raise ValueError('Missing evaluation_run_id')
++        for key in ('accuracy', 'format_rate'):
++            value = report['metrics'][key]
++            if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
++                raise ValueError('Invalid metric: ' + key)
++    except (KeyError, TypeError, AttributeError, OverflowError) as exc:
++        raise ValueError('Malformed release metadata') from exc
++
++
++def atomic_bytes(target, payload):
++    target = Path(target)
++    target.parent.mkdir(parents=True, exist_ok=True)
++    name = None
++    try:
++        with tempfile.NamedTemporaryFile(dir=target.parent, prefix='.'+target.name+'.',
++                                         suffix='.tmp', delete=False) as stream:
++            name = stream.name
++            stream.write(payload)
++            stream.flush()
++            os.fsync(stream.fileno())
++        os.replace(name, target)
++    finally:
++        if name is not None:
++            Path(name).unlink(missing_ok=True)
+ 
+ 
+ def publish(manifest: dict, report: dict, target: Path) -> None:
+     validate_release(manifest, report)
+-    target.parent.mkdir(parents=True, exist_ok=True)
+-    target.write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
++    atomic_bytes(target, canonical(manifest) + b'\n')
++
++
++def verify_artifact(manifest, workspace):
++    """Check real files before publication and before loading weights."""
++    files = manifest.get('file_hashes')
++    if not isinstance(files, dict) or not files:
++        raise ValueError('Missing pinned artifact file list')
++    artifact = Path(manifest['artifact_uri'])
++    if not artifact.is_absolute():
++        artifact = Path(workspace) / artifact
++    artifact = artifact.resolve()
++    base = artifact if artifact.is_dir() else artifact.parent
++    actual = {}
++    for relative, expected in files.items():
++        path = (base / relative).resolve()
++        if Path(relative).is_absolute() or not path.is_relative_to(base):
++            # HF snapshots contain symlinks into a content-addressed blobs directory.
++            # Check lexical traversal; trusted snapshot symlinks are pinned by bytes.
++            if Path(relative).is_absolute() or '..' in Path(relative).parts:
++                raise ValueError('Unsafe artifact path')
++        actual[relative] = digest(path.read_bytes())
++        if actual[relative] != expected:
++            raise ValueError('Artifact changed: ' + relative)
++    if digest(canonical(actual)) != manifest['model_sha256']:
++        raise ValueError('Model fingerprint mismatch')
++    return artifact
++
++
++def publish_release(manifest, report, workspace, fail_after_pointer=False):
++    """Durable intent -> atomic pointer -> deduplicated atomic journal.
++
++    A retry completes a pending transaction before starting another. One writer;
++    process-crash recovery, not a distributed transaction or power-loss guarantee.
++    """
++    root = Path(workspace)
++    validate_release(manifest, report)
++    verify_artifact(manifest, root)
++    from gate import verify_evaluation
++    verify_evaluation(manifest, report)
++    intent = root / 'publication-pending.json'
++    journal = root / 'publications.jsonl'
++
++    def finish(transaction, inject=False):
++        m, r = transaction['manifest'], transaction['report']
++        verify_artifact(m, root)
++        verify_evaluation(m, r)
++        publish(m, r, root / 'accepted.json')
++        if inject:
++            raise RuntimeError('Injected failure after pointer, before publication journal')
++        events = [json.loads(line) for line in journal.read_text().splitlines()] if journal.exists() else []
++        event = transaction['event']
++        if not any(item['release_id'] == event['release_id'] for item in events):
++            events.append(event)
++        atomic_bytes(journal, b''.join(canonical(item)+b'\n' for item in events))
++        intent.unlink()
++
++    if intent.exists():
++        finish(json.loads(intent.read_text()))
++        print('RECOVERED_PUBLICATION')
++    identity = digest(canonical({'manifest': manifest, 'report': report}))
++    transaction = dict(manifest=manifest, report=report,
++                       event=dict(release_id=identity, model_id=manifest['model_id'],
++                                  runtime_sha256=manifest['runtime_sha256'],
++                                  evaluation_run_id=report['evaluation_run_id']))
++    atomic_bytes(intent, canonical(transaction)+b'\n')
++    finish(transaction, fail_after_pointer)
++    return identity
+diff --git a/hw8910/requirements-fast.lock.txt b/hw8910/requirements-fast.lock.txt
+new file mode 100644
+index 0000000..23116c8
+--- /dev/null
++++ b/hw8910/requirements-fast.lock.txt
+@@ -0,0 +1,314 @@
++# This file was autogenerated by uv via the following command:
++#    uv pip compile requirements-fast.txt --python .venv/bin/python -o requirements-fast.lock.txt
++aiosqlite==0.22.1
++    # via prefect
++alembic==1.20.1
++    # via prefect
++amplitude-analytics==1.3.0
++    # via prefect
++annotated-doc==0.0.5
++    # via
++    #   fastapi
++    #   typer
++annotated-types==0.8.0
++    # via pydantic
++anyio==4.16.0
++    # via
++    #   httpx
++    #   prefect
++    #   starlette
++apprise==1.13.1
++    # via prefect
++asgi-lifespan==2.1.0
++    # via prefect
++asyncpg==0.32.0
++    # via prefect
++attrs==26.1.0
++    # via
++    #   cyclopts
++    #   jsonschema
++    #   referencing
++beartype==0.23.1
++    # via py-key-value-aio
++burner-redis==0.1.7
++    # via pydocket
++cachetools==7.2.8
++    # via
++    #   prefect
++    #   py-key-value-aio
++certifi==2026.10.23
++    # via
++    #   apprise
++    #   httpcore
++    #   httpx
++    #   prefect
++    #   requests
++cffi==2.1.1
++    # via cryptography
++charset-normalizer==3.5.2
++    # via requests
++click==8.5.0
++    # via
++    #   apprise
++    #   prefect
++    #   uvicorn
++cloudpickle==3.1.2
++    # via
++    #   prefect
++    #   pydocket
++colorama==0.4.6
++    # via griffecli
++coolname==5.0.0
++    # via prefect
++cronsim==2.7
++    # via pydocket
++cryptography==50.0.2
++    # via prefect
++cyclopts==5.3.2
++    # via prefect
++dateparser==1.4.3
++    # via prefect
++docker==7.2.0
++    # via prefect
++docstring-parser==0.18.0
++    # via cyclopts
++exceptiongroup==1.3.1
++    # via prefect
++fastapi==0.142.2
++    # via
++    #   -r requirements-fast.txt
++    #   prefect
++fsspec==2026.9.0
++    # via prefect
++graphviz==0.21
++    # via prefect
++greenlet==3.5.6
++    # via sqlalchemy
++griffe==2.4.1
++    # via prefect
++griffecli==2.4.1
++    # via griffe
++griffelib==2.4.1
++    # via
++    #   griffe
++    #   griffecli
++h11==0.16.0
++    # via
++    #   httpcore
++    #   uvicorn
++h2==4.4.1
++    # via httpx
++hpack==4.2.0
++    # via h2
++httpcore==1.0.9
++    # via
++    #   httpx
++    #   prefect
++httpx==0.28.1
++    # via
++    #   -r requirements-fast.txt
++    #   prefect
++humanize==4.16.0
++    # via
++    #   jinja2-humanize-extension
++    #   prefect
++hyperframe==6.1.0
++    # via h2
++idna==3.20
++    # via
++    #   anyio
++    #   httpx
++    #   requests
++jinja2==3.1.6
++    # via
++    #   jinja2-humanize-extension
++    #   prefect
++jinja2-humanize-extension==0.4.0
++    # via prefect
++jsonpatch==1.38
++    # via prefect
++jsonpointer==3.6
++    # via jsonpatch
++jsonschema==4.26.0
++    # via prefect
++jsonschema-specifications==2025.9.1
++    # via jsonschema
++mako==1.4.3
++    # via alembic
++markdown==3.11.2
++    # via apprise
++markdown-it-py==4.2.0
++    # via rich
++markupsafe==3.0.4
++    # via
++    #   jinja2
++    #   mako
++mdurl==0.1.2
++    # via markdown-it-py
++oauthlib==4.0.1
++    # via requests-oauthlib
++opentelemetry-api==1.45.2
++    # via
++    #   fastapi
++    #   prefect
++    #   pydocket
++orjson==3.13.0
++    # via prefect
++packaging==26.3
++    # via prefect
++pathspec==1.1.1
++    # via prefect
++pendulum==3.3.0
++    # via prefect
++pluggy==1.7.0
++    # via prefect
++prefect==3.9.0
++    # via -r requirements-fast.txt
++prometheus-client==0.26.0
++    # via
++    #   prefect
++    #   pydocket
++py-key-value-aio==0.4.6
++    # via pydocket
++pycparser==3.12
++    # via cffi
++pydantic==2.14.2
++    # via
++    #   fastapi
++    #   prefect
++    #   pydantic-extra-types
++    #   pydantic-settings
++pydantic-core==2.50.2
++    # via
++    #   prefect
++    #   pydantic
++pydantic-extra-types==2.11.1
++    # via prefect
++pydantic-settings==2.16.2
++    # via prefect
++pydocket==0.27.1
++    # via prefect
++pygments==2.21.0
++    # via
++    #   rich
++    #   rich-rst
++python-dateutil==2.9.0.post0
++    # via
++    #   dateparser
++    #   pendulum
++    #   prefect
++python-dotenv==1.2.4
++    # via pydantic-settings
++python-json-logger==4.2.0
++    # via pydocket
++python-slugify==9.0.0
++    # via prefect
++pytz==2026.6
++    # via
++    #   dateparser
++    #   prefect
++pyyaml==6.0.3
++    # via
++    #   apprise
++    #   prefect
++readchar==4.2.2
++    # via prefect
++redis==8.1.0
++    # via
++    #   py-key-value-aio
++    #   pydocket
++referencing==0.37.0
++    # via
++    #   jsonschema
++    #   jsonschema-specifications
++regex==2026.9.29
++    # via dateparser
++requests==2.34.2
++    # via
++    #   apprise
++    #   docker
++    #   requests-oauthlib
++requests-oauthlib==2.0.0
++    # via apprise
++rfc3339-validator==0.1.4
++    # via prefect
++rich==15.0.0
++    # via
++    #   cyclopts
++    #   prefect
++    #   pydocket
++    #   rich-rst
++    #   typer
++rich-rst==2.2.0
++    # via cyclopts
++rpds-py==2026.9.1
++    # via
++    #   jsonschema
++    #   referencing
++ruamel-yaml==0.19.1
++    # via prefect
++semver==3.1.0
++    # via prefect
++shellingham==1.5.4
++    # via typer
++six==1.17.0
++    # via
++    #   python-dateutil
++    #   rfc3339-validator
++sniffio==1.3.1
++    # via
++    #   asgi-lifespan
++    #   prefect
++sqlalchemy==2.1.6
++    # via
++    #   alembic
++    #   prefect
++starlette==1.10.0
++    # via
++    #   fastapi
++    #   prefect
++text-unidecode==1.3
++    # via python-slugify
++toml==0.10.2
++    # via prefect
++typer==0.27.3
++    # via pydocket
++typing-extensions==4.16.0
++    # via
++    #   alembic
++    #   anyio
++    #   exceptiongroup
++    #   fastapi
++    #   opentelemetry-api
++    #   prefect
++    #   py-key-value-aio
++    #   pydantic
++    #   pydantic-core
++    #   pydantic-extra-types
++    #   pydantic-settings
++    #   pydocket
++    #   referencing
++    #   sqlalchemy
++    #   starlette
++    #   typing-inspection
++typing-inspection==0.4.4
++    # via
++    #   fastapi
++    #   pydantic
++    #   pydantic-settings
++tzdata==2026.6
++    # via pendulum
++tzlocal==5.4.5
++    # via dateparser
++uncalled-for==0.4.1
++    # via pydocket
++urllib3==2.8.0
++    # via
++    #   docker
++    #   requests
++uvicorn==0.54.0
++    # via
++    #   -r requirements-fast.txt
++    #   prefect
++websockets==16.1.1
++    # via prefect
+diff --git a/hw8910/requirements-fast.txt b/hw8910/requirements-fast.txt
+new file mode 100644
+index 0000000..57a3438
+--- /dev/null
++++ b/hw8910/requirements-fast.txt
+@@ -0,0 +1,4 @@
++prefect==3.9.0
++fastapi==0.142.2
++uvicorn==0.54.0
++httpx==0.28.1
+diff --git a/hw8910/requirements-model.txt b/hw8910/requirements-model.txt
+new file mode 100644
+index 0000000..9bef820
+--- /dev/null
++++ b/hw8910/requirements-model.txt
+@@ -0,0 +1,7 @@
++-r requirements-fast.txt
++torch==2.14.0
++transformers==5.17.0
++peft==0.21.0
++mlflow==2.22.2
++SQLAlchemy==2.0.43
++psutil==7.2.2
+diff --git a/hw8910/requirements.lock.txt b/hw8910/requirements.lock.txt
+new file mode 100644
+index 0000000..bc78b69
+--- /dev/null
++++ b/hw8910/requirements.lock.txt
+@@ -0,0 +1,157 @@
++accelerate==1.15.0
++aiosqlite==0.22.1
++alembic==1.20.1
++amplitude-analytics==1.3.0
++annotated-doc==0.0.5
++annotated-types==0.8.0
++anyio==4.16.0
++apprise==1.13.1
++asgi-lifespan==2.1.0
++asyncpg==0.32.0
++attrs==26.1.0
++beartype==0.23.1
++blinker==1.9.0
++burner-redis==0.1.7
++cachetools==5.5.2
++certifi==2026.10.23
++cffi==2.1.1
++charset-normalizer==3.5.2
++click==8.5.0
++cloudpickle==3.1.2
++colorama==0.4.6
++contourpy==1.4.0
++coolname==5.0.0
++cronsim==2.7
++cryptography==50.0.2
++cycler==0.12.1
++cyclopts==5.3.2
++databricks-sdk==0.158.0
++dateparser==1.4.3
++docker==7.2.0
++docstring-parser==0.18.0
++exceptiongroup==1.3.1
++fastapi==0.142.2
++filelock==4.2.6
++flask==3.1.3
++fonttools==4.68.0
++fsspec==2026.9.0
++gitdb==4.0.12
++gitpython==3.2.1
++google-auth==2.62.0
++graphene==3.4.3
++graphql-core==3.2.13
++graphql-relay==3.2.0
++graphviz==0.21
++greenlet==3.5.6
++griffe==2.4.1
++griffecli==2.4.1
++griffelib==2.4.1
++gunicorn==23.0.0
++h11==0.16.0
++h2==4.4.1
++hf-xet==1.8.0
++hpack==4.2.0
++httpcore==1.0.9
++httpx==0.28.1
++huggingface-hub==1.33.0
++humanize==4.16.0
++hyperframe==6.1.0
++idna==3.20
++importlib-metadata==8.9.0
++itsdangerous==2.2.0
++jinja2==3.1.6
++jinja2-humanize-extension==0.4.0
++joblib==1.6.0
++jsonpatch==1.38
++jsonpointer==3.6
++jsonschema==4.26.0
++jsonschema-specifications==2025.9.1
++kiwisolver==1.5.1
++mako==1.4.3
++markdown==3.11.2
++markdown-it-py==4.2.0
++markupsafe==3.0.4
++matplotlib==3.11.2
++mdurl==0.1.2
++mlflow==2.22.2
++mlflow-skinny==2.22.2
++mpmath==1.3.0
++narwhals==2.28.0
++networkx==3.7
++numpy==2.5.4
++oauthlib==4.0.1
++opentelemetry-api==1.45.2
++opentelemetry-sdk==1.45.2
++opentelemetry-semantic-conventions==0.66b2
++orjson==3.13.0
++packaging==24.2
++pandas==2.3.3
++pathspec==1.1.1
++peft==0.21.0
++pendulum==3.3.0
++pillow==13.0.0
++pluggy==1.7.0
++prefect==3.9.0
++prometheus-client==0.26.0
++protobuf==6.33.6
++psutil==7.2.2
++py-key-value-aio==0.4.6
++pyarrow==19.0.1
++pyasn1==0.6.5
++pyasn1-modules==0.4.2
++pycparser==3.12
++pydantic==2.14.2
++pydantic-core==2.50.2
++pydantic-extra-types==2.11.1
++pydantic-settings==2.16.2
++pydocket==0.27.1
++pygments==2.21.0
++pyparsing==3.3.3
++python-dateutil==2.9.0.post0
++python-dotenv==1.2.4
++python-json-logger==4.2.0
++python-slugify==9.0.0
++pytz==2026.6
++pyyaml==6.0.3
++readchar==4.2.2
++redis==8.1.0
++referencing==0.37.0
++regex==2026.9.29
++requests==2.34.2
++requests-oauthlib==2.0.0
++rfc3339-validator==0.1.4
++rich==15.0.0
++rich-rst==2.2.0
++rpds-py==2026.9.1
++ruamel-yaml==0.19.1
++safetensors==0.8.0
++scikit-learn==1.9.1
++scipy==1.18.1
++semver==3.1.0
++setuptools==84.2.1
++shellingham==1.5.4
++six==1.17.0
++smmap==5.0.3
++sniffio==1.3.1
++sqlalchemy==2.0.43
++sqlparse==0.6.0
++starlette==1.10.0
++sympy==1.14.0
++text-unidecode==1.3
++threadpoolctl==3.7.0
++tokenizers==0.23.3
++toml==0.10.2
++torch==2.14.0
++tqdm==4.70.1
++transformers==5.17.0
++typer==0.27.3
++typing-extensions==4.16.0
++typing-inspection==0.4.4
++tzdata==2026.6
++tzlocal==5.4.5
++uncalled-for==0.4.1
++urllib3==2.8.0
++uvicorn==0.54.0
++websockets==16.1.1
++werkzeug==3.1.9
++zipp==4.1.2
+diff --git a/hw8910/scripts/check.py b/hw8910/scripts/check.py
+new file mode 100644
+index 0000000..5c70266
+--- /dev/null
++++ b/hw8910/scripts/check.py
+@@ -0,0 +1,12 @@
++"""One fast entry point; weights, MLflow and real inference are not imported."""
++from pathlib import Path
++import sys
++import unittest
++
++root=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(root))
++loader=unittest.TestLoader()
++suite=unittest.TestSuite([loader.discover(str(root/'tests')),
++                         loader.discover(str(root/'integration_tests'),top_level_dir=str(root/'integration_tests'))])
++result=unittest.TextTestRunner(verbosity=2).run(suite)
++raise SystemExit(not result.wasSuccessful())
+diff --git a/hw8910/scripts/check_gate.py b/hw8910/scripts/check_gate.py
+new file mode 100644
+index 0000000..1689c59
+--- /dev/null
++++ b/hw8910/scripts/check_gate.py
+@@ -0,0 +1,22 @@
++"""Revalidate preserved real evidence without weights, training or MLflow server."""
++import argparse
++import json
++from pathlib import Path
++import sys
++sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
++from gate import verify_evaluation
++from release import validate_release
++
++parser=argparse.ArgumentParser()
++parser.add_argument('--workspace',type=Path,default=Path('.real'))
++args=parser.parse_args()
++manifest=json.loads((args.workspace/'manifest-candidate.json').read_text())
++report=json.loads((args.workspace/'report-candidate.json').read_text())
++try:
++    # Check sources and full gate even when the compact report already says FAIL.
++    verify_evaluation(manifest,report)
++    validate_release(manifest,report)
++except ValueError as exc:
++    print('REJECTED:',str(exc))
++    raise SystemExit(1)
++print('PASS: full gate and metadata agree')
+diff --git a/hw8910/scripts/check_negative.py b/hw8910/scripts/check_negative.py
+new file mode 100644
+index 0000000..59eb407
+--- /dev/null
++++ b/hw8910/scripts/check_negative.py
+@@ -0,0 +1,21 @@
++"""Deliberately reintroduce a truthiness defect in a temporary copy, never in cwd."""
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tempfile
++
++root=Path(__file__).resolve().parents[1]
++with tempfile.TemporaryDirectory(prefix='hw8910-negative-') as directory:
++    temp=Path(directory)
++    source=(root/'release.py').read_text()
++    original="report['passed'] is not True"
++    assert original in source
++    (temp/'release.py').write_text(source.replace(original,"not report['passed']",1))
++    shutil.copytree(root/'tests',temp/'tests')
++    result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],
++                          cwd=temp,capture_output=True,text=True)
++    log=f'Injected mutation: {original} -> not report[passed]\n'+result.stdout+result.stderr
++    (root/'evidence/intentional-negative.log').write_text(log)
++    print(log)
++    raise SystemExit(result.returncode)
+diff --git a/hw8910/scripts/make_video.py b/hw8910/scripts/make_video.py
+new file mode 100644
+index 0000000..16bc31e
+--- /dev/null
++++ b/hw8910/scripts/make_video.py
+@@ -0,0 +1,146 @@
++"""Narrated 6-minute walkthrough of saved evidence; not a live screen recording.
++
++Requires the full lock (Pillow), local ffmpeg/ffprobe and macOS say/Milena.
++No network calls. Weights and environments are never embedded in the video.
++"""
++import json
++from pathlib import Path
++import subprocess
++import tempfile
++import textwrap
++import sys
++
++ROOT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT))
++
++
++def build():
++    from PIL import Image,ImageDraw,ImageFont
++    decision=json.loads((ROOT/'evidence/real-release/release-decision.json').read_text())
++    benchmark=json.loads((ROOT/'evidence/real-api/benchmark/summary.json').read_text())
++    smoke=json.loads((ROOT/'evidence/real-api/smoke.json').read_text())[0]
++    scenes=[
++('01 / Задача и происхождение',
++ ['ДЗ 8 + 9 + 10: проверяемый выпуск модели','',
++  'Исходный commit: 1837801','Training: '+decision['training_run_id'],
++  'Eval HW67: '+decision['prior_evaluation_run_id'],
++  'Новый eval: '+decision['evaluation_run_id'],'',
++  'Это обзор сохранённых проверяемых журналов.','STUB-опыты и реальные ответы показаны отдельно.'],
++ 'В этой работе нужно было связать процесс выпуска, проверку качества и обслуживание модели. Сначала сохранён исходный сломанный прототип отдельным коммитом. Затем написаны свои интеграционные тесты. Я показываю сохранённые журналы выполненных команд, а не имитирую живое выполнение. Синтетические версии используются только для инженерных проверок. Реальная часть переиспользует обучение из шестого и седьмого домашних заданий. Повторного поиска параметров нет. Новый запуск оценки связывает точные веса и настройки генерации с версией, которую действительно загружает сервис.'),
++('02 / Семь независимых причин',
++ ['1. Ключ кеша использовал путь вместо содержимого.',
++  '2. Gate проверял truthiness поля passed.',
++  '3. accepted.json перезаписывался напрямую.',
++  '4. Повтор добавлял дубликаты публикаций.',
++  '5. ready был зелёным до прогрева.',
++  '6. Метаданные читались из указателя, ответ — из RAM.',
++  '7. Неверный запрос запускал backend.','',
++  'Связи причина → исправление → тест: defects.csv'],
++ 'Найдены семь отдельных причин. Кеш зависел от имени файла, а не от данных. Проверка качества принимала непустую строку вместо настоящего логического значения. Прямая запись могла повредить указатель принятой версии. Повтор процесса безусловно дописывал событие публикации. Готовность объявлялась до прогрева. Метаданные ответа брались из изменяемого файла и могли противоречить модели в памяти. Наконец, пустой запрос и неверный лимит передавались в вычисление. Для каждой причины в таблице дефектов указаны конкретные регрессионные тесты и журналы до и после исправления.'),
++('03 / Красное и зелёное доказательство',
++ ['.venv/bin/python scripts/reproduce_before.py','Исходная версия: exit 1, семь сценариев падают.','evidence/before.log','',
++  'make check-prefect PYTHON=.venv/bin/python','Исправленная версия: 33 tests / OK','evidence/after-prefect.log','',
++  '13 исходных тестов сохранены без изменений.','3 настоящих HTTP-сценария; subprocess и файлы.'],
++ 'Красное доказательство воспроизводится отдельным скриптом. Он извлекает исходный коммит во временный каталог и запускает те же семь сценариев. Падения вызваны проверяемыми дефектами, а не импортами или несуществующими командами. После исправления общий быстрый запуск выполняет тридцать три теста. Три сценария обращаются к настоящему локальному HTTP серверу. Другие запускают выпуск в отдельных процессах и проверяют реальные файлы. Исходные тринадцать тестов не изменены. Дополнительно проверяются повреждение артефактов, сбои загрузки и подмена сохранённых отчётов оценки.'),
++('04 / Prefect, сбой и устойчивый кеш',
++ ['prepare_task → artifact_task → gate_task',
++ '                              ↓ PASS','                       publication_task','',
++ 'run --engine prefect --fail-after-prepare  # exit 1',
++ 'run --engine prefect                       # exit 0',
++ 'Task prepare_task: Cached(type=COMPLETED)','',
++ 'Ключ: SHA256(байты данных + весь config).',
++ 'tokenizer / template / max_length / code_revision'],
++ 'Процесс оформлен одним потоком Prefect с четырьмя задачами. Подготовка проверяет вход, получение артефакта проверяет файлы, затем проверяется допуск и выполняется публикация. Между задачами передаются небольшие описания, идентификаторы и хеши, без тензоров. Результат подготовки сохраняется на диске. После намеренного сбоя новый процесс восстанавливает его со статусом кеширования. Изменение байтов по тому же пути приводит к новой подготовке. То же происходит при изменении версии токенизатора, шаблона, длины или кода. Идентификатор попытки при этом отличается от идентификатора результата.'),
++('05 / Полный gate и настоящий отказ',
++ ['Новая оценка тем же backend, что и API:','',
++ '                    baseline     candidate','accuracy            0.76         0.74',
++ 'format_rate         0.84         0.82','behavioral          1/3          3/3','',
++ 'quality_gate: Регрессия общей accuracy → FAIL',
++ 'evidence/real-gate.log','Пороги HW67 сохранены; val_loss не заменяет gate.'],
++ 'Полная оценка заново выполнена на сохранённых весах без обучения. Кандидат получил тридцать семь правильных ответов из пятидесяти против тридцати восьми у базы. Доля корректного формата также уменьшилась. Несмотря на три пройденных поведенческих примера, правило допуска отклоняет регрессию общей точности и критических срезов. Компактный отчёт создаёт код после вызова прежнего правила из домашнего задания шесть плюс семь. Сохраняются исходные ответы, полные оценки, их пути и хеши. Вписать положительное решение вручную недостаточно: обвязка пересчитывает метрики и полный допуск.'),
++('06 / Безопасная публикация и восстановление',
++ ['validate → verify files → durable intent',
++ '     → temporary + flush/fsync → os.replace',
++ '     → deduplicated publications.jsonl','',
++ 'release_id = SHA256(manifest + связанный report)',
++ 'attempts.jsonl — отдельный журнал попыток.','',
++ 'Сбой после указателя → повтор завершает журнал.',
++ 'Отказ gate: accepted SHA256 до == после.',
++ decision['accepted_before_sha256']],
++ 'Сначала проверяются метаданные и реальные файлы. Для записи указателя используется временный файл в том же каталоге, сброс данных и атомарная замена. Ошибка записи проверяется через mock и оставляет старые байты неизменными. Журнал попыток отделён от событий выпуска. Идентификатор выпуска учитывает модель, настройки выполнения и связанное решение оценки. Перед заменой указателя сохраняется намерение. Если процесс падает между указателем и журналом, повтор завершает намерение и не создаёт дубликат. Здесь предполагается один писатель. Это восстановление после сбоя процесса, а не распределённая транзакция.'),
++('07 / FastAPI: готовность и реальные веса',
++ ['GET /health → 200: процесс жив.',
++ 'GET /ready  → 503 до загрузки и прогрева.',
++ 'POST /generate → 422 для неверного лимита.','',
++ 'Веса: Qwen3-0.6B, точная revision и bfloat16 / MPS.',
++ 'Настройки system/template/tokenizer = eval.',
++ 'Для real API фиксирован лимит 32 токена.','',
++ 'Сохраняется baseline, не прошедший кандидат.',
++ 'Baseline retention не обозначается новым PASS.'],
++ 'Итоговый HTTP адаптер использует FastAPI и управляет ресурсами через жизненный цикл приложения. Загрузка идёт в фоне: проверяются файлы, создаётся backend и выполняется реальный прогрев. До завершения готовность и генерация возвращают код пятьсот три. Жизнь процесса проверяется отдельно. Пустые строки и неверные лимиты отклоняются до генерации. Для реальной модели лимит равен тридцати двум токенам, как в оценке. Используются те же инструкция, шаблон, токенизатор, тип весов и код backend. После честного отказа кандидата сервис обслуживает прежнюю исходную базу, без выдуманного положительного допуска.'),
++('08 / Фактическая версия и откат',
++ ['STUB: A → публикация B → ответ и metadata A.',
++ 'Перезапуск → ответ и metadata B.',
++ 'Откат к A + перезапуск → ответ и metadata A.','',
++ 'Отдельный реальный smoke:',
++ 'Вопрос: кто связывает данные с ViewHolder?',
++ 'Ответ: '+smoke['response']['answer'],
++ 'output_tokens: '+str(smoke['response']['output_tokens']),
++ 'model_id: Qwen/Qwen3-0.6B@c1899de...',
++ 'Повторная загрузка подтвердила тот же runtime.'],
++ 'Изменение принятого файла не перегружает модель в памяти. Это доказано отдельным синтетическим опытом: публикация версии Б не меняет старый ответ версии А до перезапуска. После загрузки возвращается Б. Откат и следующий запуск снова возвращают А. Метаданные берутся из реально загруженного backend. Реальная проверка выполняется отдельно. На вопрос о связывании данных с ViewHolder модель выбирает метку С, то есть Adapter. Ответ содержит идентификатор запроса, точную версию, хеш runtime, число токенов и длительности. После управляемого перезапуска повторно загружена та же настоящая модель.'),
++('09 / Замер: 8 запросов + 8 запросов',
++ ['MPS; одинаковые prompts; лимит 32; после warmup','',
++ 'c: успех/n | пакет | req/s | mean latency | max latency',
++ *[f"c={s['concurrency']}: {s['successes']}/8 | {s['batch_seconds']:.3f}s | {s['successful_requests_per_second']:.2f}/s | {s['success_mean_seconds']:.3f}s | {s['success_max_seconds']:.3f}s" for s in benchmark],
++ '', 'Среднее compute: примерно 0.126 с в обоих режимах.',
++ 'Средняя очередь при concurrency=2: 0.107 с.',
++ 'Все 16 строк: evidence/real-api/benchmark/requests.jsonl'],
++ 'Нагрузочный опыт использует восемь одинаковых по составу запросов сначала с одним, затем с двумя клиентами. После прогрева все шестнадцать запросов завершились успешно. Средняя клиентская задержка выросла примерно со ста тридцати одной до двухсот тридцати восьми миллисекунд. При этом вычисление занимает около ста двадцати шести миллисекунд в обоих режимах. Дополнительное время у второго клиента уходит на ожидание последовательного backend. Пропускная способность почти не меняется. Сырые строки содержат каждый статус, идентификатор, число токенов и задержки. Ошибки и таймауты инструмент также сохраняет, а не удаляет из выборки.'),
++('10 / Ограничения и воспроизведение',
++ ['Малые выборки: 50 eval + 3 behavioral; нагрузка 8+8.',
++ 'Backend сериализован; очередь не ограничена.',
++ 'Полный JSON: нет измерений TTFT, ITL или p95.',
++ 'Нет выводов о производительности vLLM/SGLang.','',
++ 'Код → make check-prefect',
++ 'Данные → scripts/prepare_data.py',
++ 'Адаптер → real_release.py + Prefect release gate','',
++ 'README.txt / REPORT.md / defects.csv / evidence/'],
++ 'Это небольшой учебный опыт. Пятьдесят вопросов и три поведенческих примера не доказывают качество продукта. Восемь запросов в режиме не позволяют заявлять устойчивый девяносто пятый перцентиль. Измеряется полный JSON ответ, поэтому время первого токена и интервалы между токенами не выдумываются. Prefill обрабатывает вход, decode последовательно создаёт выход; кеш ключей и значений занимает память в зависимости от длины контекста. Последовательный Transformers backend не показывает возможности специализированных движков. Очередь здесь без отдельного ограничения. Все команды, артефакты, ограничения и план перезапуска для отката записаны в отчёте. Веса и окружения не включены в Git.')]
++    target=ROOT/'artifacts';target.mkdir(exist_ok=True)
++    font=ImageFont.truetype('/System/Library/Fonts/Menlo.ttc',23)
++    title=ImageFont.truetype('/System/Library/Fonts/Menlo.ttc',32)
++    script=[]
++    with tempfile.TemporaryDirectory(prefix='hw8910-video-') as directory:
++        temp=Path(directory);clips=[];duration_total=0
++        for i,(heading,lines,narration) in enumerate(scenes):
++            script.append(heading+'\n'+narration+'\n')
++            frame=Image.new('RGB',(1280,720),'#111820');draw=ImageDraw.Draw(frame)
++            draw.text((44,35),heading,font=title,fill='#73d9bd')
++            y=118
++            for line in lines:
++                for wrapped in textwrap.wrap(line,width=83) or ['']:
++                    draw.text((44,y),wrapped,font=font,fill='#e1eaf1');y+=34
++            draw.text((44,670),'MLOps HW8910 | Обзор сохранённых журналов | evidence/',font=font,fill='#8aabbc')
++            png=temp/f'{i}.png';frame.save(png)
++            speech=temp/f'{i}.txt';speech.write_text(narration)
++            audio=temp/f'{i}.aiff'
++            subprocess.run(['say','-v','Milena','-r','150','-f',str(speech),'-o',str(audio)],check=True)
++            length=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration',
++                                                  '-of','csv=p=0',str(audio)],text=True))
++            duration=max(36,length+1);duration_total+=duration
++            clip=temp/f'{i}.mp4'
++            subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','1',
++                '-i',str(png),'-i',str(audio),'-t',str(duration),'-vf','format=yuv420p',
++                '-r','2','-c:v','libx264','-preset','ultrafast','-crf','26','-c:a','aac',
++                '-b:a','96k','-af','apad',str(clip)],check=True)
++            clips.append(clip)
++            print(heading,'seconds',duration,flush=True)
++        listing=temp/'clips.txt';listing.write_text(''.join(f"file '{clip}'\n" for clip in clips))
++        subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0',
++            '-i',str(listing),'-c','copy','-movflags','+faststart',str(target/'demo.mp4')],check=True)
++    (ROOT/'evidence/video-script.txt').write_text('\n'.join(script))
++    print('Total seconds:',duration_total)
++
++
++if __name__=='__main__':build()
+diff --git a/hw8910/scripts/prepare_data.py b/hw8910/scripts/prepare_data.py
+new file mode 100644
+index 0000000..e2f7203
+--- /dev/null
++++ b/hw8910/scripts/prepare_data.py
+@@ -0,0 +1,10 @@
++"""Validate and cache a data change; does not retrain or promote a model."""
++import argparse
++from pathlib import Path
++import sys
++sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
++from lab import prepare
++parser=argparse.ArgumentParser()
++parser.add_argument('--workspace',type=Path,required=True)
++args=parser.parse_args()
++print(prepare(args.workspace))
+diff --git a/hw8910/scripts/reproduce_before.py b/hw8910/scripts/reproduce_before.py
+new file mode 100644
+index 0000000..cb93c79
+--- /dev/null
++++ b/hw8910/scripts/reproduce_before.py
+@@ -0,0 +1,22 @@
++"""Run the SAME seven regression scenarios on an isolated original checkout."""
++import io
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tarfile
++import tempfile
++
++PROJECT=Path(__file__).resolve().parents[1]
++archive=subprocess.check_output(['git','archive','1837801','hw8910'],cwd=PROJECT.parent)
++with tempfile.TemporaryDirectory() as directory:
++    root=Path(directory)
++    with tarfile.open(fileobj=io.BytesIO(archive)) as bundle:
++        bundle.extractall(root,filter='data')
++    original=root/'hw8910'
++    shutil.copytree(PROJECT/'integration_tests',original/'integration_tests')
++    result=subprocess.run([sys.executable,'-m','unittest','discover','-s','integration_tests',
++                           '-p','test_incidents.py','-v'],cwd=original,capture_output=True,text=True)
++    (PROJECT/'evidence/before.log').write_text(result.stdout+result.stderr)
++    print('Original regression exit code:',result.returncode)
++    raise SystemExit(result.returncode)
+diff --git a/hw8910/scripts/smoke.py b/hw8910/scripts/smoke.py
+new file mode 100644
+index 0000000..2c5b03c
+--- /dev/null
++++ b/hw8910/scripts/smoke.py
+@@ -0,0 +1,67 @@
++"""Separate real-model smoke, restart check, and 8+8 load measurement."""
++import argparse
++import json
++from pathlib import Path
++import socket
++import subprocess
++import sys
++import time
++
++PROJECT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(PROJECT))
++from benchmark import request,measure
++
++
++def run(workspace,output,with_benchmark=True):
++    workspace=workspace.resolve()
++    output.mkdir(parents=True,exist_ok=True)
++    with socket.socket() as sock:
++        sock.bind(('127.0.0.1',0))
++        port=sock.getsockname()[1]
++    url=f'http://127.0.0.1:{port}'
++    prompts=[json.loads(line)['input'] for line in (PROJECT.parent/'hw67/data/eval/golden.jsonl').read_text().splitlines()][:8]
++    snapshots=[]
++    for iteration in (0,1):
++        with (output/f'server-{iteration}.log').open('w') as log:
++            process=subprocess.Popen([sys.executable,str(PROJECT/'service.py'),'--workspace',str(workspace),
++                '--engine','fastapi','--backend','transformers','--port',str(port),'--warmup-seconds','0'],
++                stdout=log,stderr=log,cwd=PROJECT)
++            try:
++                deadline=time.monotonic()+180
++                while True:
++                    try:
++                        status,ready=request(url,'/ready',timeout=2)
++                        if status==200: break
++                    except OSError: pass
++                    if process.poll() is not None or time.monotonic()>deadline:
++                        raise RuntimeError('Model failed to become ready; see server log')
++                    time.sleep(.2)
++                health=request(url,'/health')
++                invalid=request(url,'/generate',dict(prompt='x',max_new_tokens=100000))
++                status,answer=request(url,'/generate',dict(prompt=prompts[1],max_new_tokens=32))
++                expected=json.loads((workspace/'accepted.json').read_text())
++                assert status==200 and answer['model_id']==expected['model_id']
++                assert answer['runtime_sha256']==expected['runtime_sha256']
++                assert 400<=invalid[0]<500
++                assert answer['output_tokens']>0 and not answer['answer'].startswith('STUB ONLY')
++                snapshots.append(dict(restart=iteration,health=health,ready=ready,invalid=invalid,
++                                      prompt=prompts[1],response=answer))
++                (output/'smoke.json').write_text(json.dumps(snapshots,ensure_ascii=False,indent=2)+'\n')
++                if iteration==0 and with_benchmark:
++                    summaries=measure(url,prompts,output/'benchmark')
++                    assert all(s['errors']==0 for s in summaries)
++            finally:
++                process.terminate()
++                try:process.wait(timeout=20)
++                except subprocess.TimeoutExpired:
++                    process.kill();process.wait()
++    print(json.dumps(snapshots,ensure_ascii=False,indent=2))
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser()
++    parser.add_argument('--workspace',type=Path,default=PROJECT/'.real')
++    parser.add_argument('--output',type=Path,default=PROJECT/'evidence/real-api')
++    parser.add_argument('--skip-benchmark',action='store_true')
++    args=parser.parse_args()
++    run(args.workspace,args.output,not args.skip_benchmark)
+diff --git a/hw8910/scripts/verify_delivery.py b/hw8910/scripts/verify_delivery.py
+new file mode 100644
+index 0000000..e4e6b7f
+--- /dev/null
++++ b/hw8910/scripts/verify_delivery.py
+@@ -0,0 +1,38 @@
++"""Verify tracked evidence hashes without local weights or the original MLflow server."""
++import json
++from pathlib import Path
++import sys
++
++ROOT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT))
++from release import canonical,digest
++from gate import verify_evaluation
++
++root=ROOT/'evidence/real-release'
++manifest=json.loads((root/'manifest-candidate.json').read_text())
++report=json.loads((root/'report-candidate.json').read_text())
++# Relocate source URIs in-memory only. Original reports and their bytes stay intact.
++for name,source in report['sources'].items():
++    source['uri']=str(root/'evaluation'/name)
++try:
++    verify_evaluation(manifest,report)
++    expected_pass=True
++except ValueError as exc:
++    if str(exc)!='Регрессия общей accuracy':
++        raise
++    print('Verified honest rejection:',exc)
++    expected_pass=False
++assert report['passed'] is expected_pass
++for role in ('baseline','candidate'):
++    m=json.loads((root/f'manifest-{role}.json').read_text())
++    full=json.loads((root/f'evaluation/{role}-eval.json').read_text())
++    assert digest(canonical(m['runtime']))==m['runtime_sha256']==full['runtime_sha256']
++    assert digest(canonical(m['file_hashes']))==m['model_sha256']==full['model_sha256']
++decision=json.loads((root/'release-decision.json').read_text())
++assert decision['accepted_before_sha256']==decision['accepted_after_sha256']
++assert decision['accepted_after_sha256']==digest((root/'accepted.json').read_bytes())
++smoke=json.loads((ROOT/'evidence/real-api/smoke.json').read_text())
++for result in smoke:
++    assert result['response']['model_id']==decision['served_model_id']
++    assert result['response']['runtime_sha256']==json.loads((root/'accepted.json').read_text())['runtime_sha256']
++print('PASS: sources, runtime, model fingerprints, pointer preservation and real API agree')
+diff --git a/hw8910/service.py b/hw8910/service.py
+index 9ab3c3c..748f938 100644
+--- a/hw8910/service.py
++++ b/hw8910/service.py
+@@ -1,8 +1,4 @@
+-"""Лёгкий HTTP-прототип с дефектами. Только localhost, STUB ONLY.
+-
+-Для итогового проекта перенесите исправленный контракт в FastAPI и подключите
+-загрузчик ДЗ 6+7. Прототип нужен для опытов без установки зависимостей и весов.
+-"""
++"""Shared serving state; stdlib compatibility adapter and FastAPI production adapter."""
+ import argparse
+ import json
+ import threading
+@@ -11,70 +7,154 @@ import uuid
+ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+ from pathlib import Path
+ 
++from release import canonical, digest, verify_artifact
++
+ 
+ class StubBackend:
+-    def __init__(self,manifest):
+-        self.loaded_id=manifest['model_id'];self.calls=0;self.runtime_sha256=manifest['runtime_sha256']
++    def __init__(self, manifest, root=None):
++        self.loaded_id = manifest['model_id']
++        self.calls = 0
++        self.runtime_sha256 = manifest['runtime_sha256']
++
++    def warmup(self):
++        pass
++
++    def generate(self, prompt, limit):
++        self.calls += 1
++        time.sleep(.01)
++        return {'answer': f'STUB ONLY: {self.loaded_id}', 'output_tokens': 1}
++
+ 
+-    def generate(self,prompt,limit):
+-        self.calls+=1;time.sleep(.01)
+-        return {'answer':f'STUB ONLY: {self.loaded_id}', 'output_tokens':1}
++class NotReady(ValueError):
++    pass
+ 
+ 
+ class ServiceState:
+-    def __init__(self,root,warmup_seconds):
+-        self.root=root;self.ready=True
+-        manifest=json.loads((root/'accepted.json').read_text())
+-        self.backend=StubBackend(manifest)
+-        self.warmup_finished=threading.Event()
+-        def warmup():
+-            time.sleep(warmup_seconds);self.warmup_finished.set()
+-        threading.Thread(target=warmup,daemon=True).start()
+-
+-    def generate(self,request):
+-        started=time.perf_counter()
+-        result=self.backend.generate(request.get('prompt',''),request.get('max_new_tokens',32))
+-        advertised=json.loads((self.root/'accepted.json').read_text())
+-        result.update(model_id=advertised['model_id'],runtime_sha256=advertised['runtime_sha256'],
+-                      request_id=str(uuid.uuid4()),generation_seconds=time.perf_counter()-started)
++    def __init__(self, root, warmup_seconds=0, backend_factory=StubBackend):
++        self.root = Path(root)
++        self.backend = None
++        self.error = None
++        self.warmup_finished = threading.Event()
++        self.lock = threading.Lock()
++        # Snapshot manifest exactly once. Metadata is never read from a moving pointer.
++        self.manifest = json.loads((self.root/'accepted.json').read_text())
++        self.max_tokens = self.manifest['runtime']['generation']['max_new_tokens']
++        self.max_chars = 4096
++        self.real = self.manifest.get('kind') in ('base', 'adapter')
++        if self.real and backend_factory is StubBackend:
++            raise ValueError('Real manifest requires an explicit real backend')
++        self.ready = False
++
++        def load():
++            try:
++                if digest(canonical(self.manifest['runtime'])) != self.manifest['runtime_sha256']:
++                    raise ValueError('Runtime fingerprint mismatch')
++                verify_artifact(self.manifest, self.root)
++                self.backend = backend_factory(self.manifest, self.root)
++                self.backend.warmup()
++                time.sleep(warmup_seconds)
++                self.warmup_finished.set()
++                self.ready = True
++            except Exception as exc:
++                self.error = f'{type(exc).__name__}: {exc}'
++        self.loader = threading.Thread(target=load, daemon=True)
++        self.loader.start()
++
++    def generate(self, request):
++        started = time.perf_counter()
++        if not isinstance(request, dict):
++            raise ValueError('JSON object required')
++        prompt = request.get('prompt')
++        limit = request.get('max_new_tokens', self.max_tokens)
++        if not isinstance(prompt, str) or not prompt.strip() or len(prompt) > self.max_chars:
++            raise ValueError('prompt must contain 1..4096 characters')
++        if type(limit) is not int or not 1 <= limit <= self.max_tokens:
++            raise ValueError(f'max_new_tokens must be an integer in [1, {self.max_tokens}]')
++        # Real evaluations use a fixed cap. Shorter caps can change strict JSON accuracy.
++        if self.real and limit != self.max_tokens:
++            raise ValueError('Real serving requires the exact evaluated token cap')
++        if not self.ready:
++            raise NotReady('Model is loading or warming up')
++        with self.lock:
++            generation_started = time.perf_counter()
++            result = self.backend.generate(prompt, limit)
++            elapsed = time.perf_counter()-generation_started
++        result.update(model_id=self.backend.loaded_id, runtime_sha256=self.backend.runtime_sha256,
++                      request_id=str(uuid.uuid4()), generation_seconds=elapsed,
++                      queue_seconds=generation_started-started, total_seconds=time.perf_counter()-started)
+         return result
+ 
++    def debug(self):
++        return {'loaded_id': self.backend.loaded_id if self.backend else None,
++                'calls': self.backend.calls if self.backend else 0,
++                'warmup_finished': self.warmup_finished.is_set()}
++
+ 
+ def handler_for(state):
+     class Handler(BaseHTTPRequestHandler):
+-        def send_json(self,status,payload):
+-            data=json.dumps(payload,ensure_ascii=False).encode()
+-            self.send_response(status);self.send_header('Content-Type','application/json; charset=utf-8')
+-            self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
++        def send_json(self, status, payload):
++            data = json.dumps(payload, ensure_ascii=False).encode()
++            self.send_response(status)
++            self.send_header('Content-Type', 'application/json; charset=utf-8')
++            self.send_header('Content-Length', str(len(data)))
++            self.end_headers()
++            self.wfile.write(data)
+ 
+         def do_GET(self):
+-            if self.path=='/health':self.send_json(200,{'alive':True,'backend':'STUB ONLY'})
+-            elif self.path=='/ready':self.send_json(200 if state.ready else 503,{'ready':state.ready})
+-            elif self.path=='/debug':
+-                self.send_json(200,{'loaded_id':state.backend.loaded_id,'calls':state.backend.calls,'warmup_finished':state.warmup_finished.is_set()})
+-            else:self.send_json(404,{'error':'not found'})
++            if self.path == '/health':
++                self.send_json(200, {'alive': True})
++            elif self.path == '/ready':
++                self.send_json(200 if state.ready else 503, {'ready': state.ready})
++            elif self.path == '/debug':
++                self.send_json(200, state.debug())
++            else:
++                self.send_json(404, {'error': 'not found'})
+ 
+         def do_POST(self):
+-            if self.path!='/generate':self.send_json(404,{'error':'not found'});return
+-            size=int(self.headers.get('Content-Length','0'))
+-            if size<0 or size>65536:self.send_json(413,{'error':'body too large'});return
++            if self.path != '/generate':
++                self.send_json(404, {'error': 'not found'})
++                return
+             try:
+-                payload=json.loads(self.rfile.read(size))
+-                self.send_json(200,state.generate(payload))
+-            except (ValueError,TypeError,AttributeError,KeyError) as e:
+-                self.send_json(400,{'error':str(e)})
++                size = int(self.headers.get('Content-Length', '0'))
++                if not 0 < size <= 65536:
++                    self.send_json(413, {'error': 'body too large'})
++                    return
++                self.send_json(200, state.generate(json.loads(self.rfile.read(size))))
++            except NotReady as exc:
++                self.send_json(503, {'error': str(exc)})
++            except (ValueError, TypeError, AttributeError, KeyError) as exc:
++                self.send_json(422, {'error': str(exc)})
+     return Handler
+ 
+ 
+ def main():
+-    p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,default=Path('.lab'))
+-    p.add_argument('--port',type=int,default=8091);p.add_argument('--warmup-seconds',type=float,default=5)
+-    args=p.parse_args();state=ServiceState(args.workspace,args.warmup_seconds)
+-    server=ThreadingHTTPServer(('127.0.0.1',args.port),handler_for(state))
+-    print(f'STUB ONLY: http://127.0.0.1:{server.server_port}',flush=True)
+-    try:server.serve_forever()
+-    except KeyboardInterrupt:pass
+-    finally:server.server_close()
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--workspace', type=Path, default=Path('.lab'))
++    parser.add_argument('--port', type=int, default=8091)
++    parser.add_argument('--warmup-seconds', type=float, default=5)
++    parser.add_argument('--engine', choices=['stdlib', 'fastapi'], default='stdlib')
++    parser.add_argument('--backend', choices=['stub', 'transformers'], default='stub')
++    args = parser.parse_args()
++    factory = StubBackend
++    if args.backend == 'transformers':
++        from backend import TransformersBackend
++        factory = TransformersBackend
++    if args.engine == 'fastapi':
++        import uvicorn
++        from api import create_app
++        uvicorn.run(create_app(args.workspace, args.warmup_seconds, factory,
++                               debug=args.backend=='stub'), host='127.0.0.1', port=args.port)
++        return
++    state = ServiceState(args.workspace, args.warmup_seconds, factory)
++    server = ThreadingHTTPServer(('127.0.0.1', args.port), handler_for(state))
++    print(f'http://127.0.0.1:{server.server_port}', flush=True)
++    try:
++        server.serve_forever()
++    except KeyboardInterrupt:
++        pass
++    finally:
++        server.server_close()
+ 
+ 
+-if __name__=='__main__':main()
++if __name__ == '__main__':
++    main()

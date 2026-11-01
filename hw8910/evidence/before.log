@@ -1,0 +1,138 @@
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp46dqes0n/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp41p8o4yv/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpkjbxq4ul/workspace
+{"command": [], "exit_code": 0, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpsylhubn2/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp0c3fsmdz/workspace
+{"command": ["--report", "report-reject.json"], "exit_code": 1, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 84, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 81, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 69, in run\n    release.publish(manifest,report,root/'accepted.json')\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/release.py\", line 17, in publish\n    validate_release(manifest, report)\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/release.py\", line 13, in validate_release\n    raise ValueError('Кандидат отклонён')\nValueError: Кандидат отклонён\n"}
+POINTER report-reject.json aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1 aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1
+{"command": ["--report", "report-incomplete.json"], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+{"command": ["--report", "report-A.json"], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmptojl2wui/workspace
+{"command": ["--fail-after-prepare"], "exit_code": 1, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 84, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 81, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/lab.py\", line 67, in run\n    if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Инъекция сбоя после подготовки\n"}
+{"command": [], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp560qm337/workspace
+{"command": [], "exit_code": 0, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n", "stderr": ""}
+test_atomic_disk_failure (test_incidents.IncidentTests.test_atomic_disk_failure) ... FAIL
+test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) ... 
+  test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': ''}) ... FAIL
+  test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': 0}) ... FAIL
+  test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': 100000}) ... FAIL
+  test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': '32'}) ... FAIL
+test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) ... FAIL
+test_http_loaded_version_and_rollback (test_incidents.IncidentTests.test_http_loaded_version_and_rollback) ... FAIL
+test_http_readiness_blocks_backend_until_warmup (test_incidents.IncidentTests.test_http_readiness_blocks_backend_until_warmup) ... FAIL
+test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) ... 
+  test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) (report='report-incomplete.json') ... FAIL
+  test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) (report='report-A.json') ... FAIL
+test_subprocess_recovery_and_content_cache (test_incidents.IncidentTests.test_subprocess_recovery_and_content_cache) ... FAIL
+test_subprocess_repeat_publication (test_incidents.IncidentTests.test_subprocess_repeat_publication) ... FAIL
+
+======================================================================
+FAIL: test_atomic_disk_failure (test_incidents.IncidentTests.test_atomic_disk_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 111, in test_atomic_disk_failure
+    with self.assertRaises(OSError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: OSError not raised
+
+======================================================================
+FAIL: test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': ''})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 165, in test_http_invalid_requests_never_call_backend
+    self.assertTrue(400 <= status < 500, status)
+AssertionError: False is not true : 200
+
+======================================================================
+FAIL: test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': 0})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 165, in test_http_invalid_requests_never_call_backend
+    self.assertTrue(400 <= status < 500, status)
+AssertionError: False is not true : 200
+
+======================================================================
+FAIL: test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': 100000})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 165, in test_http_invalid_requests_never_call_backend
+    self.assertTrue(400 <= status < 500, status)
+AssertionError: False is not true : 200
+
+======================================================================
+FAIL: test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) (payload={'prompt': 'x', 'max_new_tokens': '32'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 165, in test_http_invalid_requests_never_call_backend
+    self.assertTrue(400 <= status < 500, status)
+AssertionError: False is not true : 200
+
+======================================================================
+FAIL: test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 170, in test_http_invalid_requests_never_call_backend
+    self.assertEqual(request('/debug')[1]['calls'], calls+1)
+AssertionError: 5 != 1
+
+======================================================================
+FAIL: test_http_loaded_version_and_rollback (test_incidents.IncidentTests.test_http_loaded_version_and_rollback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 145, in test_http_loaded_version_and_rollback
+    self.assertEqual(answer['model_id'], 'fixture-A')
+AssertionError: 'fixture-B' != 'fixture-A'
+- fixture-B
+?         ^
++ fixture-A
+?         ^
+
+
+======================================================================
+FAIL: test_http_readiness_blocks_backend_until_warmup (test_incidents.IncidentTests.test_http_readiness_blocks_backend_until_warmup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 127, in test_http_readiness_blocks_backend_until_warmup
+    self.assertEqual(request('/ready')[0], 503)
+AssertionError: 200 != 503
+
+======================================================================
+FAIL: test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) (report='report-incomplete.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 103, in test_subprocess_incomplete_foreign_reject_preserve_pointer
+    self.assertNotEqual(self.command('--report', name).returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) (report='report-A.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 103, in test_subprocess_incomplete_foreign_reject_preserve_pointer
+    self.assertNotEqual(self.command('--report', name).returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_subprocess_recovery_and_content_cache (test_incidents.IncidentTests.test_subprocess_recovery_and_content_cache)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 90, in test_subprocess_recovery_and_content_cache
+    self.assertIn('PREPARED', result.stdout+result.stderr)
+AssertionError: 'PREPARED' not found in 'CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B\n'
+
+======================================================================
+FAIL: test_subprocess_repeat_publication (test_incidents.IncidentTests.test_subprocess_repeat_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpavg6widb/hw8910/integration_tests/test_incidents.py", line 121, in test_subprocess_repeat_publication
+    self.assertEqual(len(events), 1)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.487s
+
+FAILED (failures=12)

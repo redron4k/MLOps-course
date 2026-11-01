@@ -1,0 +1,96 @@
+.venv/bin/python -m compileall -q release.py lab.py service.py api.py pipeline.py backend.py gate.py real_release.py benchmark.py scripts integration_tests tests
+.venv/bin/python scripts/check.py
+test_changed_bytes_at_same_path_invalidate_cache (test_release.ReleaseContractTests.test_changed_bytes_at_same_path_invalidate_cache) ... ok
+test_complete_bound_report_allowed (test_release.ReleaseContractTests.test_complete_bound_report_allowed) ... ok
+test_every_preparation_setting_invalidates_cache (test_release.ReleaseContractTests.test_every_preparation_setting_invalidates_cache) ... ok
+test_failed_atomic_replace_preserves_previous_bytes (test_release.ReleaseContractTests.test_failed_atomic_replace_preserves_previous_bytes) ... ok
+test_incomplete_false_and_truthy_string_rejected (test_release.ReleaseContractTests.test_incomplete_false_and_truthy_string_rejected) ... ok
+test_invalid_digest_and_schema_rejected (test_release.ReleaseContractTests.test_invalid_digest_and_schema_rejected) ... ok
+test_invalid_metric_rejected (test_release.ReleaseContractTests.test_invalid_metric_rejected) ... ok
+test_key_ignores_path_and_mapping_order (test_release.ReleaseContractTests.test_key_ignores_path_and_mapping_order) ... ok
+test_missing_fields_rejected (test_release.ReleaseContractTests.test_missing_fields_rejected) ... ok
+test_publish_and_repeat (test_release.ReleaseContractTests.test_publish_and_repeat) ... ok
+test_rejection_preserves_previous_bytes (test_release.ReleaseContractTests.test_rejection_preserves_previous_bytes) ... ok
+test_report_binding_mismatch_rejected (test_release.ReleaseContractTests.test_report_binding_mismatch_rejected) ... ok
+test_runtime_change_with_stale_hash_rejected (test_release.ReleaseContractTests.test_runtime_change_with_stale_hash_rejected) ... ok
+test_changed_source_rejected (test_gate_sources.SourceGateTests.test_changed_source_rejected) ... ok
+test_complete_raw_evidence_passes (test_gate_sources.SourceGateTests.test_complete_raw_evidence_passes) ... ok
+test_fabricated_pass_cannot_override_full_quality_gate (test_gate_sources.SourceGateTests.test_fabricated_pass_cannot_override_full_quality_gate) ... ok
+test_rehashed_raw_cannot_hide_stale_scores (test_gate_sources.SourceGateTests.test_rehashed_raw_cannot_hide_stale_scores) ... ok
+test_runtime_binding_cannot_be_relabelled (test_gate_sources.SourceGateTests.test_runtime_binding_cannot_be_relabelled) ... ok
+test_atomic_disk_failure (test_incidents.IncidentTests.test_atomic_disk_failure) ... ok
+test_http_invalid_requests_never_call_backend (test_incidents.IncidentTests.test_http_invalid_requests_never_call_backend) ... ok
+test_http_loaded_version_and_rollback (test_incidents.IncidentTests.test_http_loaded_version_and_rollback) ... ok
+test_http_readiness_blocks_backend_until_warmup (test_incidents.IncidentTests.test_http_readiness_blocks_backend_until_warmup) ... ok
+test_subprocess_incomplete_foreign_reject_preserve_pointer (test_incidents.IncidentTests.test_subprocess_incomplete_foreign_reject_preserve_pointer) ... ok
+test_subprocess_recovery_and_content_cache (test_incidents.IncidentTests.test_subprocess_recovery_and_content_cache) ... ok
+test_subprocess_repeat_publication (test_incidents.IncidentTests.test_subprocess_repeat_publication) ... Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpzgbq0o7z/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmprjipgk3n/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp2dhmhnjd/workspace
+{"command": [], "exit_code": 0, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmplu2wvony/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpxvlgvo8p/workspace
+{"command": ["--report", "report-reject.json"], "exit_code": 1, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 107, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 97, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 78, in run\n    identity=release.publish_release(manifest,report,root,fail_after_pointer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 109, in publish_release\n    validate_release(manifest, report)\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 43, in validate_release\n    raise ValueError('Incomplete or rejected evaluation')\nValueError: Incomplete or rejected evaluation\n"}
+POINTER report-reject.json aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1 aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1
+{"command": ["--report", "report-incomplete.json"], "exit_code": 1, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 107, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 97, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 78, in run\n    identity=release.publish_release(manifest,report,root,fail_after_pointer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 109, in publish_release\n    validate_release(manifest, report)\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 43, in validate_release\n    raise ValueError('Incomplete or rejected evaluation')\nValueError: Incomplete or rejected evaluation\n"}
+POINTER report-incomplete.json aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1 aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1
+{"command": ["--report", "report-A.json"], "exit_code": 1, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 107, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 97, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 78, in run\n    identity=release.publish_release(manifest,report,root,fail_after_pointer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 109, in publish_release\n    validate_release(manifest, report)\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py\", line 35, in validate_release\n    raise ValueError('Report mismatch: ' + key)\nValueError: Report mismatch: model_sha256\n"}
+POINTER report-A.json aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1 aca0bc1332936349f868b84d800dec94e1a042f4aec3196fe4c4c031c3b5c6d1
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpa0vl7pkm/workspace
+{"command": ["--fail-after-prepare"], "exit_code": 1, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\n", "stderr": "Traceback (most recent call last):\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 107, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 97, in main\n    else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py\", line 76, in run\n    if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Инъекция сбоя после подготовки\n"}
+{"command": [], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "PREPARED 5d739a7503460b86d67edc4e22f97237ec0fdfbe6d944a9abe902d95ce9d3488\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "PREPARED 5d739a7503460b86d67edc4e22f97237ec0fdfbe6d944a9abe902d95ce9d3488\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "PREPARED 5d739a7503460b86d67edc4e22f97237ec0fdfbe6d944a9abe902d95ce9d3488\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "PREPARED 5d739a7503460b86d67edc4e22f97237ec0fdfbe6d944a9abe902d95ce9d3488\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "PREPARED 5d739a7503460b86d67edc4e22f97237ec0fdfbe6d944a9abe902d95ce9d3488\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpzk2fmnq3/workspace
+{"command": [], "exit_code": 0, "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}
+{"command": [], "exit_code": 0, "stdout": "CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda\n", "stderr": ""}ok
+test_backend_load_failure_never_sets_ready (test_recovery.RecoveryTests.test_backend_load_failure_never_sets_ready) ... ok
+test_fsync_failure_preserves_pointer_and_cleans_temp (test_recovery.RecoveryTests.test_fsync_failure_preserves_pointer_and_cleans_temp) ... ok
+test_new_evaluation_or_runtime_is_a_distinct_release (test_recovery.RecoveryTests.test_new_evaluation_or_runtime_is_a_distinct_release) ... ok
+test_pointer_journal_crash_recovers_once (test_recovery.RecoveryTests.test_pointer_journal_crash_recovers_once) ... ok
+test_pointer_journal_recovery_in_new_process (test_recovery.RecoveryTests.test_pointer_journal_recovery_in_new_process) ... ok
+test_real_file_tampering_blocks_publish_and_load (test_recovery.RecoveryTests.test_real_file_tampering_blocks_publish_and_load) ... ok
+test_real_manifest_cannot_accidentally_use_stub (test_recovery.RecoveryTests.test_real_manifest_cannot_accidentally_use_stub) ... ok
+test_synthetic_report_cannot_authorize_real_weights (test_recovery.RecoveryTests.test_synthetic_report_cannot_authorize_real_weights) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 2.836s
+
+OK
+
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmphcjz5ty4/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpxix7zons/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpoyfz6ax2/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpkvtlnruu/workspace
+RECOVERED_PUBLICATION
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp54rqbbtr/workspace
+AFTER_POINTER_FAILURE 1 PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+ Traceback (most recent call last):
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py", line 107, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py", line 97, in main
+    else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py", line 78, in run
+    identity=release.publish_release(manifest,report,root,fail_after_pointer)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py", line 139, in publish_release
+    finish(transaction, fail_after_pointer)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py", line 122, in finish
+    raise RuntimeError('Injected failure after pointer, before publication journal')
+RuntimeError: Injected failure after pointer, before publication journal
+
+RECOVERY_ATTEMPT 0 CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+RECOVERED_PUBLICATION
+PUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda
+ 
+RECOVERY_ATTEMPT 0 CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+PUBLISHED fixture-B 330dceb4a062a6dbd7d2b1068989621f0aa10ac463e74ea41f90b97a2d318eda
+ 
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmp1kizy4zw/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpz64tafht/workspace
+Создан синтетический стенд: /var/folders/_m/bbyn0jn12hx3v4ycld11hnkc0000gn/T/tmpl551fld2/workspace

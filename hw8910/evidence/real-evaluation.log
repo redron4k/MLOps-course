@@ -1,0 +1,113 @@
+Downloading artifacts:   0%|          | 0/15 [00:00<?, ?it/s]Downloading artifacts:   7%|▋         | 1/15 [00:00<00:00, 4048.56it/s]Downloading artifacts:  13%|█▎        | 2/15 [00:00<00:00, 3636.15it/s]Downloading artifacts:  20%|██        | 3/15 [00:00<00:00, 262.51it/s] Downloading artifacts:  27%|██▋       | 4/15 [00:00<00:00, 297.86it/s]Downloading artifacts:  33%|███▎      | 5/15 [00:00<00:00, 322.62it/s]Downloading artifacts:  40%|████      | 6/15 [00:00<00:00, 334.67it/s]Downloading artifacts:  47%|████▋     | 7/15 [00:00<00:00, 368.50it/s]Downloading artifacts:  53%|█████▎    | 8/15 [00:00<00:00, 391.62it/s]Downloading artifacts:  60%|██████    | 9/15 [00:00<00:00, 414.63it/s]Downloading artifacts:  67%|██████▋   | 10/15 [00:00<00:00, 421.90it/s]Downloading artifacts:  73%|███████▎  | 11/15 [00:00<00:00, 433.31it/s]Downloading artifacts:  80%|████████  | 12/15 [00:00<00:00, 43.54it/s] Downloading artifacts:  80%|████████  | 12/15 [00:00<00:00, 43.54it/s]Downloading artifacts:  87%|████████▋ | 13/15 [00:03<00:00, 43.54it/s]Downloading artifacts:  93%|█████████▎| 14/15 [00:03<00:00, 43.54it/s]Downloading artifacts: 100%|██████████| 15/15 [00:03<00:00, 43.54it/s]Downloading artifacts: 100%|██████████| 15/15 [00:03<00:00,  4.77it/s]
+2026/11/01 19:19:00 INFO mlflow.tracking.fluent: Experiment with name 'hw8910-release-evaluation' does not exist. Creating a new experiment.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 25314.95it/s]
+baseline ui-recyclerview-01 {"answer":"REFUSE"} None
+baseline ui-recyclerview-02 {"answer":"C"} None
+baseline ui-recyclerview-03 {"answer":"B"} None
+baseline ui-recyclerview-04 {"answer":"REFUSE"} None
+baseline ui-recyclerview-05 {"answer":"C"} None
+baseline ui-recyclerview-06 {"answer":"C"} None
+baseline ui-recyclerview-07 {"answer":"A"} None
+baseline ui-recyclerview-08 {"answer":"C"} None
+baseline ui-recyclerview-09 {"answer":"C"} None
+baseline ui-recyclerview-10 {"answer":"REFUSE"} None
+baseline ui-dialog-01 {"answer":"A"} None
+baseline ui-dialog-02 {"answer":"C"} None
+baseline ui-dialog-03 {"answer":"B"} None
+baseline ui-dialog-04 {"answer":"B"} None
+baseline ui-dialog-05 {"answer":"C"} None
+baseline ui-dialog-06 {"answer":"B"} None
+baseline ui-dialog-07 {"answer":"A"} None
+baseline ui-dialog-08 {"answer":"C"} None
+baseline ui-dialog-09 {"answer":"REFUSE"} None
+baseline ui-dialog-10 {"answer":"A"} None
+baseline services-01 {"answer":"A"} None
+baseline services-02 {"answer":"REFUSE"} None
+baseline services-03 {"answer":"B"} None
+baseline services-04 {"answer":"REFUSE"} None
+baseline services-05 {"answer":"C"} None
+baseline services-06 {"answer":"B"} None
+baseline services-07 {"answer":"A"} None
+baseline services-08 {"answer":"C"} None
+baseline services-09 {"answer":"B"} None
+baseline services-10 {"answer":"A"} None
+baseline firebase-auth-01 {"answer":"B"} None
+baseline firebase-auth-02 {"answer":"C"} None
+baseline firebase-auth-03 {"answer":"B"} None
+baseline firebase-auth-04 {"answer":"A"} None
+baseline firebase-auth-05 {"answer":"C"} None
+baseline firebase-auth-06 {"answer":"B"} None
+baseline firebase-auth-07 {"answer":"A"} None
+baseline firebase-auth-08 {"answer":"C"} None
+baseline firebase-auth-09 {"answer":"B"} None
+baseline firebase-auth-10 {"answer":"A"} None
+baseline firebase-messaging-01 {"answer":"A"} None
+baseline firebase-messaging-02 {"answer":"C"} None
+baseline firebase-messaging-03 {"answer":"B"} None
+baseline firebase-messaging-04 {"answer":"A"} None
+baseline firebase-messaging-05 {"answer":"REFUSE"} None
+baseline firebase-messaging-06 {"answer":"B"} None
+baseline firebase-messaging-07 {"answer":"REFUSE"} None
+baseline firebase-messaging-08 {"answer":"C"} None
+baseline firebase-messaging-09 {"answer":"B"} None
+baseline firebase-messaging-10 {"answer":"A"} None
+baseline behavior-format {"answer":"REFUSE"} None
+baseline behavior-paraphrase {"answer":"B"} None
+baseline behavior-refusal {"answer":"A"} None
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 31670.88it/s]
+candidate ui-recyclerview-01 {"answer":"A"} None
+candidate ui-recyclerview-02 {"answer":"C"} None
+candidate ui-recyclerview-03 {"answer":"B"} None
+candidate ui-recyclerview-04 {"answer":"REFUSE"} None
+candidate ui-recyclerview-05 {"answer":"C"} None
+candidate ui-recyclerview-06 {"answer":"C"} None
+candidate ui-recyclerview-07 {"answer":"A"} None
+candidate ui-recyclerview-08 {"answer":"C"} None
+candidate ui-recyclerview-09 {"answer":"C"} None
+candidate ui-recyclerview-10 {"answer":"REFUSE"} None
+candidate ui-dialog-01 {"answer":"A"} None
+candidate ui-dialog-02 {"answer":"C"} None
+candidate ui-dialog-03 {"answer":"B"} None
+candidate ui-dialog-04 {"answer":"B"} None
+candidate ui-dialog-05 {"answer":"C"} None
+candidate ui-dialog-06 {"answer":"B"} None
+candidate ui-dialog-07 {"answer":"A"} None
+candidate ui-dialog-08 {"answer":"C"} None
+candidate ui-dialog-09 {"answer":"REFUSE"} None
+candidate ui-dialog-10 {"answer":"A"} None
+candidate services-01 {"answer":"A"} None
+candidate services-02 {"answer":"REFUSE"} None
+candidate services-03 {"answer":"B"} None
+candidate services-04 {"answer":"REFUSE"} None
+candidate services-05 {"answer":"C"} None
+candidate services-06 {"answer":"B"} None
+candidate services-07 {"answer":"REFUSE"} None
+candidate services-08 {"answer":"C"} None
+candidate services-09 {"answer":"B"} None
+candidate services-10 {"answer":"A"} None
+candidate firebase-auth-01 {"answer":"B"} None
+candidate firebase-auth-02 {"answer":"C"} None
+candidate firebase-auth-03 {"answer":"B"} None
+candidate firebase-auth-04 {"answer":"REFUSE"} None
+candidate firebase-auth-05 {"answer":"C"} None
+candidate firebase-auth-06 {"answer":"B"} None
+candidate firebase-auth-07 {"answer":"A"} None
+candidate firebase-auth-08 {"answer":"C"} None
+candidate firebase-auth-09 {"answer":"B"} None
+candidate firebase-auth-10 {"answer":"A"} None
+candidate firebase-messaging-01 {"answer":"A"} None
+candidate firebase-messaging-02 {"answer":"C"} None
+candidate firebase-messaging-03 {"answer":"B"} None
+candidate firebase-messaging-04 {"answer":"A"} None
+candidate firebase-messaging-05 {"answer":"REFUSE"} None
+candidate firebase-messaging-06 {"answer":"B"} None
+candidate firebase-messaging-07 {"answer":"REFUSE"} None
+candidate firebase-messaging-08 {"answer":"C"} None
+candidate firebase-messaging-09 {"answer":"B"} None
+candidate firebase-messaging-10 {"answer":"A"} None
+candidate behavior-format {"answer":"A"} None
+candidate behavior-paraphrase {"answer":"B"} None
+candidate behavior-refusal {"answer":"REFUSE"} None
+🏃 View run existing-training-exact-serving-runtime at: http://127.0.0.1:5006/#/experiments/3/runs/a58cc4e32edb44c98fbc0233779fa934
+🧪 View experiment at: http://127.0.0.1:5006/#/experiments/3
+CANDIDATE_REJECTED Incomplete or rejected evaluation

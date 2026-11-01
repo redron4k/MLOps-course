@@ -8,3 +8,8 @@ models/
 *.bin
 *.pt
 .lab*/
+.real*/
+.prefect/
+*.egg-info/
+artifacts/*
+!artifacts/demo-commands.md

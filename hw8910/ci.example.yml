@@ -5,12 +5,17 @@ permissions:
 jobs:
   contracts:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hw8910
+    env:
+      PREFECT_SERVER_ANALYTICS_ENABLED: 'false'
+      NO_PROXY: localhost,127.0.0.1
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      # Шаблон предполагает release.py и tests/ в корне репозитория.
-      # При вложенном проекте задайте working-directory для run.
-      - run: python -m compileall -q release.py tests
-      - run: python -m unittest discover -s tests -v
+      - run: python -m pip install -r requirements-fast.lock.txt
+      - run: make check PYTHON=python
+      - run: make check-prefect PYTHON=python

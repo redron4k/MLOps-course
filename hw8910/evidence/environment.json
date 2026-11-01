@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14",
+  "system": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "original_commit": "1837801c43b9e15a7bc83d9de660b6e71aad5b10",
+  "public_tests_sha256": "03632e58fa10f8742a205ae04ecba956f7a7cd0a0cfb90fc7fa9d32d6f2c1d7e",
+  "full_lock_sha256": "b89257c99914ec11c0cb984b0adafac056542341369994786053d3990cd38df0"
+}

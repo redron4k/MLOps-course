@@ -1,0 +1,60 @@
+[
+  {
+    "restart": 0,
+    "health": [
+      200,
+      {
+        "alive": true
+      }
+    ],
+    "ready": {
+      "ready": true
+    },
+    "invalid": [
+      422,
+      {
+        "detail": "max_new_tokens must be an integer in [1, 32]"
+      }
+    ],
+    "prompt": "Кто связывает данные с ViewHolder?\nA: Service\nB: Dialog\nC: Adapter",
+    "response": {
+      "answer": "{\"answer\":\"C\"}",
+      "output_tokens": 6,
+      "model_id": "Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca",
+      "runtime_sha256": "a6120cd0e7027050258a3a617ba726fbd11f5b8fc370e81c383cade7a2aed702",
+      "request_id": "c39f0a5d-1d67-42d6-b7c7-e7b87a01d02a",
+      "generation_seconds": 0.1684313750010915,
+      "queue_seconds": 5.416979547590017e-06,
+      "total_seconds": 0.16846387498662807
+    }
+  },
+  {
+    "restart": 1,
+    "health": [
+      200,
+      {
+        "alive": true
+      }
+    ],
+    "ready": {
+      "ready": true
+    },
+    "invalid": [
+      422,
+      {
+        "detail": "max_new_tokens must be an integer in [1, 32]"
+      }
+    ],
+    "prompt": "Кто связывает данные с ViewHolder?\nA: Service\nB: Dialog\nC: Adapter",
+    "response": {
+      "answer": "{\"answer\":\"C\"}",
+      "output_tokens": 6,
+      "model_id": "Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca",
+      "runtime_sha256": "a6120cd0e7027050258a3a617ba726fbd11f5b8fc370e81c383cade7a2aed702",
+      "request_id": "8ef70363-1280-4a9e-b4e1-626c25b86136",
+      "generation_seconds": 0.12385954201454297,
+      "queue_seconds": 2.207991201430559e-06,
+      "total_seconds": 0.12388475000625476
+    }
+  }
+]

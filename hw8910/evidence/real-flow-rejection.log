@@ -1,0 +1,124 @@
+19:20:45.254 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8731
+See https://docs.prefect.io/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+19:20:46.603 | INFO    | Flow run 'woodoo-grasshopper' - Beginning flow run 'woodoo-grasshopper' for flow 'verified-model-release'
+19:20:46.611 | INFO    | Task run 'prepare_task-0ea' - PREPARED c5b74b2dc33481e21f56aac346ffc4f736b6611623000d95a8355136dba61c76
+19:20:46.612 | INFO    | Task run 'prepare_task-0ea' - Finished in state Completed()
+19:20:46.612 | INFO    | Flow run 'woodoo-grasshopper' - PREPARATION_RESULT c5b74b2dc33481e21f56aac346ffc4f736b6611623000d95a8355136dba61c76
+19:20:46.630 | INFO    | Task run 'artifact_task-0d1' - Finished in state Completed()
+19:20:46.631 | ERROR   | Task run 'gate_task-921' - Task run failed with exception: ValueError('Incomplete or rejected evaluation')
+Traceback (most recent call last):
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1030, in run_context
+    yield self
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1699, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1047, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/pipeline.py", line 36, in gate_task
+    validate_release(artifact['manifest'], report)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py", line 43, in validate_release
+    raise ValueError('Incomplete or rejected evaluation')
+ValueError: Incomplete or rejected evaluation
+19:20:46.634 | ERROR   | Task run 'gate_task-921' - Finished in state Failed('Task run encountered an exception ValueError: Incomplete or rejected evaluation')
+19:20:47.614 | ERROR   | Flow run 'woodoo-grasshopper' - Encountered exception during execution: ValueError('Incomplete or rejected evaluation')
+Traceback (most recent call last):
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 1330, in run_context
+    yield self
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 2111, in run_flow_sync
+    engine.call_flow_fn()
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 1350, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/pipeline.py", line 58, in release_flow
+    report = gate_task(root, report_name, artifact)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1932, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1702, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 622, in result
+    raise self._raised
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1030, in run_context
+    yield self
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1699, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1047, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/pipeline.py", line 36, in gate_task
+    validate_release(artifact['manifest'], report)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py", line 43, in validate_release
+    raise ValueError('Incomplete or rejected evaluation')
+ValueError: Incomplete or rejected evaluation
+19:20:47.657 | INFO    | Flow run 'woodoo-grasshopper' - Finished in state Failed('Flow run encountered an exception: ValueError: Incomplete or rejected evaluation')
+Traceback (most recent call last):
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py", line 107, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/lab.py", line 96, in main
+    release_flow(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flows.py", line 1887, in __call__
+    return run_flow(
+           ^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 2268, in run_flow
+    ret_val = run_flow_sync(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 2113, in run_flow_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 788, in result
+    raise self._raised
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 1330, in run_context
+    yield self
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 2111, in run_flow_sync
+    engine.call_flow_fn()
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/flow_engine.py", line 1350, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/pipeline.py", line 58, in release_flow
+    report = gate_task(root, report_name, artifact)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1932, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1702, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 622, in result
+    raise self._raised
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1030, in run_context
+    yield self
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1699, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/task_engine.py", line 1047, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/.venv/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/pipeline.py", line 36, in gate_task
+    validate_release(artifact['manifest'], report)
+  File "/Users/redron/Documents/higher_education/7sem/MLOps/practice/hw8910/release.py", line 43, in validate_release
+    raise ValueError('Incomplete or rejected evaluation')
+ValueError: Incomplete or rejected evaluation
+19:20:47.676 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8731

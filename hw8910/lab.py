@@ -6,6 +6,8 @@
 import argparse
 import hashlib
 import json
+import uuid
+import time
 from pathlib import Path
 import release
 
@@ -58,27 +60,48 @@ def prepare(root):
     if entry.exists():
         result=read(entry);print('CACHE_HIT',result['input_sha256']);return result
     payload=(root/'input.txt').read_bytes()
+    if config.get('format')=='jsonl':
+        rows=[json.loads(line) for line in payload.decode().splitlines() if line.strip()]
+        if not rows or any(not isinstance(row.get('input'),str) or not row['input'].strip()
+                           or not isinstance(row.get('id'),str) for row in rows):
+            raise ValueError('Invalid evaluation input schema')
+        if len({row['id'] for row in rows})!=len(rows):
+            raise ValueError('Duplicate input IDs')
     result={'input_sha256':digest(payload),'rows':len(payload.splitlines()),'config':config}
-    write(entry,result);print('PREPARED',result['input_sha256']);return result
+    release.atomic_bytes(entry, canonical(result));print('PREPARED',result['input_sha256']);return result
 
 
-def run(root,report_name,fail_after_prepare=False):
+def run(root,report_name,fail_after_prepare=False,manifest_name='manifest-B.json',fail_after_pointer=False):
     prepared=prepare(root)
     if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
-    manifest=read(root/'manifest-B.json');report=read(root/report_name)
-    release.publish(manifest,report,root/'accepted.json')
-    with (root/'publications.jsonl').open('a') as f:
-        f.write(json.dumps({'model_id':manifest['model_id'],'prepared':prepared['input_sha256']})+'\n')
-    print('PUBLISHED',manifest['model_id'])
+    manifest=read(root/manifest_name);report=read(root/report_name)
+    identity=release.publish_release(manifest,report,root,fail_after_pointer)
+    print('PUBLISHED',manifest['model_id'],identity)
 
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--workspace',type=Path,default=Path('.lab'))
     sub=parser.add_subparsers(dest='command',required=True);sub.add_parser('init')
     run_parser=sub.add_parser('run');run_parser.add_argument('--report',default='report-B.json');run_parser.add_argument('--fail-after-prepare',action='store_true')
+    run_parser.add_argument('--manifest',default='manifest-B.json')
+    run_parser.add_argument('--fail-after-pointer',action='store_true')
+    run_parser.add_argument('--engine',choices=['stdlib','prefect'],default='stdlib')
     args=parser.parse_args()
     if args.command=='init':initialize(args.workspace)
-    else:run(args.workspace,args.report,args.fail_after_prepare)
+    else:
+        attempt={'attempt_id':str(uuid.uuid4()),'started_at':time.time(),'engine':args.engine}
+        try:
+            if args.engine=='prefect':
+                from pipeline import release_flow
+                release_flow(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
+            else:run(args.workspace,args.report,args.fail_after_prepare,args.manifest,args.fail_after_pointer)
+            attempt['status']='complete'
+        except Exception as exc:
+            attempt.update(status='failed',error=f'{type(exc).__name__}: {exc}')
+            raise
+        finally:
+            with (args.workspace/'attempts.jsonl').open('a') as stream:
+                stream.write(json.dumps(attempt,ensure_ascii=False)+'\n')
 
 
 if __name__=='__main__':main()
