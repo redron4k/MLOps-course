@@ -1,0 +1,14 @@
+{
+  "status": "complete",
+  "passed": true,
+  "evaluation_run_id": "eval-A",
+  "model_id": "training-run-A",
+  "model_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "protocol_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "golden_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "runtime_sha256": "9697ec1a034bc80fb92f83c450af72a51572a080223664137aed8882509f8596",
+  "metrics": {
+    "accuracy": 0.8,
+    "format_rate": 1.0
+  }
+}

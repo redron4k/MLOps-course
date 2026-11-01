@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "model_id": "training-run-A",
+  "model_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "protocol_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "golden_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "runtime_sha256": "9697ec1a034bc80fb92f83c450af72a51572a080223664137aed8882509f8596",
+  "runtime": {
+    "base_revision": "fixed-revision",
+    "tokenizer_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "template_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "generation": {
+      "max_new_tokens": 32,
+      "do_sample": false
+    },
+    "dtype": "float32"
+  },
+  "artifact_uri": "models:/my-model/1"
+}
