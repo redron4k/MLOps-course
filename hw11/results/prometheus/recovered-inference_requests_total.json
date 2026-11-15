@@ -1,0 +1,203 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "outcome": "completed",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.988,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "outcome": "rejected",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.988,
+          "3260"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "outcome": "interrupted",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "outcome": "invalid",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "outcome": "error",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "outcome": "completed",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.988,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "outcome": "rejected",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.988,
+          "191"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "outcome": "interrupted",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "outcome": "invalid",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "outcome": "error",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "outcome": "completed",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "outcome": "rejected",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "outcome": "interrupted",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "outcome": "invalid",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_requests_total",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "outcome": "error",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.988,
+          "0"
+        ]
+      }
+    ]
+  }
+}

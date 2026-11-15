@@ -1,0 +1,15 @@
+{
+  "model_id": "A",
+  "artifact_uri": "model-A.json",
+  "file_hashes": {
+    "model-A.json": "2e93755c3e0dc137878bedb9e4faa962dade4354c200a475007314b9e592ec32"
+  },
+  "model_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e",
+  "runtime": {
+    "generation": {
+      "max_new_tokens": 128
+    },
+    "backend": "simulated-v1"
+  },
+  "runtime_sha256": "0ba871dc9b936efa1c63f2c234c4597df4bf10fcc975ae1e7fca8d444ca23ad9"
+}

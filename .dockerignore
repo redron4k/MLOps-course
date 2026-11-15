@@ -1,0 +1,16 @@
+**/.venv
+**/.git
+**/__pycache__
+hw1
+hw2
+hw3
+hw4
+hw5
+hw67
+hw8910/.real*
+hw8910/.lab*
+hw8910/.prefect
+hw8910/evidence
+hw8910/artifacts
+hw11/.tools
+hw11/results

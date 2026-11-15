@@ -1,0 +1,4 @@
+2026-11-15T22:26:38.377406639Z ======== Running on http://0.0.0.0:8000 ========
+2026-11-15T22:26:38.377434180Z (Press CTRL+C to quit)
+2026-11-15T22:26:58.381392384Z {"event": "load_failed", "unix": 1794781618.381245, "request_id": null, "pod": "api-76fd9dcb8f-rkzrv", "model_id": "B", "version": "B", "backend_mode": "simulated", "artifact_sha256": "0b5a57d1f301a6cab6d828f0fbba4620b387936724a1438a3423db371fffaa54", "error": "injected unready release"}
+2026-11-15T22:27:13.817031877Z {"event": "draining", "unix": 1794781633.8168411, "request_id": null, "pod": "api-76fd9dcb8f-rkzrv", "model_id": "B", "version": "B", "backend_mode": "simulated", "artifact_sha256": "0b5a57d1f301a6cab6d828f0fbba4620b387936724a1438a3423db371fffaa54", "running": 0}

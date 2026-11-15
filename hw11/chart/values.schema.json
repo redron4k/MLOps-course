@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "image",
+    "modelVersion",
+    "warmupSeconds",
+    "replicas",
+    "concurrency",
+    "queueLimit",
+    "hpa"
+  ],
+  "properties": {
+    "replicas": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 3
+    },
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "modelVersion": {
+      "enum": [
+        "A",
+        "B"
+      ]
+    },
+    "warmupSeconds": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 90
+    },
+    "brokenProbes": {
+      "type": "boolean"
+    },
+    "neverReady": {
+      "type": "boolean"
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 16
+    },
+    "queueLimit": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 256
+    },
+    "queueTimeout": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 60
+    },
+    "cacheCapacity": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1024
+    },
+    "hitSeconds": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "missSeconds": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "chunkSeconds": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "hpa": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "targetCPU",
+        "stabilizationSeconds"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "targetCPU": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "stabilizationSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600
+        }
+      }
+    }
+  }
+}

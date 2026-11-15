@@ -1,0 +1,32 @@
+{
+  "planned": 195,
+  "sent": 195,
+  "outcomes": {
+    "completed": 193,
+    "http_error": 2
+  },
+  "observations": 193,
+  "error_fraction": 0.01025641025641022,
+  "timeout_fraction": 0.0,
+  "ttfc_p50": 0.04768483299994841,
+  "ttfc_p95": 0.05404157501179725,
+  "duration_p95": 0.30588619158370417,
+  "schedule_lag_p95": 0.0012774910661391913,
+  "pods": {
+    "null": {
+      "n": 2,
+      "ttfc_p95": null,
+      "queue_p95": null
+    },
+    "api-7d68b768c5-66rql": {
+      "n": 68,
+      "ttfc_p95": 0.2553369415545603,
+      "queue_p95": 0.00029358750014125685
+    },
+    "api-7d68b768c5-p8xpt": {
+      "n": 125,
+      "ttfc_p95": 0.053179225034546106,
+      "queue_p95": 0.00032134140019479673
+    }
+  }
+}

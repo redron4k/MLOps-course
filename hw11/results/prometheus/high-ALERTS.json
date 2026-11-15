@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "HighFailureFraction",
+          "alertstate": "firing",
+          "severity": "warning"
+        },
+        "value": [
+          1794780612.735,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "HighTTFC",
+          "alertstate": "firing",
+          "severity": "warning"
+        },
+        "value": [
+          1794780612.735,
+          "1"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,2018 @@
+{
+  "checks": [
+    {
+      "name": "unique_attempts:B-api-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-api-sticky-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-api-sticky-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-api-sticky-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:C-hpa-high",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:C-hpa-high",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:C-hpa-high",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:C-hpa-hot-sticky",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:C-hpa-hot-sticky",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:C-hpa-hot-sticky",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:C-alerts-overload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:C-alerts-overload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:C-alerts-overload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-warmup-broken",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-warmup-broken",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-warmup-broken",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-warmup-fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-warmup-fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-warmup-fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-rollout-long-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-rollout-long-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-rollout-long-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-rollout-long-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-rollout-long-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-rollout-long-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-rollout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-rollout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-rollout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-bad-B",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-bad-B",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-bad-B",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-after-rollback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-after-rollback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-after-rollback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-forced-kill",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-forced-kill",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-forced-kill",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-kill-recovery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-kill-recovery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-kill-recovery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-isolation-before-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-isolation-before-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-isolation-before-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-isolation-before-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-isolation-before-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-isolation-before-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-isolation-after-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-isolation-after-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-isolation-after-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:A-isolation-after-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:A-isolation-after-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:A-isolation-after-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-mapping-probe-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-mapping-probe-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-mapping-probe-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-counterexample-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-counterexample-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-counterexample-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-counterexample-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-counterexample-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-counterexample-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:B-counterexample-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:B-counterexample-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:B-counterexample-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-replacement-fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-replacement-fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-replacement-fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-21",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-21",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-21",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-22",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-22",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-22",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-23",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-23",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-23",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-24",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-24",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-24",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-25",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-25",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-25",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-26",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-26",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-26",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-27",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-27",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-27",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-28",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-28",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-28",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-29",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-29",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-29",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-30",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-30",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-30",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-31",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-31",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-31",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-32",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-32",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-32",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-33",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-33",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-33",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-34",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-34",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-34",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-35",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-35",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-35",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-36",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-36",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-36",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-37",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-37",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-37",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-41",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-41",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-41",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-42",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-42",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-42",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-43",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-43",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-43",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-44",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-44",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-44",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-45",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-45",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-45",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-46",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-46",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-46",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-47",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-47",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-47",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-48",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-48",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-48",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-49",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-49",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-49",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-50",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-50",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-50",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-51",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-51",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-51",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-52",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-52",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-52",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-53",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-53",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-53",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-54",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-54",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-54",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-55",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-55",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-55",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-57",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-57",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-57",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-58",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-58",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-58",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-59",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-59",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-59",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-60",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-60",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-60",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-61",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-61",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-61",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-62",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-62",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-62",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-63",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-63",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-63",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-64",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-64",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-64",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-66",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-66",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-66",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-67",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-67",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-67",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-68",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-68",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-68",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-70",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-70",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-70",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-71",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-71",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-71",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-72",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-72",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-72",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-73",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-73",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-73",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-74",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-74",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-74",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-75",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-75",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-75",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-76",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-76",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-76",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-77",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-77",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-77",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-78",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-78",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-78",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_attempts:D-histogram-79",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "monotonic_times:D-histogram-79",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stream_accounting:D-histogram-79",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "kubernetes_warmup_original_failure",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "kubernetes_warmup_fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "kubernetes_version_after_rollback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rollout_both_actual_versions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unready_B_excluded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rollout_zero_errors",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rollout_preexisting_long_stream",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forced_kill_counted_as_interrupted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "kubernetes_replacement_same_version",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dialogue_isolation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:uniform-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:skew-1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:uniform-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:skew-2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:uniform-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_B_run:B-api-sticky-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "generator_schedule_lag:B-api-sticky-skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identical_load:skew-3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four_distinct_client_pod_ips",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_backend_version_in_comparisons",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_image_all_twelve_B_runs",
+      "passed": true,
+      "detail": [
+        "sha256:391e58ec65fc9d2bf9f32102454035b0e9b8d10c69818ecd58dcfbcfc4a9f7f5"
+      ]
+    },
+    {
+      "name": "hpa_2_3_2",
+      "passed": true,
+      "detail": [
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "name": "alert_pending_firing:HighTTFC",
+      "passed": true,
+      "detail": [
+        "firing",
+        "pending"
+      ]
+    },
+    {
+      "name": "alert_recovered:HighTTFC",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "alert_pending_firing:HighFailureFraction",
+      "passed": true,
+      "detail": [
+        "firing",
+        "pending"
+      ]
+    },
+    {
+      "name": "alert_recovered:HighFailureFraction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "long_stream_drained_during_termination",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_artifact_after_replacement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cold_request_joined_to_ready_endpoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_cold_working_traffic_fixed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "hot_queue_and_spare_capacity_observed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_skew_counterexample_saved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "counterexample_full_repeat:1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "counterexample_full_repeat:2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "counterexample_full_repeat:3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fresh_replacement_http_version_and_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four_figures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_histogram_cohort",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "promql_actually_evaluated",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": 400,
+  "failed": 0
+}

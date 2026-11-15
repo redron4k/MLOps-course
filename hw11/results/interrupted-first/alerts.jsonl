@@ -1,0 +1,79 @@
+{"unix": 1794777086.6545448, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777088.656362, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777090.658802, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777092.6614132, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777094.663908, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777096.666572, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777098.670437, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "pending", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "7.133130481226894e-01"}]}}}
+{"unix": 1794777100.67594, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "pending", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "7.738840167618558e-01"}]}}}
+{"unix": 1794777102.679938, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "pending", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.097314929570376e-01"}]}}}
+{"unix": 1794777104.68429, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "pending", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.351484708707111e-01"}]}}}
+{"unix": 1794777106.686595, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.545211605584642e-01"}]}}}
+{"unix": 1794777108.689804, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.693263035446855e-01"}]}}}
+{"unix": 1794777110.6927092, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.762352813834869e-01"}]}}}
+{"unix": 1794777112.695843, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "8.073051510940477e-01"}]}}}
+{"unix": 1794777114.697838, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "7.356030341109281e-01"}]}}}
+{"unix": 1794777116.699865, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "6.662310093507331e-01"}]}}}
+{"unix": 1794777118.7022378, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "6.307986564056092e-01"}]}}}
+{"unix": 1794777120.7058299, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "6.051890339244413e-01"}]}}}
+{"unix": 1794777122.709085, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "5.563866553812464e-01"}]}}}
+{"unix": 1794777124.7140632, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "5.01770991707031e-01"}]}}}
+{"unix": 1794777126.716683, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "4.293733929167294e-01"}]}}}
+{"unix": 1794777128.719574, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "3.5657900561181577e-01"}]}}}
+{"unix": 1794777130.723319, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "2.8351892180630317e-01"}]}}}
+{"unix": 1794777132.72722, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "2.1004362497825982e-01"}]}}}
+{"unix": 1794777134.7312279, "data": {"status": "success", "data": {"alerts": [{"labels": {"alertname": "HighFailureFraction", "severity": "warning"}, "annotations": {"summary": "Failure fraction above 10%, at least 20 attempts/30s"}, "state": "firing", "activeAt": "2026-11-15T21:11:37.16560587Z", "value": "1.362360698618566e-01"}]}}}
+{"unix": 1794777136.7355928, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777138.73979, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777140.743187, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777142.746631, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777144.750259, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777146.754858, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777148.758155, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777150.763028, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777152.767885, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777154.771699, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777156.775552, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777158.779043, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777160.782101, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777162.9737659, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777164.978477, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777166.983308, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777168.986718, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777170.9894311, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777172.992109, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777174.995103, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777176.998523, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777179.00236, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777181.00672, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777183.011832, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777185.0149481, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777187.0183501, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777189.020305, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777191.02439, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777193.026741, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777195.031605, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777197.034664, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777199.0371509, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777201.040102, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777203.043587, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777205.047353, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777207.050718, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777209.052496, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777211.05477, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777213.057905, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777215.06009, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777217.0632079, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777219.067122, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777221.0702772, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777223.074238, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777225.0783591, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777227.082693, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777229.08608, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777231.088489, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777233.091637, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777235.096129, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777237.10013, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777239.32129, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777241.3280761, "data": {"status": "success", "data": {"alerts": []}}}
+{"unix": 1794777243.334034, "data": {"status": "success", "data": {"alerts": []}}}

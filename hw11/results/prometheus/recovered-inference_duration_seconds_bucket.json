@@ -1,0 +1,593 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "453"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "841"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "850"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "944"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780987.999,
+          "2830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "660"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "665"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "674"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "768"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780987.999,
+          "1566"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_duration_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780987.999,
+          "0"
+        ]
+      }
+    ]
+  }
+}

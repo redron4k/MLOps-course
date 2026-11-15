@@ -1,0 +1,8 @@
+{
+  "query": "histogram_quantile(0.95, sum by(le) (inference_ttfc_seconds_bucket{pod=\"api-7d68b768c5-zwfnq\"} @ 1794782261.273723 - inference_ttfc_seconds_bucket{pod=\"api-7d68b768c5-zwfnq\"} @ 1794782246.455252)))",
+  "result": {
+    "status": "error",
+    "errorType": "bad_data",
+    "error": "invalid parameter \"query\": 1:198: parse error: unexpected right parenthesis ')'"
+  }
+}

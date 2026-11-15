@@ -1,0 +1,15 @@
+.........                                                                [100%]
+=============================== warnings summary ===============================
+tests/test_service.py::test_warmup_readiness_and_version
+tests/test_service.py::test_caller_owned_dialogue_isolation
+tests/test_service.py::test_bound_queue_and_terminal_accounting
+tests/test_service.py::test_aborted_stream_releases_capacity
+tests/test_service.py::test_bad_artifact_never_ready
+tests/test_service.py::test_broken_probes_reproduce_original_defect
+tests/test_service.py::test_drain_unready_but_serves_stale_network_connections
+  /Users/redron/Documents/higher_education/7sem/MLOps/practice/hw11/server.py:41: NotAppKeyWarning: It is recommended to use web.AppKey instances for keys.
+  https://docs.aiohttp.org/en/stable/web_advanced.html#application-s-config
+    app['state'], app['metrics'], app['config'] = state, metrics, c
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 7 warnings in 1.89s

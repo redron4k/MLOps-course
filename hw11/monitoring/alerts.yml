@@ -1,0 +1,13 @@
+groups:
+  - name: inference
+    rules:
+      - alert: HighTTFC
+        expr: histogram_quantile(0.95, sum by (le) (rate(inference_ttfc_seconds_bucket[30s]))) > 0.6 and sum(increase(inference_ttfc_seconds_count[30s])) >= 20
+        for: 8s
+        labels: {severity: warning}
+        annotations: {summary: 'TTFC p95 above 0.6 seconds, at least 20 successful responses/30s'}
+      - alert: HighFailureFraction
+        expr: sum(rate(inference_requests_total{outcome!="completed"}[30s])) / sum(rate(inference_requests_total[30s])) > 0.1 and sum(increase(inference_requests_total[30s])) >= 20
+        for: 8s
+        labels: {severity: warning}
+        annotations: {summary: 'Failure fraction above 10%, at least 20 attempts/30s'}

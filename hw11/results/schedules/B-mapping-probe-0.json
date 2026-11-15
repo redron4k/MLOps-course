@@ -1,0 +1,84 @@
+{
+  "start_unix": 1794781856.164511,
+  "duration": 1,
+  "rate": 4,
+  "skew": false,
+  "entries": [
+    {
+      "id": 0,
+      "at": 0.0,
+      "client": 0,
+      "payload": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "PREFIX-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          },
+          {
+            "role": "user",
+            "content": "question-0"
+          }
+        ],
+        "session_id": "dialog-0-0",
+        "max_chunks": 4
+      }
+    },
+    {
+      "id": 1,
+      "at": 0.25,
+      "client": 1,
+      "payload": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "PREFIX-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          },
+          {
+            "role": "user",
+            "content": "question-1"
+          }
+        ],
+        "session_id": "dialog-1-1",
+        "max_chunks": 4
+      }
+    },
+    {
+      "id": 2,
+      "at": 0.5,
+      "client": 2,
+      "payload": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "PREFIX-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          },
+          {
+            "role": "user",
+            "content": "question-2"
+          }
+        ],
+        "session_id": "dialog-2-2",
+        "max_chunks": 4
+      }
+    },
+    {
+      "id": 3,
+      "at": 0.75,
+      "client": 3,
+      "payload": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "PREFIX-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          },
+          {
+            "role": "user",
+            "content": "question-3"
+          }
+        ],
+        "session_id": "dialog-3-3",
+        "max_chunks": 4
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+Forwarding from 127.0.0.1:19090 -> 9090
+Forwarding from [::1]:19090 -> 9090
+Handling connection for 19090
+error: lost connection to pod

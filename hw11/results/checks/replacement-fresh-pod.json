@@ -1,0 +1,47 @@
+{
+  "deleted": "api-7d68b768c5-66rql",
+  "replacement": "api-7d68b768c5-zwfnq",
+  "created_unix": 1794781703.0,
+  "ready": {
+    "request_id": null,
+    "pod": "api-7d68b768c5-zwfnq",
+    "model_id": "A",
+    "version": "A",
+    "backend_mode": "simulated",
+    "artifact_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e",
+    "ready": true,
+    "draining": false,
+    "error": null
+  },
+  "response": {
+    "run": "D-replacement-fresh",
+    "id": 0,
+    "client": "host",
+    "scheduled_mono": 329432.5822775,
+    "sent_mono": 329432.582335375,
+    "sent_unix": 1794782242.049835,
+    "schedule_lag_seconds": 5.787500413134694e-05,
+    "outcome": "completed",
+    "status": 200,
+    "first_mono": 329432.838348208,
+    "end_mono": 329432.919293333,
+    "chunks": 2,
+    "pod": "api-7d68b768c5-zwfnq",
+    "version": "A",
+    "backend_mode": "simulated",
+    "queue_seconds": 0.00018325000019103754,
+    "request_id": "D-replacement-fresh-host-0",
+    "inter_chunk_seconds": [
+      0.08084208302898332
+    ],
+    "content": [
+      "SIMULATED A: fresh replacement version check",
+      "chunk-1"
+    ],
+    "completed": true,
+    "retry": 0,
+    "cache_hit": false,
+    "duration_seconds": 0.3369579580030404,
+    "ttfc_seconds": 0.25601283297874033
+  }
+}

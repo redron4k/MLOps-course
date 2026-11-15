@@ -1,0 +1,44 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "inference_running",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780988.002,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_running",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780988.002,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_running",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780988.002,
+          "0"
+        ]
+      }
+    ]
+  }
+}

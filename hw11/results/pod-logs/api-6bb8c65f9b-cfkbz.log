@@ -1,0 +1,3 @@
+2026-11-15T22:12:06.241803179Z ======== Running on http://0.0.0.0:8000 ========
+2026-11-15T22:12:06.241827346Z (Press CTRL+C to quit)
+2026-11-15T22:12:26.242608800Z {"event": "warmup_complete", "unix": 1794780746.2425113, "request_id": null, "pod": "api-6bb8c65f9b-cfkbz", "model_id": "A", "version": "A", "backend_mode": "simulated", "artifact_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e"}

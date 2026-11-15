@@ -1,0 +1,593 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "72"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "231"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "577"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "823"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "825"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "830"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "987"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.34:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-98gcv"
+        },
+        "value": [
+          1794780814.009,
+          "2093"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "126"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "126"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "126"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "129"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "136"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "145"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "293"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.36:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-7zj9b"
+        },
+        "value": [
+          1794780814.009,
+          "1032"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.01",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.025",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.05",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.1",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.2",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.4",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "0.8",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "1.5",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "3.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "5.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "10.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "20.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "40.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "80.0",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "inference_ttfc_seconds_bucket",
+          "instance": "10.244.0.37:8000",
+          "job": "inference",
+          "le": "+Inf",
+          "pod": "api-6bb8c65f9b-cfkbz"
+        },
+        "value": [
+          1794780814.009,
+          "0"
+        ]
+      }
+    ]
+  }
+}

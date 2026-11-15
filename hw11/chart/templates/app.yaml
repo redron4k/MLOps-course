@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: {{ .Release.Namespace }}
+data:
+  MODEL_VERSION: {{ .Values.modelVersion | quote }}
+  WARMUP_SECONDS: {{ .Values.warmupSeconds | quote }}
+  BROKEN_PROBES: {{ .Values.brokenProbes | quote }}
+  NEVER_READY: {{ .Values.neverReady | quote }}
+  CONCURRENCY: {{ .Values.concurrency | quote }}
+  QUEUE_LIMIT: {{ .Values.queueLimit | quote }}
+  QUEUE_TIMEOUT: {{ .Values.queueTimeout | quote }}
+  CACHE_CAPACITY: {{ .Values.cacheCapacity | quote }}
+  HIT_SECONDS: {{ .Values.hitSeconds | quote }}
+  MISS_SECONDS: {{ .Values.missSeconds | quote }}
+  CHUNK_SECONDS: {{ .Values.chunkSeconds | quote }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: {{ .Release.Namespace }}
+spec:
+  {{- if not .Values.hpa.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  revisionHistoryLimit: 4
+  progressDeadlineSeconds: 180
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector:
+    matchLabels: {app: api}
+  template:
+    metadata:
+      labels: {app: api}
+      annotations:
+        config-checksum: {{ toJson .Values | sha256sum | quote }}
+    spec:
+      terminationGracePeriodSeconds: 50
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, fsGroup: 10001}
+      containers:
+        - name: api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports: [{name: http, containerPort: 8000}]
+          envFrom: [{configMapRef: {name: api-config}}]
+          env:
+            - name: POD_NAME
+              valueFrom: {fieldRef: {fieldPath: metadata.name}}
+          resources: {{ .Values.resources | toJson }}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+          startupProbe:
+            httpGet: {path: /startup, port: http}
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 120
+          readinessProbe:
+            httpGet: {path: /ready, port: http}
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 1
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              httpGet: {path: /drain, port: http}
+---
+{{- range $name := list "api" "api-sticky" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  selector: {app: api}
+  ports: [{name: http, port: 8000, targetPort: http}]
+  {{- if eq $name "api-sticky" }}
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP: {timeoutSeconds: 10800}
+  {{- else }}
+  sessionAffinity: None
+  {{- end }}
+---
+{{- end }}
+{{- if .Values.hpa.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: {name: api, namespace: {{ .Release.Namespace }}}
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: api}
+  minReplicas: 2
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: {type: Utilization, averageUtilization: {{ .Values.hpa.targetCPU }}}
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies: [{type: Pods, value: 1, periodSeconds: 15}]
+    scaleDown:
+      stabilizationWindowSeconds: {{ .Values.hpa.stabilizationSeconds }}
+      policies: [{type: Pods, value: 1, periodSeconds: 15}]
+{{- end }}

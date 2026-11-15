@@ -1,0 +1,119 @@
+# HELP inference_ttfc_seconds ttfc seconds; successful streams only
+# TYPE inference_ttfc_seconds histogram
+inference_ttfc_seconds_bucket{le="0.01"} 0.0
+inference_ttfc_seconds_bucket{le="0.025"} 0.0
+inference_ttfc_seconds_bucket{le="0.05"} 2174.0
+inference_ttfc_seconds_bucket{le="0.1"} 2181.0
+inference_ttfc_seconds_bucket{le="0.2"} 2193.0
+inference_ttfc_seconds_bucket{le="0.4"} 2237.0
+inference_ttfc_seconds_bucket{le="0.8"} 2243.0
+inference_ttfc_seconds_bucket{le="1.5"} 2243.0
+inference_ttfc_seconds_bucket{le="3.0"} 2243.0
+inference_ttfc_seconds_bucket{le="5.0"} 2243.0
+inference_ttfc_seconds_bucket{le="10.0"} 2243.0
+inference_ttfc_seconds_bucket{le="20.0"} 2243.0
+inference_ttfc_seconds_bucket{le="40.0"} 2243.0
+inference_ttfc_seconds_bucket{le="80.0"} 2243.0
+inference_ttfc_seconds_bucket{le="+Inf"} 2243.0
+inference_ttfc_seconds_count 2243.0
+inference_ttfc_seconds_sum 104.62262059500199
+# HELP inference_ttfc_seconds_created ttfc seconds; successful streams only
+# TYPE inference_ttfc_seconds_created gauge
+inference_ttfc_seconds_created 1.7947817040081275e+09
+# HELP inference_duration_seconds duration seconds; successful streams only
+# TYPE inference_duration_seconds histogram
+inference_duration_seconds_bucket{le="0.01"} 0.0
+inference_duration_seconds_bucket{le="0.025"} 0.0
+inference_duration_seconds_bucket{le="0.05"} 0.0
+inference_duration_seconds_bucket{le="0.1"} 0.0
+inference_duration_seconds_bucket{le="0.2"} 77.0
+inference_duration_seconds_bucket{le="0.4"} 2191.0
+inference_duration_seconds_bucket{le="0.8"} 2243.0
+inference_duration_seconds_bucket{le="1.5"} 2243.0
+inference_duration_seconds_bucket{le="3.0"} 2243.0
+inference_duration_seconds_bucket{le="5.0"} 2243.0
+inference_duration_seconds_bucket{le="10.0"} 2243.0
+inference_duration_seconds_bucket{le="20.0"} 2243.0
+inference_duration_seconds_bucket{le="40.0"} 2243.0
+inference_duration_seconds_bucket{le="80.0"} 2243.0
+inference_duration_seconds_bucket{le="+Inf"} 2243.0
+inference_duration_seconds_count 2243.0
+inference_duration_seconds_sum 650.7490024340223
+# HELP inference_duration_seconds_created duration seconds; successful streams only
+# TYPE inference_duration_seconds_created gauge
+inference_duration_seconds_created 1.7947817040081494e+09
+# HELP inference_queue_seconds queue seconds; successful streams only
+# TYPE inference_queue_seconds histogram
+inference_queue_seconds_bucket{le="0.01"} 2186.0
+inference_queue_seconds_bucket{le="0.025"} 2189.0
+inference_queue_seconds_bucket{le="0.05"} 2192.0
+inference_queue_seconds_bucket{le="0.1"} 2199.0
+inference_queue_seconds_bucket{le="0.2"} 2219.0
+inference_queue_seconds_bucket{le="0.4"} 2243.0
+inference_queue_seconds_bucket{le="0.8"} 2243.0
+inference_queue_seconds_bucket{le="1.5"} 2243.0
+inference_queue_seconds_bucket{le="3.0"} 2243.0
+inference_queue_seconds_bucket{le="5.0"} 2243.0
+inference_queue_seconds_bucket{le="10.0"} 2243.0
+inference_queue_seconds_bucket{le="20.0"} 2243.0
+inference_queue_seconds_bucket{le="40.0"} 2243.0
+inference_queue_seconds_bucket{le="80.0"} 2243.0
+inference_queue_seconds_bucket{le="+Inf"} 2243.0
+inference_queue_seconds_count 2243.0
+inference_queue_seconds_sum 10.944464633016196
+# HELP inference_queue_seconds_created queue seconds; successful streams only
+# TYPE inference_queue_seconds_created gauge
+inference_queue_seconds_created 1.7947817040081618e+09
+# HELP inference_inter_chunk_seconds inter_chunk seconds; successful streams only
+# TYPE inference_inter_chunk_seconds histogram
+inference_inter_chunk_seconds_bucket{le="0.01"} 0.0
+inference_inter_chunk_seconds_bucket{le="0.025"} 0.0
+inference_inter_chunk_seconds_bucket{le="0.05"} 0.0
+inference_inter_chunk_seconds_bucket{le="0.1"} 6567.0
+inference_inter_chunk_seconds_bucket{le="0.2"} 6567.0
+inference_inter_chunk_seconds_bucket{le="0.4"} 6567.0
+inference_inter_chunk_seconds_bucket{le="0.8"} 6567.0
+inference_inter_chunk_seconds_bucket{le="1.5"} 6567.0
+inference_inter_chunk_seconds_bucket{le="3.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="5.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="10.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="20.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="40.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="80.0"} 6567.0
+inference_inter_chunk_seconds_bucket{le="+Inf"} 6567.0
+inference_inter_chunk_seconds_count 6567.0
+inference_inter_chunk_seconds_sum 546.0079384780233
+# HELP inference_inter_chunk_seconds_created inter_chunk seconds; successful streams only
+# TYPE inference_inter_chunk_seconds_created gauge
+inference_inter_chunk_seconds_created 1.7947817040081718e+09
+# HELP inference_running running
+# TYPE inference_running gauge
+inference_running 0.0
+# HELP inference_waiting waiting
+# TYPE inference_waiting gauge
+inference_waiting 0.0
+# HELP inference_ready ready
+# TYPE inference_ready gauge
+inference_ready 1.0
+# HELP inference_requests_total Terminal request outcomes
+# TYPE inference_requests_total counter
+inference_requests_total{outcome="completed"} 2243.0
+inference_requests_total{outcome="rejected"} 0.0
+inference_requests_total{outcome="interrupted"} 0.0
+inference_requests_total{outcome="invalid"} 0.0
+inference_requests_total{outcome="error"} 0.0
+# HELP inference_requests_created Terminal request outcomes
+# TYPE inference_requests_created gauge
+inference_requests_created{outcome="completed"} 1.794781704008206e+09
+inference_requests_created{outcome="rejected"} 1.7947817040082097e+09
+inference_requests_created{outcome="interrupted"} 1.7947817040082119e+09
+inference_requests_created{outcome="invalid"} 1.794781704008214e+09
+inference_requests_created{outcome="error"} 1.794781704008216e+09
+# HELP inference_cache_total Simulated cache access
+# TYPE inference_cache_total counter
+inference_cache_total{result="miss"} 18.0
+inference_cache_total{result="hit"} 2225.0
+# HELP inference_cache_created Simulated cache access
+# TYPE inference_cache_created gauge
+inference_cache_created{result="miss"} 1.794781856442059e+09
+inference_cache_created{result="hit"} 1.7947818656393151e+09

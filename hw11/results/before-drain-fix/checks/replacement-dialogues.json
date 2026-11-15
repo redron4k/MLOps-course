@@ -1,0 +1,67 @@
+{
+  "deleted_pod": "api-55dddd56cd-5vnvk",
+  "rows": [
+    {
+      "run": "A-isolation-after-0",
+      "id": 0,
+      "client": "host",
+      "scheduled_mono": 326018.537274833,
+      "sent_mono": 326018.537305083,
+      "sent_unix": 1794778828.005732,
+      "schedule_lag_seconds": 3.024999750778079e-05,
+      "outcome": "completed",
+      "status": 200,
+      "first_mono": 326018.791564791,
+      "end_mono": 326018.874381708,
+      "chunks": 2,
+      "pod": "api-55dddd56cd-5bm8s",
+      "version": "A",
+      "backend_mode": "simulated",
+      "queue_seconds": 0.00020679099998233141,
+      "request_id": "A-isolation-after-0-host-0",
+      "inter_chunk_seconds": [
+        0.0827880420256406
+      ],
+      "content": [
+        "SIMULATED A: CANARY-ALPHA-9381|SIMULATED A: CANARY-ALPHA-9381|continue",
+        "chunk-1"
+      ],
+      "completed": true,
+      "retry": 0,
+      "cache_hit": false,
+      "duration_seconds": 0.33707662497181445,
+      "ttfc_seconds": 0.2542597079882398
+    },
+    {
+      "run": "A-isolation-after-1",
+      "id": 0,
+      "client": "host",
+      "scheduled_mono": 326018.875058875,
+      "sent_mono": 326018.875107916,
+      "sent_unix": 1794778828.343559,
+      "schedule_lag_seconds": 4.904100205749273e-05,
+      "outcome": "completed",
+      "status": 200,
+      "first_mono": 326019.128950833,
+      "end_mono": 326019.209896791,
+      "chunks": 2,
+      "pod": "api-55dddd56cd-fhdh4",
+      "version": "A",
+      "backend_mode": "simulated",
+      "queue_seconds": 9.712499991110235e-05,
+      "request_id": "A-isolation-after-1-host-0",
+      "inter_chunk_seconds": [
+        0.08090691699180752
+      ],
+      "content": [
+        "SIMULATED A: CANARY-BETA-5726|SIMULATED A: CANARY-BETA-5726|continue",
+        "chunk-1"
+      ],
+      "completed": true,
+      "retry": 0,
+      "cache_hit": false,
+      "duration_seconds": 0.3347888750140555,
+      "ttfc_seconds": 0.2538429169799201
+    }
+  ]
+}

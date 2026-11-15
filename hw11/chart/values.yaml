@@ -1,0 +1,22 @@
+replicas: 2
+image:
+  repository: hw11-api
+  tag: v2
+modelVersion: A
+warmupSeconds: 20
+brokenProbes: false
+neverReady: false
+concurrency: 2
+queueLimit: 24
+queueTimeout: 15
+cacheCapacity: 16
+hitSeconds: 0.04
+missSeconds: 0.25
+chunkSeconds: 0.08
+resources:
+  requests: {cpu: 200m, memory: 96Mi}
+  limits: {cpu: "1", memory: 192Mi}
+hpa:
+  enabled: false
+  targetCPU: 55
+  stabilizationSeconds: 60

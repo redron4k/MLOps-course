@@ -1,0 +1,370 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: monitor
+  namespace: hw11
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: hw11-monitor
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - pods
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - namespaces
+  - replicationcontrollers
+  - resourcequotas
+  - limitranges
+  - persistentvolumes
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  - daemonsets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+- nonResourceURLs:
+  - /metrics
+  - /metrics/cadvisor
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hw11-monitor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: hw11-monitor
+subjects:
+- kind: ServiceAccount
+  name: monitor
+  namespace: hw11
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prom-config
+  namespace: hw11
+data:
+  prometheus.yml: "global:\n  scrape_interval: 2s\n  evaluation_interval: 2s\nrule_files:\
+    \ [/etc/prometheus/alerts.yml]\nscrape_configs:\n  - job_name: inference\n   \
+    \ kubernetes_sd_configs: [{role: pod, namespaces: {names: [hw11]}}]\n    relabel_configs:\n\
+    \      - {source_labels: [__meta_kubernetes_pod_label_app], regex: api, action:\
+    \ keep}\n      - {source_labels: [__meta_kubernetes_pod_container_port_number],\
+    \ regex: '8000', action: keep}\n      - {source_labels: [__meta_kubernetes_pod_name],\
+    \ target_label: pod}\n  - job_name: kube-state-metrics\n    static_configs: [{targets:\
+    \ ['kube-state-metrics:8080']}]\n  - job_name: cadvisor\n    scheme: https\n \
+    \   authorization: {credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token}\n\
+    \    tls_config: {insecure_skip_verify: true}\n    kubernetes_sd_configs: [{role:\
+    \ node}]\n    metrics_path: /metrics/cadvisor\n    relabel_configs:\n      - {target_label:\
+    \ __address__, replacement: kubernetes.default.svc:443}\n      - {source_labels:\
+    \ [__meta_kubernetes_node_name], target_label: __metrics_path__, replacement:\
+    \ '/api/v1/nodes/$1/proxy/metrics/cadvisor'}\n"
+  alerts.yml: "groups:\n  - name: inference\n    rules:\n      - alert: HighTTFC\n\
+    \        expr: histogram_quantile(0.95, sum by (le) (rate(inference_ttfc_seconds_bucket[30s])))\
+    \ > 0.6 and sum(increase(inference_ttfc_seconds_count[30s])) >= 20\n        for:\
+    \ 8s\n        labels: {severity: warning}\n        annotations: {summary: 'TTFC\
+    \ p95 above 0.6 seconds, at least 20 successful responses/30s'}\n      - alert:\
+    \ HighFailureFraction\n        expr: sum(rate(inference_requests_total{outcome!=\"\
+    completed\"}[30s])) / sum(rate(inference_requests_total[30s])) > 0.1 and sum(increase(inference_requests_total[30s]))\
+    \ >= 20\n        for: 8s\n        labels: {severity: warning}\n        annotations:\
+    \ {summary: 'Failure fraction above 10%, at least 20 attempts/30s'}\n"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provision
+  namespace: hw11
+data:
+  datasource.yaml: "apiVersion: 1\ndatasources:\n- isDefault: true\n  name: Prometheus\n\
+    \  type: prometheus\n  uid: prometheus\n  url: http://prometheus:9090\n"
+  dashboard.yaml: "apiVersion: 1\nproviders:\n- name: hw11\n  options:\n    path:\
+    \ /dashboards\n  type: file\n"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard
+  namespace: hw11
+data:
+  hw11.json: "{\n  \"uid\": \"hw11\",\n  \"title\": \"HW11 \\u00b7 CPU simulated inference\"\
+    ,\n  \"schemaVersion\": 40,\n  \"version\": 1,\n  \"refresh\": \"5s\",\n  \"time\"\
+    : {\n    \"from\": \"now-30m\",\n    \"to\": \"now\"\n  },\n  \"panels\": [\n\
+    \    {\n      \"id\": 1,\n      \"title\": \"TTFC p95 / Pod\",\n      \"type\"\
+    : \"timeseries\",\n      \"gridPos\": {\n        \"x\": 0,\n        \"y\": 0,\n\
+    \        \"w\": 12,\n        \"h\": 8\n      },\n      \"datasource\": {\n   \
+    \     \"uid\": \"prometheus\",\n        \"type\": \"prometheus\"\n      },\n \
+    \     \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.95,\
+    \ sum by (le,pod) (rate(inference_ttfc_seconds_bucket[30s])))\",\n          \"\
+    legendFormat\": \"{{pod}} {{outcome}} {{__name__}}\",\n          \"refId\": \"\
+    A\"\n        }\n      ],\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"unit\": \"s\"\n        },\n        \"overrides\": []\n      }\n \
+    \   },\n    {\n      \"id\": 2,\n      \"title\": \"Full response p95\",\n   \
+    \   \"type\": \"timeseries\",\n      \"gridPos\": {\n        \"x\": 12,\n    \
+    \    \"y\": 0,\n        \"w\": 12,\n        \"h\": 8\n      },\n      \"datasource\"\
+    : {\n        \"uid\": \"prometheus\",\n        \"type\": \"prometheus\"\n    \
+    \  },\n      \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.95,\
+    \ sum by (le,pod) (rate(inference_duration_seconds_bucket[30s])))\",\n       \
+    \   \"legendFormat\": \"{{pod}} {{outcome}} {{__name__}}\",\n          \"refId\"\
+    : \"A\"\n        }\n      ],\n      \"fieldConfig\": {\n        \"defaults\":\
+    \ {\n          \"unit\": \"s\"\n        },\n        \"overrides\": []\n      }\n\
+    \    },\n    {\n      \"id\": 3,\n      \"title\": \"Running / waiting\",\n  \
+    \    \"type\": \"timeseries\",\n      \"gridPos\": {\n        \"x\": 0,\n    \
+    \    \"y\": 8,\n        \"w\": 12,\n        \"h\": 8\n      },\n      \"datasource\"\
+    : {\n        \"uid\": \"prometheus\",\n        \"type\": \"prometheus\"\n    \
+    \  },\n      \"targets\": [\n        {\n          \"expr\": \"inference_running\
+    \ or inference_waiting\",\n          \"legendFormat\": \"{{pod}} {{outcome}} {{__name__}}\"\
+    ,\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\": {\n\
+    \        \"defaults\": {\n          \"unit\": \"short\"\n        },\n        \"\
+    overrides\": []\n      }\n    },\n    {\n      \"id\": 4,\n      \"title\": \"\
+    Completed requests / s\",\n      \"type\": \"timeseries\",\n      \"gridPos\"\
+    : {\n        \"x\": 12,\n        \"y\": 8,\n        \"w\": 12,\n        \"h\"\
+    : 8\n      },\n      \"datasource\": {\n        \"uid\": \"prometheus\",\n   \
+    \     \"type\": \"prometheus\"\n      },\n      \"targets\": [\n        {\n  \
+    \        \"expr\": \"sum by(pod)(rate(inference_requests_total{outcome=\\\"completed\\\
+    \"}[30s]))\",\n          \"legendFormat\": \"{{pod}} {{outcome}} {{__name__}}\"\
+    ,\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\": {\n\
+    \        \"defaults\": {\n          \"unit\": \"reqps\"\n        },\n        \"\
+    overrides\": []\n      }\n    },\n    {\n      \"id\": 5,\n      \"title\": \"\
+    Failures / s\",\n      \"type\": \"timeseries\",\n      \"gridPos\": {\n     \
+    \   \"x\": 0,\n        \"y\": 16,\n        \"w\": 12,\n        \"h\": 8\n    \
+    \  },\n      \"datasource\": {\n        \"uid\": \"prometheus\",\n        \"type\"\
+    : \"prometheus\"\n      },\n      \"targets\": [\n        {\n          \"expr\"\
+    : \"sum by(pod,outcome)(rate(inference_requests_total{outcome!=\\\"completed\\\
+    \"}[30s]))\",\n          \"legendFormat\": \"{{pod}} {{outcome}} {{__name__}}\"\
+    ,\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\": {\n\
+    \        \"defaults\": {\n          \"unit\": \"reqps\"\n        },\n        \"\
+    overrides\": []\n      }\n    },\n    {\n      \"id\": 6,\n      \"title\": \"\
+    CPU / Pod\",\n      \"type\": \"timeseries\",\n      \"gridPos\": {\n        \"\
+    x\": 12,\n        \"y\": 16,\n        \"w\": 12,\n        \"h\": 8\n      },\n\
+    \      \"datasource\": {\n        \"uid\": \"prometheus\",\n        \"type\":\
+    \ \"prometheus\"\n      },\n      \"targets\": [\n        {\n          \"expr\"\
+    : \"sum by(pod)(rate(container_cpu_usage_seconds_total{namespace=\\\"hw11\\\"\
+    ,container=\\\"api\\\"}[30s]))\",\n          \"legendFormat\": \"{{pod}} {{outcome}}\
+    \ {{__name__}}\",\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\"\
+    : {\n        \"defaults\": {\n          \"unit\": \"cores\"\n        },\n    \
+    \    \"overrides\": []\n      }\n    },\n    {\n      \"id\": 7,\n      \"title\"\
+    : \"RAM / Pod\",\n      \"type\": \"timeseries\",\n      \"gridPos\": {\n    \
+    \    \"x\": 0,\n        \"y\": 24,\n        \"w\": 12,\n        \"h\": 8\n   \
+    \   },\n      \"datasource\": {\n        \"uid\": \"prometheus\",\n        \"\
+    type\": \"prometheus\"\n      },\n      \"targets\": [\n        {\n          \"\
+    expr\": \"sum by(pod)(container_memory_working_set_bytes{namespace=\\\"hw11\\\"\
+    ,container=\\\"api\\\"})\",\n          \"legendFormat\": \"{{pod}} {{outcome}}\
+    \ {{__name__}}\",\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\"\
+    : {\n        \"defaults\": {\n          \"unit\": \"bytes\"\n        },\n    \
+    \    \"overrides\": []\n      }\n    },\n    {\n      \"id\": 8,\n      \"title\"\
+    : \"Ready replicas\",\n      \"type\": \"timeseries\",\n      \"gridPos\": {\n\
+    \        \"x\": 12,\n        \"y\": 24,\n        \"w\": 12,\n        \"h\": 8\n\
+    \      },\n      \"datasource\": {\n        \"uid\": \"prometheus\",\n       \
+    \ \"type\": \"prometheus\"\n      },\n      \"targets\": [\n        {\n      \
+    \    \"expr\": \"sum(kube_pod_status_ready{namespace=\\\"hw11\\\",condition=\\\
+    \"true\\\",pod=~\\\"api-.*\\\"})\",\n          \"legendFormat\": \"{{pod}} {{outcome}}\
+    \ {{__name__}}\",\n          \"refId\": \"A\"\n        }\n      ],\n      \"fieldConfig\"\
+    : {\n        \"defaults\": {\n          \"unit\": \"short\"\n        },\n    \
+    \    \"overrides\": []\n      }\n    }\n  ]\n}\n"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: hw11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      serviceAccountName: monitor
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v3.2.1
+        ports:
+        - containerPort: 9090
+        resources:
+          requests:
+            cpu: 50m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        args:
+        - --config.file=/etc/prometheus/prometheus.yml
+        - --storage.tsdb.path=/prometheus
+        - --storage.tsdb.retention.time=2h
+        - --storage.tsdb.retention.size=256MB
+        volumeMounts:
+        - name: config
+          mountPath: /etc/prometheus
+        - name: data
+          mountPath: /prometheus
+      volumes:
+      - name: config
+        configMap:
+          name: prom-config
+      - name: data
+        emptyDir:
+          sizeLimit: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: hw11
+spec:
+  selector:
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: hw11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      serviceAccountName: monitor
+      containers:
+      - name: grafana
+        image: grafana/grafana:11.6.0
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 50m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        volumeMounts:
+        - name: provision
+          mountPath: /etc/grafana/provisioning/datasources/datasource.yaml
+          subPath: datasource.yaml
+        - name: provision
+          mountPath: /etc/grafana/provisioning/dashboards/dashboard.yaml
+          subPath: dashboard.yaml
+        - name: dashboards
+          mountPath: /dashboards
+        - name: data
+          mountPath: /var/lib/grafana
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: 'true'
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Viewer
+        - name: GF_ANALYTICS_REPORTING_ENABLED
+          value: 'false'
+        - name: GF_ANALYTICS_CHECK_FOR_UPDATES
+          value: 'false'
+      volumes:
+      - name: provision
+        configMap:
+          name: grafana-provision
+      - name: dashboards
+        configMap:
+          name: grafana-dashboard
+      - name: data
+        emptyDir:
+          sizeLimit: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: hw11
+spec:
+  selector:
+    app: grafana
+  ports:
+  - port: 3000
+    targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-state-metrics
+  namespace: hw11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-state-metrics
+  template:
+    metadata:
+      labels:
+        app: kube-state-metrics
+    spec:
+      serviceAccountName: monitor
+      containers:
+      - name: kube-state-metrics
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 50m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        args:
+        - --resources=pods,deployments,horizontalpodautoscalers
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-state-metrics
+  namespace: hw11
+spec:
+  selector:
+    app: kube-state-metrics
+  ports:
+  - port: 8080
+    targetPort: 8080

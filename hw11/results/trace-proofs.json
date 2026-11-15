@@ -1,0 +1,223 @@
+{
+  "recovery_artifact_hashes": {
+    "api-7d68b768c5-p8xpt": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e"
+  },
+  "recovery_artifact_matches_manifest": true,
+  "broken_cold_requests": 53,
+  "fixed_cold_requests": 0,
+  "fixed_observed_requests": 225,
+  "broken_ready_endpoint_examples": [
+    {
+      "request": {
+        "event": "received",
+        "unix": 1794781176.6201627,
+        "request_id": "A-warmup-broken-2-10",
+        "pod": "api-7bf969c68c-jfkks",
+        "model_id": "A",
+        "version": "A",
+        "backend_mode": "simulated",
+        "artifact_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e",
+        "session_id": "dialog-2-2",
+        "peer": "10.244.0.8",
+        "warm": false,
+        "input_chars": 148,
+        "max_chunks": 4
+      },
+      "snapshot_unix": 1794781176.8041751,
+      "pod_ready": true,
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.0.41"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "hw11-control-plane",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "api-7bf969c68c-jfkks",
+            "namespace": "hw11",
+            "uid": "6ddc8416-199e-431f-9132-d308dbdf949d"
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "event": "received",
+        "unix": 1794781176.94425,
+        "request_id": "A-warmup-broken-3-11",
+        "pod": "api-7bf969c68c-jfkks",
+        "model_id": "A",
+        "version": "A",
+        "backend_mode": "simulated",
+        "artifact_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e",
+        "session_id": "dialog-3-3",
+        "peer": "10.244.0.8",
+        "warm": false,
+        "input_chars": 148,
+        "max_chunks": 4
+      },
+      "snapshot_unix": 1794781176.8041751,
+      "pod_ready": true,
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.0.41"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "hw11-control-plane",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "api-7bf969c68c-jfkks",
+            "namespace": "hw11",
+            "uid": "6ddc8416-199e-431f-9132-d308dbdf949d"
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "event": "received",
+        "unix": 1794781177.2827134,
+        "request_id": "A-warmup-broken-0-12",
+        "pod": "api-7bf969c68c-jfkks",
+        "model_id": "A",
+        "version": "A",
+        "backend_mode": "simulated",
+        "artifact_sha256": "b9500a32b569f7f9544337f98e4e219ac7056f04723b55287d8c6aaeaf68dd2e",
+        "session_id": "dialog-0-4",
+        "peer": "10.244.0.8",
+        "warm": false,
+        "input_chars": 148,
+        "max_chunks": 4
+      },
+      "snapshot_unix": 1794781176.8041751,
+      "pod_ready": true,
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.0.41"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "hw11-control-plane",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "api-7bf969c68c-jfkks",
+            "namespace": "hw11",
+            "uid": "6ddc8416-199e-431f-9132-d308dbdf949d"
+          }
+        }
+      ]
+    }
+  ],
+  "client_peer_to_pod": {
+    "10.244.0.52": {
+      "api-7d68b768c5-zwfnq": 1081
+    },
+    "10.244.0.55": {
+      "api-7d68b768c5-zwfnq": 1081
+    },
+    "10.244.0.31": {
+      "api-55dddd56cd-fhdh4": 2059,
+      "api-55dddd56cd-5bm8s": 677
+    },
+    "10.244.0.32": {
+      "api-55dddd56cd-fhdh4": 670,
+      "api-55dddd56cd-5bm8s": 2066
+    },
+    "10.244.0.30": {
+      "api-55dddd56cd-fhdh4": 6841,
+      "api-55dddd56cd-5bm8s": 2231
+    },
+    "10.244.0.33": {
+      "api-55dddd56cd-fhdh4": 2028,
+      "api-55dddd56cd-5bm8s": 708
+    },
+    "10.244.0.53": {
+      "api-7d68b768c5-p8xpt": 1081
+    },
+    "10.244.0.54": {
+      "api-7d68b768c5-p8xpt": 1081
+    }
+  },
+  "hot_waiting_spare_capacity_examples": [
+    {
+      "unix": 1794779226.491,
+      "hot": "api-55dddd56cd-fhdh4",
+      "waiting": 12.0,
+      "other": "api-55dddd56cd-5bm8s",
+      "other_running": 1.0,
+      "other_waiting": 0.0
+    },
+    {
+      "unix": 1794779228.491,
+      "hot": "api-55dddd56cd-fhdh4",
+      "waiting": 21.0,
+      "other": "api-55dddd56cd-5bm8s",
+      "other_running": 0.0,
+      "other_waiting": 0.0
+    },
+    {
+      "unix": 1794779230.491,
+      "hot": "api-55dddd56cd-fhdh4",
+      "waiting": 24.0,
+      "other": "api-55dddd56cd-5bm8s",
+      "other_running": 1.0,
+      "other_waiting": 0.0
+    },
+    {
+      "unix": 1794779232.491,
+      "hot": "api-55dddd56cd-fhdh4",
+      "waiting": 23.0,
+      "other": "api-55dddd56cd-5bm8s",
+      "other_running": 0.0,
+      "other_waiting": 0.0
+    },
+    {
+      "unix": 1794779234.491,
+      "hot": "api-55dddd56cd-fhdh4",
+      "waiting": 24.0,
+      "other": "api-55dddd56cd-5bm8s",
+      "other_running": 0.0,
+      "other_waiting": 0.0
+    }
+  ],
+  "no_skew_counterexamples": [
+    {
+      "run": "B-counterexample-uniform-1",
+      "pod_counts": {
+        "api-7d68b768c5-zwfnq": 720,
+        "api-7d68b768c5-p8xpt": 720
+      },
+      "explanation": "Four equal clients happened to bind 2:2; ClientIP is not a guarantee of imbalance."
+    },
+    {
+      "run": "B-counterexample-uniform-2",
+      "pod_counts": {
+        "api-7d68b768c5-zwfnq": 720,
+        "api-7d68b768c5-p8xpt": 720
+      },
+      "explanation": "Four equal clients happened to bind 2:2; ClientIP is not a guarantee of imbalance."
+    },
+    {
+      "run": "B-counterexample-uniform-3",
+      "pod_counts": {
+        "api-7d68b768c5-zwfnq": 720,
+        "api-7d68b768c5-p8xpt": 720
+      },
+      "explanation": "Four equal clients happened to bind 2:2; ClientIP is not a guarantee of imbalance."
+    }
+  ]
+}

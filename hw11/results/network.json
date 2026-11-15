@@ -1,0 +1,480 @@
+{
+  "services": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "meta.helm.sh/release-name": "hw11",
+            "meta.helm.sh/release-namespace": "hw11"
+          },
+          "creationTimestamp": "2026-11-15T21:10:05Z",
+          "labels": {
+            "app.kubernetes.io/managed-by": "Helm"
+          },
+          "name": "api",
+          "namespace": "hw11",
+          "resourceVersion": "1531",
+          "uid": "676ebe0c-a439-428b-b152-ed99f383b76c"
+        },
+        "spec": {
+          "clusterIP": "10.96.179.86",
+          "clusterIPs": [
+            "10.96.179.86"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "http",
+              "port": 8000,
+              "protocol": "TCP",
+              "targetPort": "http"
+            }
+          ],
+          "selector": {
+            "app": "api"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "meta.helm.sh/release-name": "hw11",
+            "meta.helm.sh/release-namespace": "hw11"
+          },
+          "creationTimestamp": "2026-11-15T21:10:05Z",
+          "labels": {
+            "app.kubernetes.io/managed-by": "Helm"
+          },
+          "name": "api-sticky",
+          "namespace": "hw11",
+          "resourceVersion": "1528",
+          "uid": "22006798-3aa3-4145-8139-59b264de9528"
+        },
+        "spec": {
+          "clusterIP": "10.96.85.228",
+          "clusterIPs": [
+            "10.96.85.228"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "http",
+              "port": 8000,
+              "protocol": "TCP",
+              "targetPort": "http"
+            }
+          ],
+          "selector": {
+            "app": "api"
+          },
+          "sessionAffinity": "ClientIP",
+          "sessionAffinityConfig": {
+            "clientIP": {
+              "timeoutSeconds": 10800
+            }
+          },
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"grafana\",\"namespace\":\"hw11\"},\"spec\":{\"ports\":[{\"port\":3000,\"targetPort\":3000}],\"selector\":{\"app\":\"grafana\"}}}\n"
+          },
+          "creationTimestamp": "2026-11-15T21:07:34Z",
+          "name": "grafana",
+          "namespace": "hw11",
+          "resourceVersion": "1241",
+          "uid": "bb103079-07d7-4935-8252-acfaccc3f236"
+        },
+        "spec": {
+          "clusterIP": "10.96.12.102",
+          "clusterIPs": [
+            "10.96.12.102"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "port": 3000,
+              "protocol": "TCP",
+              "targetPort": 3000
+            }
+          ],
+          "selector": {
+            "app": "grafana"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"kube-state-metrics\",\"namespace\":\"hw11\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app\":\"kube-state-metrics\"}}}\n"
+          },
+          "creationTimestamp": "2026-11-15T21:07:34Z",
+          "name": "kube-state-metrics",
+          "namespace": "hw11",
+          "resourceVersion": "1257",
+          "uid": "5aa5d926-dcb6-4c2a-a5e6-5935ed186c5f"
+        },
+        "spec": {
+          "clusterIP": "10.96.255.120",
+          "clusterIPs": [
+            "10.96.255.120"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "port": 8080,
+              "protocol": "TCP",
+              "targetPort": 8080
+            }
+          ],
+          "selector": {
+            "app": "kube-state-metrics"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"prometheus\",\"namespace\":\"hw11\"},\"spec\":{\"ports\":[{\"port\":9090,\"targetPort\":9090}],\"selector\":{\"app\":\"prometheus\"}}}\n"
+          },
+          "creationTimestamp": "2026-11-15T21:07:34Z",
+          "name": "prometheus",
+          "namespace": "hw11",
+          "resourceVersion": "1221",
+          "uid": "971f9d00-b15d-494b-9dcc-3a80087528b9"
+        },
+        "spec": {
+          "clusterIP": "10.96.8.135",
+          "clusterIPs": [
+            "10.96.8.135"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "port": 9090,
+              "protocol": "TCP",
+              "targetPort": 9090
+            }
+          ],
+          "selector": {
+            "app": "prometheus"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "nodes": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "metadata": {
+          "annotations": {
+            "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///run/containerd/containerd.sock",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          },
+          "creationTimestamp": "2026-11-15T20:57:56Z",
+          "labels": {
+            "beta.kubernetes.io/arch": "arm64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "arm64",
+            "kubernetes.io/hostname": "hw11-control-plane",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/control-plane": ""
+          },
+          "name": "hw11-control-plane",
+          "resourceVersion": "4887",
+          "uid": "b5a05f26-61f1-420c-bb89-17f13b8b740f"
+        },
+        "spec": {
+          "podCIDR": "10.244.0.0/24",
+          "podCIDRs": [
+            "10.244.0.0/24"
+          ],
+          "providerID": "kind://docker/hw11/hw11-control-plane"
+        },
+        "status": {
+          "addresses": [
+            {
+              "address": "172.20.0.2",
+              "type": "InternalIP"
+            },
+            {
+              "address": "hw11-control-plane",
+              "type": "Hostname"
+            }
+          ],
+          "allocatable": {
+            "cpu": "14",
+            "ephemeral-storage": "474095688Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "hugepages-32Mi": "0",
+            "hugepages-64Ki": "0",
+            "memory": "8124000Ki",
+            "pods": "110"
+          },
+          "capacity": {
+            "cpu": "14",
+            "ephemeral-storage": "474095688Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "hugepages-32Mi": "0",
+            "hugepages-64Ki": "0",
+            "memory": "8124000Ki",
+            "pods": "110"
+          },
+          "conditions": [
+            {
+              "lastHeartbeatTime": "2026-11-15T21:39:28Z",
+              "lastTransitionTime": "2026-11-15T20:57:55Z",
+              "message": "kubelet has sufficient memory available",
+              "reason": "KubeletHasSufficientMemory",
+              "status": "False",
+              "type": "MemoryPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-11-15T21:39:28Z",
+              "lastTransitionTime": "2026-11-15T20:57:55Z",
+              "message": "kubelet has no disk pressure",
+              "reason": "KubeletHasNoDiskPressure",
+              "status": "False",
+              "type": "DiskPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-11-15T21:39:28Z",
+              "lastTransitionTime": "2026-11-15T20:57:55Z",
+              "message": "kubelet has sufficient PID available",
+              "reason": "KubeletHasSufficientPID",
+              "status": "False",
+              "type": "PIDPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-11-15T21:39:28Z",
+              "lastTransitionTime": "2026-11-15T20:58:15Z",
+              "message": "kubelet is posting ready status",
+              "reason": "KubeletReady",
+              "status": "True",
+              "type": "Ready"
+            }
+          ],
+          "daemonEndpoints": {
+            "kubeletEndpoint": {
+              "Port": 10250
+            }
+          },
+          "images": [
+            {
+              "names": [
+                "docker.io/grafana/grafana@sha256:62d2b9d20a19714ebfe48d1bb405086081bc602aa053e28cf6d73c7537640dfb",
+                "docker.io/grafana/grafana:11.6.0"
+              ],
+              "sizeBytes": 166804600
+            },
+            {
+              "names": [
+                "docker.io/prom/prometheus@sha256:6927e0919a144aa7616fd0137d4816816d42f6b816de3af269ab065250859a62",
+                "docker.io/prom/prometheus:v3.2.1"
+              ],
+              "sizeBytes": 110911218
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-proxy-arm64:v1.32.2",
+                "registry.k8s.io/kube-proxy:v1.32.2"
+              ],
+              "sizeBytes": 98311369
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-apiserver-arm64:v1.32.2",
+                "registry.k8s.io/kube-apiserver:v1.32.2"
+              ],
+              "sizeBytes": 94986737
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-controller-manager-arm64:v1.32.2",
+                "registry.k8s.io/kube-controller-manager:v1.32.2"
+              ],
+              "sizeBytes": 88236375
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-scheduler-arm64:v1.32.2",
+                "registry.k8s.io/kube-scheduler:v1.32.2"
+              ],
+              "sizeBytes": 68968791
+            },
+            {
+              "names": [
+                "registry.k8s.io/etcd:3.5.16-0"
+              ],
+              "sizeBytes": 67941650
+            },
+            {
+              "names": [
+                "docker.io/library/hw11-api:v1"
+              ],
+              "sizeBytes": 48701585
+            },
+            {
+              "names": null,
+              "sizeBytes": 48701525
+            },
+            {
+              "names": null,
+              "sizeBytes": 48701507
+            },
+            {
+              "names": [
+                "docker.io/kindest/kindnetd:v20250214-acbabc1a"
+              ],
+              "sizeBytes": 35677907
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-provisioner:v20250214-acbabc1a"
+              ],
+              "sizeBytes": 20222523
+            },
+            {
+              "names": [
+                "registry.k8s.io/metrics-server/metrics-server@sha256:ffcb2bf004d6aa0a17d90e0247cf94f2865c8901dcab4427034c341951c239f9",
+                "registry.k8s.io/metrics-server/metrics-server:v0.7.2"
+              ],
+              "sizeBytes": 17862852
+            },
+            {
+              "names": [
+                "registry.k8s.io/coredns/coredns:v1.11.3"
+              ],
+              "sizeBytes": 16948420
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:db384bf43222b066c378e77027a675d4cd9911107adba46c2922b3a55e10d6fb",
+                "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0"
+              ],
+              "sizeBytes": 13952975
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-helper:v20241212-8ac705d0"
+              ],
+              "sizeBytes": 2954522
+            },
+            {
+              "names": [
+                "registry.k8s.io/pause:3.10"
+              ],
+              "sizeBytes": 267933
+            }
+          ],
+          "nodeInfo": {
+            "architecture": "arm64",
+            "bootID": "e53b4197-e170-4bec-b9cc-bd669a2dd5cc",
+            "containerRuntimeVersion": "containerd://2.0.3",
+            "kernelVersion": "7.0.14-linuxkit",
+            "kubeProxyVersion": "v1.32.2",
+            "kubeletVersion": "v1.32.2",
+            "machineID": "5e5c8906b2b54059bf9c996c94e97e64",
+            "operatingSystem": "linux",
+            "osImage": "Debian GNU/Linux 12 (bookworm)",
+            "systemUUID": "5e5c8906b2b54059bf9c996c94e97e64"
+          },
+          "runtimeHandlers": [
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "runc"
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": ""
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "test-handler"
+            }
+          ]
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "kubeproxy": "apiVersion: v1\ndata:\n  config.conf: |-\n    apiVersion: kubeproxy.config.k8s.io/v1alpha1\n    bindAddress: 0.0.0.0\n    bindAddressHardFail: false\n    clientConnection:\n      acceptContentTypes: \"\"\n      burst: 0\n      contentType: \"\"\n      kubeconfig: /var/lib/kube-proxy/kubeconfig.conf\n      qps: 0\n    clusterCIDR: 10.244.0.0/16\n    configSyncPeriod: 0s\n    conntrack:\n      maxPerCore: 0\n      min: null\n      tcpBeLiberal: false\n      tcpCloseWaitTimeout: null\n      tcpEstablishedTimeout: null\n      udpStreamTimeout: 0s\n      udpTimeout: 0s\n    detectLocal:\n      bridgeInterface: \"\"\n      interfaceNamePrefix: \"\"\n    detectLocalMode: \"\"\n    enableProfiling: false\n    healthzBindAddress: \"\"\n    hostnameOverride: \"\"\n    iptables:\n      localhostNodePorts: null\n      masqueradeAll: false\n      masqueradeBit: null\n      minSyncPeriod: 1s\n      syncPeriod: 0s\n    ipvs:\n      excludeCIDRs: null\n      minSyncPeriod: 0s\n      scheduler: \"\"\n      strictARP: false\n      syncPeriod: 0s\n      tcpFinTimeout: 0s\n      tcpTimeout: 0s\n      udpTimeout: 0s\n    kind: KubeProxyConfiguration\n    logging:\n      flushFrequency: 0\n      options:\n        json:\n          infoBufferSize: \"0\"\n        text:\n          infoBufferSize: \"0\"\n      verbosity: 0\n    metricsBindAddress: \"\"\n    mode: iptables\n    nftables:\n      masqueradeAll: false\n      masqueradeBit: null\n      minSyncPeriod: 0s\n      syncPeriod: 0s\n    nodePortAddresses: null\n    oomScoreAdj: null\n    portRange: \"\"\n    showHiddenMetricsForVersion: \"\"\n    winkernel:\n      enableDSR: false\n      forwardHealthCheckVip: false\n      networkName: \"\"\n      rootHnsEndpointName: \"\"\n      sourceVip: \"\"\n  kubeconfig.conf: |-\n    apiVersion: v1\n    kind: Config\n    clusters:\n    - cluster:\n        certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt\n        server: https://hw11-control-plane:6443\n      name: default\n    contexts:\n    - context:\n        cluster: default\n        namespace: default\n        user: default\n      name: default\n    current-context: default\n    users:\n    - name: default\n      user:\n        tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token\nkind: ConfigMap\nmetadata:\n  creationTimestamp: \"2026-11-15T20:57:58Z\"\n  labels:\n    app: kube-proxy\n  name: kube-proxy\n  namespace: kube-system\n  resourceVersion: \"235\"\n  uid: 7fa77b2b-6949-4c33-8ff1-5913c046b24f\n"
+}

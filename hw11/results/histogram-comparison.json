@@ -1,0 +1,32 @@
+{
+  "start_unix": 1794782246.455252,
+  "end_unix": 1794782261.273723,
+  "pod": "api-7d68b768c5-zwfnq",
+  "n_client": 80,
+  "n_server": 80.0,
+  "cohort_matches": true,
+  "client_p50": 0.043110853992402554,
+  "client_p95": 0.04385286459000781,
+  "histogram_p50": 0.037987012987012986,
+  "histogram_p95": 0.04967532467532468,
+  "buckets": {
+    "0.01": 0.0,
+    "0.025": 0.0,
+    "0.05": 77.0,
+    "0.1": 77.0,
+    "0.2": 77.0,
+    "0.4": 80.0,
+    "0.8": 80.0,
+    "1.5": 80.0,
+    "3.0": 80.0,
+    "5.0": 80.0,
+    "10.0": 80.0,
+    "20.0": 80.0,
+    "40.0": 80.0,
+    "80.0": 80.0,
+    "+Inf": 80.0,
+    "count": 80.0
+  },
+  "promql": "histogram_quantile(0.95, sum by (le) (increase(inference_ttfc_seconds_bucket{pod=\"api-7d68b768c5-zwfnq\"}[15s])))",
+  "method": "Exact before/after cumulative bucket deltas; same successful response cohort. PromQL range estimate has scrape/extrapolation boundary uncertainty. Client includes HTTP and port-forward overhead."
+}

@@ -1,0 +1,2545 @@
+{
+  "B-api-uniform-1": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.1606650209999998,
+    "ttfc_p95": 0.8639763601000027,
+    "duration_p95": 1.1125601044998974,
+    "schedule_lag_p95": 0.005003569533022301,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 729,
+        "ttfc_p95": 0.9290751252000291,
+        "queue_p95": 0.8803650003999566
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 711,
+        "ttfc_p95": 0.7082557709999833,
+        "queue_p95": 0.6489983335000034
+      }
+    }
+  },
+  "B-api-sticky-uniform-1": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1214,
+      "rejected": 226
+    },
+    "observations": 1214,
+    "error_fraction": 0.15694444444444444,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.385401730500064,
+    "ttfc_p95": 3.48011599955002,
+    "duration_p95": 3.7273032872000273,
+    "schedule_lag_p95": 0.0052871199848482315,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1080,
+        "ttfc_p95": 3.482641078749913,
+        "queue_p95": 3.422752289049947
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 360,
+        "ttfc_p95": 0.041077239949913746,
+        "queue_p95": 0.00012030415001049734
+      }
+    }
+  },
+  "B-api-skew-1": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.1574366034999457,
+    "ttfc_p95": 0.5976578479000068,
+    "duration_p95": 0.8429496087000302,
+    "schedule_lag_p95": 0.0046368654397952016,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 740,
+        "ttfc_p95": 0.6169448066000655,
+        "queue_p95": 0.5743875780499592
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 700,
+        "ttfc_p95": 0.5505996110499036,
+        "queue_p95": 0.49962007505013123
+      }
+    }
+  },
+  "B-api-sticky-skew-1": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 949,
+      "rejected": 491
+    },
+    "observations": 949,
+    "error_fraction": 0.34097222222222223,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.4381290430001172,
+    "ttfc_p95": 3.490256709800087,
+    "duration_p95": 3.738953701800119,
+    "schedule_lag_p95": 0.005395703667545603,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1344,
+        "ttfc_p95": 3.491168618399888,
+        "queue_p95": 3.430670127000076
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 96,
+        "ttfc_p95": 0.2507929890000469,
+        "queue_p95": 0.0001609792499834839
+      }
+    }
+  },
+  "B-api-sticky-uniform-2": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1213,
+      "rejected": 227
+    },
+    "observations": 1213,
+    "error_fraction": 0.15763888888888888,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.383271960000002,
+    "ttfc_p95": 3.482157935199984,
+    "duration_p95": 3.7295240262000333,
+    "schedule_lag_p95": 0.005544759505301044,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1080,
+        "ttfc_p95": 3.4882204516,
+        "queue_p95": 3.430440601600094
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 360,
+        "ttfc_p95": 0.041031347600005576,
+        "queue_p95": 0.00012699019999899976
+      }
+    }
+  },
+  "B-api-uniform-2": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.1632911875000218,
+    "ttfc_p95": 0.7125803694000978,
+    "duration_p95": 0.9591310312999667,
+    "schedule_lag_p95": 0.0053487312559582275,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 716,
+        "ttfc_p95": 0.7156210834999115,
+        "queue_p95": 0.6723783129999674
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 724,
+        "ttfc_p95": 0.7110838419500964,
+        "queue_p95": 0.664176290199987
+      }
+    }
+  },
+  "B-api-sticky-skew-2": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 950,
+      "rejected": 490
+    },
+    "observations": 950,
+    "error_fraction": 0.3402777777777778,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.4323389810000435,
+    "ttfc_p95": 3.484384928300051,
+    "duration_p95": 3.73197399725002,
+    "schedule_lag_p95": 0.0056526573277096755,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1344,
+        "ttfc_p95": 3.4864378412500288,
+        "queue_p95": 3.4245512371999323
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 96,
+        "ttfc_p95": 0.25087096899994776,
+        "queue_p95": 0.00015955199990003166
+      }
+    }
+  },
+  "B-api-skew-2": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.1597028119999777,
+    "ttfc_p95": 0.6037377030500348,
+    "duration_p95": 0.8582158232499181,
+    "schedule_lag_p95": 0.004473399649498332,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 716,
+        "ttfc_p95": 0.5383038437501568,
+        "queue_p95": 0.49346420849991546
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 724,
+        "ttfc_p95": 0.8333979580500345,
+        "queue_p95": 0.7713711822500956
+      }
+    }
+  },
+  "B-api-uniform-3": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.15196654149997357,
+    "ttfc_p95": 0.6275536051500126,
+    "duration_p95": 0.8747572405500135,
+    "schedule_lag_p95": 0.005279657265282367,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 705,
+        "ttfc_p95": 0.5290220921999661,
+        "queue_p95": 0.46445910900010823
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 735,
+        "ttfc_p95": 0.7327826877000007,
+        "queue_p95": 0.6921543501999394
+      }
+    }
+  },
+  "B-api-sticky-uniform-3": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1217,
+      "rejected": 223
+    },
+    "observations": 1217,
+    "error_fraction": 0.15486111111111112,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.3731256680002843,
+    "ttfc_p95": 3.472891009399791,
+    "duration_p95": 3.7182041681996454,
+    "schedule_lag_p95": 0.005311676457790781,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1080,
+        "ttfc_p95": 3.477835719000086,
+        "queue_p95": 3.4160231180001572
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 360,
+        "ttfc_p95": 0.04118392919986036,
+        "queue_p95": 0.00012986010028726014
+      }
+    }
+  },
+  "B-api-skew-3": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.17755189549984607,
+    "ttfc_p95": 0.5925776163002183,
+    "duration_p95": 0.8391505798002754,
+    "schedule_lag_p95": 0.004903722578933411,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 720,
+        "ttfc_p95": 0.6241556152002428,
+        "queue_p95": 0.5748735444002246
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 720,
+        "ttfc_p95": 0.5582743955500745,
+        "queue_p95": 0.5016417985500081
+      }
+    }
+  },
+  "B-api-sticky-skew-3": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 952,
+      "rejected": 488
+    },
+    "observations": 952,
+    "error_fraction": 0.3388888888888889,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.4247842930001298,
+    "ttfc_p95": 3.480337636600188,
+    "duration_p95": 3.726683631350193,
+    "schedule_lag_p95": 0.004476177139758874,
+    "pods": {
+      "api-55dddd56cd-fhdh4": {
+        "n": 1344,
+        "ttfc_p95": 3.480948886999954,
+        "queue_p95": 3.4188947094999094
+      },
+      "api-55dddd56cd-5bm8s": {
+        "n": 96,
+        "ttfc_p95": 0.2507918652498802,
+        "queue_p95": 0.0001524994999044793
+      }
+    }
+  },
+  "C-hpa-high": {
+    "planned": 4680,
+    "sent": 4680,
+    "outcomes": {
+      "completed": 3454,
+      "rejected": 1226
+    },
+    "observations": 3454,
+    "error_fraction": 0.2619658119658119,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.329559250999864,
+    "ttfc_p95": 3.4647058928998375,
+    "duration_p95": 3.710216059899949,
+    "schedule_lag_p95": 0.00483450918802646,
+    "pods": {
+      "api-6bb8c65f9b-p559p": {
+        "n": 1793,
+        "ttfc_p95": 3.465698797600134,
+        "queue_p95": 3.404869189400051
+      },
+      "api-6bb8c65f9b-7zj9b": {
+        "n": 1097,
+        "ttfc_p95": 3.45355226200013,
+        "queue_p95": 3.39429850124975
+      },
+      "api-6bb8c65f9b-98gcv": {
+        "n": 1790,
+        "ttfc_p95": 3.4698560932000877,
+        "queue_p95": 3.4089392268003396
+      }
+    }
+  },
+  "C-hpa-hot-sticky": {
+    "planned": 960,
+    "sent": 960,
+    "outcomes": {
+      "completed": 960
+    },
+    "observations": 960,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.1358282085002429,
+    "ttfc_p95": 0.2664830395502804,
+    "duration_p95": 0.5134044131502605,
+    "schedule_lag_p95": 0.005255952525635619,
+    "pods": {
+      "api-6bb8c65f9b-7zj9b": {
+        "n": 128,
+        "ttfc_p95": 0.04134122675004619,
+        "queue_p95": 0.0001208103000180926
+      },
+      "api-6bb8c65f9b-98gcv": {
+        "n": 832,
+        "ttfc_p95": 0.2687509081498547,
+        "queue_p95": 0.22783797035001496
+      }
+    }
+  },
+  "C-alerts-overload": {
+    "planned": 4000,
+    "sent": 4000,
+    "outcomes": {
+      "completed": 1257,
+      "rejected": 2743
+    },
+    "observations": 1257,
+    "error_fraction": 0.6857500000000001,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 3.4263842929999555,
+    "ttfc_p95": 3.4718864680003207,
+    "duration_p95": 3.7171159358002117,
+    "schedule_lag_p95": 0.004511946414913837,
+    "pods": {
+      "api-6bb8c65f9b-7zj9b": {
+        "n": 532,
+        "ttfc_p95": 0.05782016250009292,
+        "queue_p95": 0.00011673749995679827
+      },
+      "api-6bb8c65f9b-98gcv": {
+        "n": 3468,
+        "ttfc_p95": 3.4761502513997584,
+        "queue_p95": 3.418951709799785
+      }
+    }
+  },
+  "A-warmup-broken": {
+    "planned": 225,
+    "sent": 225,
+    "outcomes": {
+      "completed": 172,
+      "rejected": 53
+    },
+    "observations": 172,
+    "error_fraction": 0.23555555555555552,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04849920800188556,
+    "ttfc_p95": 0.25523307880794166,
+    "duration_p95": 0.5136512687284267,
+    "schedule_lag_p95": 0.0012650953838601706,
+    "pods": {
+      "api-578d7844df-gzt67": {
+        "n": 2,
+        "ttfc_p95": 0.2576578318228712,
+        "queue_p95": 0.00018569999997453124
+      },
+      "api-7bf969c68c-jfkks": {
+        "n": 104,
+        "ttfc_p95": 0.254481258027954,
+        "queue_p95": 0.00025491260025773955
+      },
+      "api-7bf969c68c-p7x8v": {
+        "n": 113,
+        "ttfc_p95": 0.25486640001181515,
+        "queue_p95": 0.0002845253998202679
+      },
+      "api-578d7844df-7j7kt": {
+        "n": 6,
+        "ttfc_p95": 0.2641172497533262,
+        "queue_p95": 0.00032250999993266305
+      }
+    }
+  },
+  "A-warmup-fixed": {
+    "planned": 225,
+    "sent": 225,
+    "outcomes": {
+      "completed": 225
+    },
+    "observations": 225,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04794374998891726,
+    "ttfc_p95": 0.25482871698914095,
+    "duration_p95": 0.5017022920073941,
+    "schedule_lag_p95": 0.0012590757221914827,
+    "pods": {
+      "api-7d68b768c5-zwx6r": {
+        "n": 47,
+        "ttfc_p95": 0.2576733794179745,
+        "queue_p95": 0.0002501666997886786
+      },
+      "api-7d68b768c5-dgx2q": {
+        "n": 81,
+        "ttfc_p95": 0.25490966701181605,
+        "queue_p95": 0.0002614589998302108
+      },
+      "api-7bf969c68c-jfkks": {
+        "n": 24,
+        "ttfc_p95": 0.051895618706475945,
+        "queue_p95": 0.00023211069985791256
+      },
+      "api-7bf969c68c-p7x8v": {
+        "n": 73,
+        "ttfc_p95": 0.052342350198887284,
+        "queue_p95": 0.00028873319997728674
+      }
+    }
+  },
+  "A-rollout-long-1": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2665669579873793,
+    "ttfc_p95": 0.2665669579873793,
+    "duration_p95": 32.35073695797473,
+    "schedule_lag_p95": 0.00345745898084715,
+    "pods": {
+      "api-6b7d9ccc87-kvjmt": {
+        "n": 1,
+        "ttfc_p95": 0.2665669579873793,
+        "queue_p95": 0.0004041249999318097
+      }
+    }
+  },
+  "A-rollout-long-0": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.26821045798715204,
+    "ttfc_p95": 0.26821045798715204,
+    "duration_p95": 32.38182179199066,
+    "schedule_lag_p95": 0.0019683330319821835,
+    "pods": {
+      "api-6b7d9ccc87-5dldm": {
+        "n": 1,
+        "ttfc_p95": 0.26821045798715204,
+        "queue_p95": 0.0004440829998202389
+      }
+    }
+  },
+  "A-rollout": {
+    "planned": 270,
+    "sent": 270,
+    "outcomes": {
+      "completed": 270
+    },
+    "observations": 270,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.25789064599666744,
+    "ttfc_p95": 9.186891328654013,
+    "duration_p95": 9.941109487658824,
+    "schedule_lag_p95": 0.001263699511764571,
+    "pods": {
+      "api-74575f894-65ckw": {
+        "n": 62,
+        "ttfc_p95": 0.39486874933645594,
+        "queue_p95": 0.34458372595013287
+      },
+      "api-74575f894-sfxjt": {
+        "n": 107,
+        "ttfc_p95": 0.4796973588061514,
+        "queue_p95": 0.4016385499996884
+      },
+      "api-6b7d9ccc87-kvjmt": {
+        "n": 28,
+        "ttfc_p95": 3.6699630244547734,
+        "queue_p95": 3.624504851550227
+      },
+      "api-6b7d9ccc87-5dldm": {
+        "n": 73,
+        "ttfc_p95": 10.384507041983305,
+        "queue_p95": 10.339352146599957
+      }
+    }
+  },
+  "A-bad-B": {
+    "planned": 105,
+    "sent": 105,
+    "outcomes": {
+      "completed": 105
+    },
+    "observations": 105,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.048029957979451865,
+    "ttfc_p95": 0.255076083401218,
+    "duration_p95": 0.5139333585859276,
+    "schedule_lag_p95": 0.0012698918115347626,
+    "pods": {
+      "api-7d68b768c5-66rql": {
+        "n": 56,
+        "ttfc_p95": 0.25517542677698657,
+        "queue_p95": 0.00023039549978420837
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 49,
+        "ttfc_p95": 0.25492958340328187,
+        "queue_p95": 0.00023439160013367653
+      }
+    }
+  },
+  "A-after-rollback": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2541376670124009,
+    "ttfc_p95": 0.2541376670124009,
+    "duration_p95": 0.49848454201128334,
+    "schedule_lag_p95": 2.3500004317611456e-05,
+    "pods": {
+      "api-7d68b768c5-p8xpt": {
+        "n": 1,
+        "ttfc_p95": 0.2541376670124009,
+        "queue_p95": 9.570900010658079e-05
+      }
+    }
+  },
+  "A-forced-kill": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "interrupted": 1
+    },
+    "observations": 0,
+    "error_fraction": 1.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": null,
+    "ttfc_p95": null,
+    "duration_p95": null,
+    "schedule_lag_p95": 0.002937666024081409,
+    "pods": {
+      "api-7d68b768c5-66rql": {
+        "n": 1,
+        "ttfc_p95": null,
+        "queue_p95": null
+      }
+    }
+  },
+  "A-kill-recovery": {
+    "planned": 195,
+    "sent": 195,
+    "outcomes": {
+      "completed": 193,
+      "http_error": 2
+    },
+    "observations": 193,
+    "error_fraction": 0.01025641025641022,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04768483299994841,
+    "ttfc_p95": 0.05404157501179725,
+    "duration_p95": 0.30588619158370417,
+    "schedule_lag_p95": 0.0012774910661391913,
+    "pods": {
+      "null": {
+        "n": 2,
+        "ttfc_p95": null,
+        "queue_p95": null
+      },
+      "api-7d68b768c5-66rql": {
+        "n": 68,
+        "ttfc_p95": 0.2553369415545603,
+        "queue_p95": 0.00029358750014125685
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 125,
+        "ttfc_p95": 0.053179225034546106,
+        "queue_p95": 0.00032134140019479673
+      }
+    }
+  },
+  "A-isolation-before-0": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2602731669903733,
+    "ttfc_p95": 0.2602731669903733,
+    "duration_p95": 0.3407530420226976,
+    "schedule_lag_p95": 0.0002169579965993762,
+    "pods": {
+      "api-7d68b768c5-66rql": {
+        "n": 1,
+        "ttfc_p95": 0.2602731669903733,
+        "queue_p95": 0.00038391599991882686
+      }
+    }
+  },
+  "A-isolation-before-1": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2540325830341317,
+    "ttfc_p95": 0.2540325830341317,
+    "duration_p95": 0.33641479100333527,
+    "schedule_lag_p95": 5.304196383804083e-05,
+    "pods": {
+      "api-7d68b768c5-66rql": {
+        "n": 1,
+        "ttfc_p95": 0.2540325830341317,
+        "queue_p95": 0.00011616599977060105
+      }
+    }
+  },
+  "A-isolation-after-0": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2534425840131007,
+    "ttfc_p95": 0.2534425840131007,
+    "duration_p95": 0.3346277920063585,
+    "schedule_lag_p95": 2.1458021365106106e-05,
+    "pods": {
+      "api-7d68b768c5-p8xpt": {
+        "n": 1,
+        "ttfc_p95": 0.2534425840131007,
+        "queue_p95": 8.516699972460628e-05
+      }
+    }
+  },
+  "A-isolation-after-1": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.25415029196301475,
+    "ttfc_p95": 0.25415029196301475,
+    "duration_p95": 0.33472975000040606,
+    "schedule_lag_p95": 2.9041024390608072e-05,
+    "pods": {
+      "api-7d68b768c5-p8xpt": {
+        "n": 1,
+        "ttfc_p95": 0.25415029196301475,
+        "queue_p95": 8.154199986165622e-05
+      }
+    }
+  },
+  "B-mapping-probe-0": {
+    "planned": 4,
+    "sent": 4,
+    "outcomes": {
+      "completed": 4
+    },
+    "observations": 4,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.15602300000000469,
+    "ttfc_p95": 0.26839726069965764,
+    "duration_p95": 0.5183200687999487,
+    "schedule_lag_p95": 0.007371945879253871,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 2,
+        "ttfc_p95": 0.2694426148996172,
+        "queue_p95": 0.0004033044999005142
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 2,
+        "ttfc_p95": 0.052201885400017994,
+        "queue_p95": 0.00016672500000822763
+      }
+    }
+  },
+  "B-counterexample-uniform-1": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04061781249993146,
+    "ttfc_p95": 0.041019520549775736,
+    "duration_p95": 0.29459918719978756,
+    "schedule_lag_p95": 0.005495567144612323,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 720,
+        "ttfc_p95": 0.04103431905025445,
+        "queue_p95": 9.396104996994836e-05
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 720,
+        "ttfc_p95": 0.04099648330015953,
+        "queue_p95": 9.980174968404745e-05
+      }
+    }
+  },
+  "B-counterexample-uniform-2": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04064420800023072,
+    "ttfc_p95": 0.04107193989987082,
+    "duration_p95": 0.2985826118499062,
+    "schedule_lag_p95": 0.00920779242496792,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 720,
+        "ttfc_p95": 0.04105027884977517,
+        "queue_p95": 9.709134967579301e-05
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 720,
+        "ttfc_p95": 0.04108267914994031,
+        "queue_p95": 9.914375034441035e-05
+      }
+    }
+  },
+  "B-counterexample-uniform-3": {
+    "planned": 1440,
+    "sent": 1440,
+    "outcomes": {
+      "completed": 1440
+    },
+    "observations": 1440,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0406370000005154,
+    "ttfc_p95": 0.04103650239935632,
+    "duration_p95": 0.2995789669997521,
+    "schedule_lag_p95": 0.008413687919755828,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 720,
+        "ttfc_p95": 0.04106005480043677,
+        "queue_p95": 9.977085010177687e-05
+      },
+      "api-7d68b768c5-p8xpt": {
+        "n": 720,
+        "ttfc_p95": 0.04102267324997229,
+        "queue_p95": 0.00010294999938196264
+      }
+    }
+  },
+  "D-replacement-fresh": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.25601283297874033,
+    "ttfc_p95": 0.25601283297874033,
+    "duration_p95": 0.3369579580030404,
+    "schedule_lag_p95": 5.787500413134694e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.25601283297874033,
+        "queue_p95": 0.00018325000019103754
+      }
+    }
+  },
+  "D-histogram-0": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.25454916700255126,
+    "ttfc_p95": 0.25454916700255126,
+    "duration_p95": 0.33565000002272427,
+    "schedule_lag_p95": 4.8874993808567524e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.25454916700255126,
+        "queue_p95": 0.0001643330006118049
+      }
+    }
+  },
+  "D-histogram-1": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.2534707500017248,
+    "ttfc_p95": 0.2534707500017248,
+    "duration_p95": 0.33517091698013246,
+    "schedule_lag_p95": 5.7083030696958303e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.2534707500017248,
+        "queue_p95": 9.604099977877922e-05
+      }
+    }
+  },
+  "D-histogram-2": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.25316949997795746,
+    "ttfc_p95": 0.25316949997795746,
+    "duration_p95": 0.33598979201633483,
+    "schedule_lag_p95": 4.212500061839819e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.25316949997795746,
+        "queue_p95": 9.162499918602407e-05
+      }
+    }
+  },
+  "D-histogram-3": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04258987499633804,
+    "ttfc_p95": 0.04258987499633804,
+    "duration_p95": 0.1276690830127336,
+    "schedule_lag_p95": 4.449998959898949e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04258987499633804,
+        "queue_p95": 9.337499977846164e-05
+      }
+    }
+  },
+  "D-histogram-4": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04307562502799556,
+    "ttfc_p95": 0.04307562502799556,
+    "duration_p95": 0.12390837504062802,
+    "schedule_lag_p95": 4.449998959898949e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04307562502799556,
+        "queue_p95": 8.66250002218294e-05
+      }
+    }
+  },
+  "D-histogram-5": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0432160830241628,
+    "ttfc_p95": 0.0432160830241628,
+    "duration_p95": 0.12357049999991432,
+    "schedule_lag_p95": 4.0832965169101954e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0432160830241628,
+        "queue_p95": 9.38339999265736e-05
+      }
+    }
+  },
+  "D-histogram-6": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042866375006269664,
+    "ttfc_p95": 0.042866375006269664,
+    "duration_p95": 0.12382437498308718,
+    "schedule_lag_p95": 4.4666987378150225e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042866375006269664,
+        "queue_p95": 9.862500064627966e-05
+      }
+    }
+  },
+  "D-histogram-7": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04273258300963789,
+    "ttfc_p95": 0.04273258300963789,
+    "duration_p95": 0.12479554204037413,
+    "schedule_lag_p95": 3.312499029561877e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04273258300963789,
+        "queue_p95": 9.71669996943092e-05
+      }
+    }
+  },
+  "D-histogram-8": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0426142499782145,
+    "ttfc_p95": 0.0426142499782145,
+    "duration_p95": 0.12444266700185835,
+    "schedule_lag_p95": 3.63329891115427e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0426142499782145,
+        "queue_p95": 8.866699954523938e-05
+      }
+    }
+  },
+  "D-histogram-9": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04305758303962648,
+    "ttfc_p95": 0.04305758303962648,
+    "duration_p95": 0.12457375001395121,
+    "schedule_lag_p95": 4.2249972466379404e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04305758303962648,
+        "queue_p95": 9.116699948208407e-05
+      }
+    }
+  },
+  "D-histogram-10": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04322495899396017,
+    "ttfc_p95": 0.04322495899396017,
+    "duration_p95": 0.12774600001284853,
+    "schedule_lag_p95": 3.162497887387872e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04322495899396017,
+        "queue_p95": 9.71670006038039e-05
+      }
+    }
+  },
+  "D-histogram-11": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043106333003379405,
+    "ttfc_p95": 0.043106333003379405,
+    "duration_p95": 0.12373737501911819,
+    "schedule_lag_p95": 3.620801726356149e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043106333003379405,
+        "queue_p95": 0.00011312500009807991
+      }
+    }
+  },
+  "D-histogram-12": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04295916698174551,
+    "ttfc_p95": 0.04295916698174551,
+    "duration_p95": 0.12700737500563264,
+    "schedule_lag_p95": 3.270799061283469e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04295916698174551,
+        "queue_p95": 0.00010195800041401526
+      }
+    }
+  },
+  "D-histogram-13": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043379625014495105,
+    "ttfc_p95": 0.043379625014495105,
+    "duration_p95": 0.12415945797692984,
+    "schedule_lag_p95": 4.066701512783766e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043379625014495105,
+        "queue_p95": 8.691700077179121e-05
+      }
+    }
+  },
+  "D-histogram-14": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04313804197590798,
+    "ttfc_p95": 0.04313804197590798,
+    "duration_p95": 0.12450787500711158,
+    "schedule_lag_p95": 3.4791999496519566e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04313804197590798,
+        "queue_p95": 7.424999967042822e-05
+      }
+    }
+  },
+  "D-histogram-15": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043136624968610704,
+    "ttfc_p95": 0.043136624968610704,
+    "duration_p95": 0.12361154099926353,
+    "schedule_lag_p95": 4.650000482797623e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043136624968610704,
+        "queue_p95": 9.329200020147255e-05
+      }
+    }
+  },
+  "D-histogram-16": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042766082973685116,
+    "ttfc_p95": 0.042766082973685116,
+    "duration_p95": 0.12320983299287036,
+    "schedule_lag_p95": 4.495901521295309e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042766082973685116,
+        "queue_p95": 8.008399981918046e-05
+      }
+    }
+  },
+  "D-histogram-17": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04282899998361245,
+    "ttfc_p95": 0.04282899998361245,
+    "duration_p95": 0.13036912499228492,
+    "schedule_lag_p95": 3.616698086261749e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04282899998361245,
+        "queue_p95": 7.883299986133352e-05
+      }
+    }
+  },
+  "D-histogram-18": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04307220899499953,
+    "ttfc_p95": 0.04307220899499953,
+    "duration_p95": 0.12579845899017528,
+    "schedule_lag_p95": 4.9833033699542284e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04307220899499953,
+        "queue_p95": 8.77089996720315e-05
+      }
+    }
+  },
+  "D-histogram-19": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04377583402674645,
+    "ttfc_p95": 0.04377583402674645,
+    "duration_p95": 0.12670058401999995,
+    "schedule_lag_p95": 0.0001437499886378646,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04377583402674645,
+        "queue_p95": 8.658400020067347e-05
+      }
+    }
+  },
+  "D-histogram-20": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04321954201441258,
+    "ttfc_p95": 0.04321954201441258,
+    "duration_p95": 0.12745533301495016,
+    "schedule_lag_p95": 4.6707980800420046e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04321954201441258,
+        "queue_p95": 9.833300009631785e-05
+      }
+    }
+  },
+  "D-histogram-21": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042661082989070565,
+    "ttfc_p95": 0.042661082989070565,
+    "duration_p95": 0.12402108300011605,
+    "schedule_lag_p95": 4.216702654957771e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042661082989070565,
+        "queue_p95": 7.883400030550547e-05
+      }
+    }
+  },
+  "D-histogram-22": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0426202499656938,
+    "ttfc_p95": 0.0426202499656938,
+    "duration_p95": 0.12309595796978101,
+    "schedule_lag_p95": 2.858403604477644e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0426202499656938,
+        "queue_p95": 8.391699975618394e-05
+      }
+    }
+  },
+  "D-histogram-23": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04282191698439419,
+    "ttfc_p95": 0.04282191698439419,
+    "duration_p95": 0.12432245799573138,
+    "schedule_lag_p95": 3.058300353586674e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04282191698439419,
+        "queue_p95": 9.008300003188197e-05
+      }
+    }
+  },
+  "D-histogram-24": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04336795903509483,
+    "ttfc_p95": 0.04336795903509483,
+    "duration_p95": 0.1242981250397861,
+    "schedule_lag_p95": 3.8583006244152784e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04336795903509483,
+        "queue_p95": 8.216599962906912e-05
+      }
+    }
+  },
+  "D-histogram-25": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04302533296868205,
+    "ttfc_p95": 0.04302533296868205,
+    "duration_p95": 0.12333595799282193,
+    "schedule_lag_p95": 3.100000321865082e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04302533296868205,
+        "queue_p95": 9.258299996872665e-05
+      }
+    }
+  },
+  "D-histogram-26": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04302958399057388,
+    "ttfc_p95": 0.04302958399057388,
+    "duration_p95": 0.12483625003369525,
+    "schedule_lag_p95": 6.045796908438206e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04302958399057388,
+        "queue_p95": 8.70829999257694e-05
+      }
+    }
+  },
+  "D-histogram-27": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04352200002176687,
+    "ttfc_p95": 0.04352200002176687,
+    "duration_p95": 0.12533854198409244,
+    "schedule_lag_p95": 5.104101728647947e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04352200002176687,
+        "queue_p95": 8.008399981918046e-05
+      }
+    }
+  },
+  "D-histogram-28": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04332574998261407,
+    "ttfc_p95": 0.04332574998261407,
+    "duration_p95": 0.12466258299537003,
+    "schedule_lag_p95": 4.129204899072647e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04332574998261407,
+        "queue_p95": 8.149999939632835e-05
+      }
+    }
+  },
+  "D-histogram-29": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0430278749554418,
+    "ttfc_p95": 0.0430278749554418,
+    "duration_p95": 0.13302295800531283,
+    "schedule_lag_p95": 4.591699689626694e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0430278749554418,
+        "queue_p95": 9.745799980009906e-05
+      }
+    }
+  },
+  "D-histogram-30": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04323445801855996,
+    "ttfc_p95": 0.04323445801855996,
+    "duration_p95": 0.13396804203512147,
+    "schedule_lag_p95": 4.245794843882322e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04323445801855996,
+        "queue_p95": 9.733400020195404e-05
+      }
+    }
+  },
+  "D-histogram-31": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04347229195991531,
+    "ttfc_p95": 0.04347229195991531,
+    "duration_p95": 0.12472833396168426,
+    "schedule_lag_p95": 4.7791050747036934e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04347229195991531,
+        "queue_p95": 0.00012804200014215894
+      }
+    }
+  },
+  "D-histogram-32": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043319249991327524,
+    "ttfc_p95": 0.043319249991327524,
+    "duration_p95": 0.12982974998885766,
+    "schedule_lag_p95": 3.762502456083894e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043319249991327524,
+        "queue_p95": 9.383300039189635e-05
+      }
+    }
+  },
+  "D-histogram-33": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04312558297533542,
+    "ttfc_p95": 0.04312558297533542,
+    "duration_p95": 0.12576962495222688,
+    "schedule_lag_p95": 3.658403875306249e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04312558297533542,
+        "queue_p95": 0.00010112500058312435
+      }
+    }
+  },
+  "D-histogram-34": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04331512498902157,
+    "ttfc_p95": 0.04331512498902157,
+    "duration_p95": 0.13373825000599027,
+    "schedule_lag_p95": 0.00011341599747538567,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04331512498902157,
+        "queue_p95": 9.829200007516192e-05
+      }
+    }
+  },
+  "D-histogram-35": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04313237499445677,
+    "ttfc_p95": 0.04313237499445677,
+    "duration_p95": 0.12472758401418105,
+    "schedule_lag_p95": 4.7250010538846254e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04313237499445677,
+        "queue_p95": 9.075000070879469e-05
+      }
+    }
+  },
+  "D-histogram-36": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04285274998983368,
+    "ttfc_p95": 0.04285274998983368,
+    "duration_p95": 0.125845082977321,
+    "schedule_lag_p95": 2.8542010113596916e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04285274998983368,
+        "queue_p95": 9.012499958771514e-05
+      }
+    }
+  },
+  "D-histogram-37": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04279224999481812,
+    "ttfc_p95": 0.04279224999481812,
+    "duration_p95": 0.12460216600447893,
+    "schedule_lag_p95": 5.1709008403122425e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04279224999481812,
+        "queue_p95": 8.887500007404014e-05
+      }
+    }
+  },
+  "D-histogram-38": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04336429201066494,
+    "ttfc_p95": 0.04336429201066494,
+    "duration_p95": 0.13102879200596362,
+    "schedule_lag_p95": 4.441599594429135e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04336429201066494,
+        "queue_p95": 8.595799954491667e-05
+      }
+    }
+  },
+  "D-histogram-39": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042905583046376705,
+    "ttfc_p95": 0.042905583046376705,
+    "duration_p95": 0.12866595800733194,
+    "schedule_lag_p95": 3.637495683506131e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042905583046376705,
+        "queue_p95": 0.00010191699948336463
+      }
+    }
+  },
+  "D-histogram-40": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04292141698533669,
+    "ttfc_p95": 0.04292141698533669,
+    "duration_p95": 0.12501945899566635,
+    "schedule_lag_p95": 3.870803629979491e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04292141698533669,
+        "queue_p95": 8.166699990397319e-05
+      }
+    }
+  },
+  "D-histogram-41": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042507915990427136,
+    "ttfc_p95": 0.042507915990427136,
+    "duration_p95": 0.12840520800091326,
+    "schedule_lag_p95": 4.179199459031224e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042507915990427136,
+        "queue_p95": 9.299999965151073e-05
+      }
+    }
+  },
+  "D-histogram-42": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0432085829670541,
+    "ttfc_p95": 0.0432085829670541,
+    "duration_p95": 0.13167829101439565,
+    "schedule_lag_p95": 3.774999640882015e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0432085829670541,
+        "queue_p95": 8.316699950228212e-05
+      }
+    }
+  },
+  "D-histogram-43": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043494250043295324,
+    "ttfc_p95": 0.043494250043295324,
+    "duration_p95": 0.13177991699194536,
+    "schedule_lag_p95": 3.200001083314419e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043494250043295324,
+        "queue_p95": 9.737500022310996e-05
+      }
+    }
+  },
+  "D-histogram-44": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04398804099764675,
+    "ttfc_p95": 0.04398804099764675,
+    "duration_p95": 0.124857000017073,
+    "schedule_lag_p95": 3.187498077750206e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04398804099764675,
+        "queue_p95": 0.00010083299912366783
+      }
+    }
+  },
+  "D-histogram-45": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04335158399771899,
+    "ttfc_p95": 0.04335158399771899,
+    "duration_p95": 0.1295922090066597,
+    "schedule_lag_p95": 3.329099854454398e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04335158399771899,
+        "queue_p95": 9.258299996872665e-05
+      }
+    }
+  },
+  "D-histogram-46": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04295662499498576,
+    "ttfc_p95": 0.04295662499498576,
+    "duration_p95": 0.12386633298592642,
+    "schedule_lag_p95": 3.4958997275680304e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04295662499498576,
+        "queue_p95": 9.804100045585074e-05
+      }
+    }
+  },
+  "D-histogram-47": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04332033300306648,
+    "ttfc_p95": 0.04332033300306648,
+    "duration_p95": 0.12379083299310878,
+    "schedule_lag_p95": 5.920900730416179e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04332033300306648,
+        "queue_p95": 8.474999958707485e-05
+      }
+    }
+  },
+  "D-histogram-48": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04382633400382474,
+    "ttfc_p95": 0.04382633400382474,
+    "duration_p95": 0.12833804200636223,
+    "schedule_lag_p95": 3.729102900251746e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04382633400382474,
+        "queue_p95": 0.00010879199999180855
+      }
+    }
+  },
+  "D-histogram-49": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04310220800107345,
+    "ttfc_p95": 0.04310220800107345,
+    "duration_p95": 0.12650537496665493,
+    "schedule_lag_p95": 4.537502536550164e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04310220800107345,
+        "queue_p95": 0.00010316699990653433
+      }
+    }
+  },
+  "D-histogram-50": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043156915984582156,
+    "ttfc_p95": 0.043156915984582156,
+    "duration_p95": 0.1257861249614507,
+    "schedule_lag_p95": 3.545900108292699e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043156915984582156,
+        "queue_p95": 0.00010258300062560011
+      }
+    }
+  },
+  "D-histogram-51": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042820333037525415,
+    "ttfc_p95": 0.042820333037525415,
+    "duration_p95": 0.12548366701230407,
+    "schedule_lag_p95": 3.716698847711086e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042820333037525415,
+        "queue_p95": 7.566700060124276e-05
+      }
+    }
+  },
+  "D-histogram-52": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043396790977567434,
+    "ttfc_p95": 0.043396790977567434,
+    "duration_p95": 0.13286479096859694,
+    "schedule_lag_p95": 4.916702164337039e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043396790977567434,
+        "queue_p95": 9.454199971514754e-05
+      }
+    }
+  },
+  "D-histogram-53": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0431935410015285,
+    "ttfc_p95": 0.0431935410015285,
+    "duration_p95": 0.1300069160060957,
+    "schedule_lag_p95": 3.266701241955161e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0431935410015285,
+        "queue_p95": 9.629199939809041e-05
+      }
+    }
+  },
+  "D-histogram-54": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0432720419485122,
+    "ttfc_p95": 0.0432720419485122,
+    "duration_p95": 0.12455220799893141,
+    "schedule_lag_p95": 2.920802216976881e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0432720419485122,
+        "queue_p95": 0.00010404199929325841
+      }
+    }
+  },
+  "D-histogram-55": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04286566696828231,
+    "ttfc_p95": 0.04286566696828231,
+    "duration_p95": 0.1309112089802511,
+    "schedule_lag_p95": 5.579105345532298e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04286566696828231,
+        "queue_p95": 9.329199929197785e-05
+      }
+    }
+  },
+  "D-histogram-56": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042794540990144014,
+    "ttfc_p95": 0.042794540990144014,
+    "duration_p95": 0.12351370794931427,
+    "schedule_lag_p95": 3.425002796575427e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042794540990144014,
+        "queue_p95": 8.083299962891033e-05
+      }
+    }
+  },
+  "D-histogram-57": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0431153749814257,
+    "ttfc_p95": 0.0431153749814257,
+    "duration_p95": 0.13026825000997633,
+    "schedule_lag_p95": 3.0292023438960314e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0431153749814257,
+        "queue_p95": 9.71669996943092e-05
+      }
+    }
+  },
+  "D-histogram-58": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04309479199582711,
+    "ttfc_p95": 0.04309479199582711,
+    "duration_p95": 0.13365141698159277,
+    "schedule_lag_p95": 5.679100286215544e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04309479199582711,
+        "queue_p95": 0.00010416699933557538
+      }
+    }
+  },
+  "D-histogram-59": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04339362500468269,
+    "ttfc_p95": 0.04339362500468269,
+    "duration_p95": 0.12439275003271177,
+    "schedule_lag_p95": 3.666599513962865e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04339362500468269,
+        "queue_p95": 8.029200034798123e-05
+      }
+    }
+  },
+  "D-histogram-60": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04274816595716402,
+    "ttfc_p95": 0.04274816595716402,
+    "duration_p95": 0.1318413330009207,
+    "schedule_lag_p95": 3.295904025435448e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04274816595716402,
+        "queue_p95": 8.133300070767291e-05
+      }
+    }
+  },
+  "D-histogram-61": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04276674997527152,
+    "ttfc_p95": 0.04276674997527152,
+    "duration_p95": 0.1261193749960512,
+    "schedule_lag_p95": 3.6167039070278406e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04276674997527152,
+        "queue_p95": 8.241599971370306e-05
+      }
+    }
+  },
+  "D-histogram-62": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04314329201588407,
+    "ttfc_p95": 0.04314329201588407,
+    "duration_p95": 0.12369112501619384,
+    "schedule_lag_p95": 3.549997927621007e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04314329201588407,
+        "queue_p95": 0.00016116700044221943
+      }
+    }
+  },
+  "D-histogram-63": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04262850002851337,
+    "ttfc_p95": 0.04262850002851337,
+    "duration_p95": 0.1276840420323424,
+    "schedule_lag_p95": 2.9957969672977924e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04262850002851337,
+        "queue_p95": 9.55420000536833e-05
+      }
+    }
+  },
+  "D-histogram-64": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04298770899185911,
+    "ttfc_p95": 0.04298770899185911,
+    "duration_p95": 0.12562683399301022,
+    "schedule_lag_p95": 3.5165983717888594e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04298770899185911,
+        "queue_p95": 8.620800053904532e-05
+      }
+    }
+  },
+  "D-histogram-65": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04263449995778501,
+    "ttfc_p95": 0.04263449995778501,
+    "duration_p95": 0.1271296669729054,
+    "schedule_lag_p95": 4.329101648181677e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04263449995778501,
+        "queue_p95": 8.370800060220063e-05
+      }
+    }
+  },
+  "D-histogram-66": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04312308400403708,
+    "ttfc_p95": 0.04312308400403708,
+    "duration_p95": 0.12554441700922325,
+    "schedule_lag_p95": 3.524997737258673e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04312308400403708,
+        "queue_p95": 8.495800011587562e-05
+      }
+    }
+  },
+  "D-histogram-67": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042700666992459446,
+    "ttfc_p95": 0.042700666992459446,
+    "duration_p95": 0.12327416701009497,
+    "schedule_lag_p95": 3.63329891115427e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042700666992459446,
+        "queue_p95": 7.999999979801942e-05
+      }
+    }
+  },
+  "D-histogram-68": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04384575004223734,
+    "ttfc_p95": 0.04384575004223734,
+    "duration_p95": 0.12677662505302578,
+    "schedule_lag_p95": 3.3999967854470015e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04384575004223734,
+        "queue_p95": 9.916699946188601e-05
+      }
+    }
+  },
+  "D-histogram-69": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04294987500179559,
+    "ttfc_p95": 0.04294987500179559,
+    "duration_p95": 0.1238482499611564,
+    "schedule_lag_p95": 4.316703416407108e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04294987500179559,
+        "queue_p95": 8.187499952327926e-05
+      }
+    }
+  },
+  "D-histogram-70": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04287795798154548,
+    "ttfc_p95": 0.04287795798154548,
+    "duration_p95": 0.1311353329801932,
+    "schedule_lag_p95": 5.570898065343499e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04287795798154548,
+        "queue_p95": 7.166600062191719e-05
+      }
+    }
+  },
+  "D-histogram-71": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.042505124991294,
+    "ttfc_p95": 0.042505124991294,
+    "duration_p95": 0.1240872080088593,
+    "schedule_lag_p95": 3.829196793958545e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.042505124991294,
+        "queue_p95": 6.650000068475492e-05
+      }
+    }
+  },
+  "D-histogram-72": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043730625009629875,
+    "ttfc_p95": 0.043730625009629875,
+    "duration_p95": 0.124246834020596,
+    "schedule_lag_p95": 5.345797399058938e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043730625009629875,
+        "queue_p95": 9.0958999862778e-05
+      }
+    }
+  },
+  "D-histogram-73": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043295708019286394,
+    "ttfc_p95": 0.043295708019286394,
+    "duration_p95": 0.1244670000160113,
+    "schedule_lag_p95": 3.9458973333239555e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043295708019286394,
+        "queue_p95": 8.495900056004757e-05
+      }
+    }
+  },
+  "D-histogram-74": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.0429415000253357,
+    "ttfc_p95": 0.0429415000253357,
+    "duration_p95": 0.12652770802378654,
+    "schedule_lag_p95": 3.920897142961621e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.0429415000253357,
+        "queue_p95": 6.462500005000038e-05
+      }
+    }
+  },
+  "D-histogram-75": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.043324415979441255,
+    "ttfc_p95": 0.043324415979441255,
+    "duration_p95": 0.12556612497428432,
+    "schedule_lag_p95": 2.983398735523224e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.043324415979441255,
+        "queue_p95": 7.3208000685554e-05
+      }
+    }
+  },
+  "D-histogram-76": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04269670799840242,
+    "ttfc_p95": 0.04269670799840242,
+    "duration_p95": 0.12346899998374283,
+    "schedule_lag_p95": 3.470800584182143e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04269670799840242,
+        "queue_p95": 9.270800001104362e-05
+      }
+    }
+  },
+  "D-histogram-77": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04330233298242092,
+    "ttfc_p95": 0.04330233298242092,
+    "duration_p95": 0.12598150002304465,
+    "schedule_lag_p95": 3.9834005292505026e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04330233298242092,
+        "queue_p95": 6.666700028290506e-05
+      }
+    }
+  },
+  "D-histogram-78": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04311649996088818,
+    "ttfc_p95": 0.04311649996088818,
+    "duration_p95": 0.12931204098276794,
+    "schedule_lag_p95": 8.791702566668391e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04311649996088818,
+        "queue_p95": 0.00010624999958963599
+      }
+    }
+  },
+  "D-histogram-79": {
+    "planned": 1,
+    "sent": 1,
+    "outcomes": {
+      "completed": 1
+    },
+    "observations": 1,
+    "error_fraction": 0.0,
+    "timeout_fraction": 0.0,
+    "ttfc_p50": 0.04301920800935477,
+    "ttfc_p95": 0.04301920800935477,
+    "duration_p95": 0.12534054199932143,
+    "schedule_lag_p95": 4.0624989196658134e-05,
+    "pods": {
+      "api-7d68b768c5-zwfnq": {
+        "n": 1,
+        "ttfc_p95": 0.04301920800935477,
+        "queue_p95": 8.358299965038896e-05
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "run": "A-after-rollback",
+  "id": 0,
+  "client": "host",
+  "scheduled_mono": 325874.2459505,
+  "sent_mono": 325874.245973416,
+  "sent_unix": 1794778683.714738,
+  "schedule_lag_seconds": 2.2916006855666637e-05,
+  "outcome": "completed",
+  "status": 200,
+  "first_mono": 325874.499490333,
+  "end_mono": 325874.742972791,
+  "chunks": 4,
+  "pod": "api-55dddd56cd-5vnvk",
+  "version": "A",
+  "backend_mode": "simulated",
+  "queue_seconds": 9.712500002478919e-05,
+  "request_id": "A-after-rollback-host-0",
+  "inter_chunk_seconds": [
+    0.08045812498312443,
+    0.08023199997842312,
+    0.08273891702992842
+  ],
+  "content": [
+    "SIMULATED A: probe",
+    "chunk-1",
+    "chunk-2",
+    "chunk-3"
+  ],
+  "completed": true,
+  "retry": 0,
+  "cache_hit": false,
+  "duration_seconds": 0.49699937499826774,
+  "ttfc_seconds": 0.2535169170005247
+}

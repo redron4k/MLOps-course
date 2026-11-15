@@ -1,0 +1,44 @@
+{
+  "chosen": "api-sticky-counter-0",
+  "probes": [
+    {
+      "service": "api-sticky-counter-0",
+      "pod_counts": {
+        "api-7d68b768c5-zwfnq": 2,
+        "api-7d68b768c5-p8xpt": 2
+      },
+      "client_mapping": {
+        "0": "api-7d68b768c5-zwfnq",
+        "1": "api-7d68b768c5-p8xpt",
+        "2": "api-7d68b768c5-p8xpt",
+        "3": "api-7d68b768c5-zwfnq"
+      },
+      "service_manifest": {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "name": "api-sticky-counter-0",
+          "namespace": "hw11"
+        },
+        "spec": {
+          "selector": {
+            "app": "api"
+          },
+          "ports": [
+            {
+              "port": 8000,
+              "targetPort": 8000
+            }
+          ],
+          "sessionAffinity": "ClientIP",
+          "sessionAffinityConfig": {
+            "clientIP": {
+              "timeoutSeconds": 10800
+            }
+          }
+        }
+      }
+    }
+  ],
+  "selection": "Explicitly selected balanced 2:2 mapping; not a random prevalence estimate."
+}
